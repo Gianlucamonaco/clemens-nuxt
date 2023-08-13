@@ -7,6 +7,12 @@ export default defineNuxtConfig({
     public: {
       siteUrl: '',
     },
+    app: {
+      KIRBY_BASE_URL: process.env.KIRBY_BASE_URL,
+      KIRBY_API_TOKEN: process.env.KIRBY_API_TOKEN,
+      KIRBY_API_USERNAME: process.env.KIRBY_API_USERNAME,
+      KIRBY_API_PASSWORD: process.env.KIRBY_API_PASSWORD,
+    },
   },
 
   kql: {
@@ -32,11 +38,13 @@ export default defineNuxtConfig({
   typescript: {
     // Recommended: type check in dev and on build
     // typeCheck: true,
-    shim: false,
-    tsConfig: {
-      compilerOptions: {
-        moduleResolution: 'bundler',
-      },
-    },
+    // shim: false,
+    // tsConfig: {
+    //   compilerOptions: {
+    //     moduleResolution: 'bundler',
+    //   },
+    // },
   },
+
+  ssr: false,
 })

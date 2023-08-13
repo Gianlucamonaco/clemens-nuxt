@@ -9,10 +9,6 @@ const listedChildren = computed(() =>
 
 <template>
   <header class="header">
-    <NuxtLink class="logo" to="/">
-      {{ site.title }}
-    </NuxtLink>
-
     <nav class="menu">
       <NuxtLink
         v-for="item in listedChildren"
@@ -24,21 +20,9 @@ const listedChildren = computed(() =>
       >
         {{ item.title }}
       </NuxtLink>
-
-      <AppSocial />
     </nav>
   </header>
 </template>
 
-<style scoped>
-.menu {
-  display: flex;
-}
-.menu a {
-  padding: 1rem;
-  display: block;
-}
-.menu a[aria-current] {
-  text-decoration: underline;
-}
+<style scoped lang="scss">
 </style>
