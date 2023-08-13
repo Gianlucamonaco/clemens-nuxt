@@ -7,7 +7,7 @@ export const siteQuery: KirbyQuerySchema = {
     description: true,
     children: {
       query: 'site.children',
-      select: ['id', 'title', 'isListed'],
+      select: ['id', 'title', 'url', 'isListed'],
     },
   },
 }

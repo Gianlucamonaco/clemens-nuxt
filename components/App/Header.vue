@@ -9,7 +9,7 @@ const listedChildren = computed(() =>
 
 <template>
   <header class="header">
-    <nav class="menu">
+    <nav class="header__nav">
       <NuxtLink
         v-for="item in listedChildren"
         :key="item.id"
@@ -19,6 +19,7 @@ const listedChildren = computed(() =>
         "
       >
         {{ item.title }}
+
       </NuxtLink>
     </nav>
   </header>
