@@ -1,21 +1,20 @@
-<script setup>
-defineProps(['category']);
+<script setup lang="ts">
+import type { Category } from 'data/types';
+
+defineProps<{ category: Category }>()
 
 </script>
 
 <template>
-  <div>
-    <h3 class="category__title">{{category.id}}</h3>
+<section class="category">
 
-    <div
-      v-for="project in category.children"
-      :key="project.id"
-      class="category__project"
-    >
-      {{ project.title }}
-    </div>
+  <h3 class="category__title">{{ category.symbol }}</h3>
 
-</div>
+  <div class="category__items">
+    <Project v-for="project in category.children" :key="project.id" :project="project" />
+  </div>
+
+</section>
 </template>
 
 <style scoped lang="scss">

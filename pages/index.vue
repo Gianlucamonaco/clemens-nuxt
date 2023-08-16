@@ -1,5 +1,6 @@
 <script setup lang="js">
-import { homeQuery, queryApi, queryHeaders } from '~/queries';
+import { homeQuery } from '~/queries';
+import { queryApi, queryHeaders } from "../data/constants";
 
 const { data: dataCategories } = await useFetch(queryApi, {
   method: "post",
@@ -12,7 +13,7 @@ const categories = dataCategories?.value?.result?.children?.filter(p => p.isList
 </script>
 
 <template>
-  <div>
+  <div class="categories">
 
     <Section v-for="category in categories" :key="category.id" :category="category">
       {{ category.title }}

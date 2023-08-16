@@ -9,13 +9,19 @@ import '~/assets/scss/main.scss'
     </Head>
 
     <Body>
-      <AppHeader />
+      <div class="page">
+        <AppHeader />
 
-      <main class="main">
-        <NuxtPage />
-      </main>
-
-      <AppFooter />
+        <main class="main">
+          <NuxtPage />
+        </main>
+      </div>
     </Body>
   </Html>
 </template>
+
+<style scoped lang="scss">
+.page {
+  display: flex;
+}
+</style>
