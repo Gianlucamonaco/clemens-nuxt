@@ -1,4 +1,4 @@
-const { KIRBY_BASE_URL } = useRuntimeConfig().app;
+export const KIRBY_BASE_URL = 'https://backend.clemens.test';
 
 export const queryApi = `${KIRBY_BASE_URL}/api/query`;
 

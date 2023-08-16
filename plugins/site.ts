@@ -1,8 +1,11 @@
 // import { siteQuery } from '~/queries'
 // import type { FetchError } from 'ofetch'
 
+import { siteQuery } from '~/queries';
+import { queryApi, queryHeaders } from "../data/constants";
+
 export default defineNuxtPlugin(async () => {
-  const site = useSite()
+  const site = useSite();
 
   // NOTE: This is disabled as $kql is not working
 
@@ -18,35 +21,10 @@ export default defineNuxtPlugin(async () => {
 
   // TEMPORARY FIX:
 
-  const { KIRBY_BASE_URL } = useRuntimeConfig().app;
-  const api = `${KIRBY_BASE_URL}/api/query`;
-  const headers = {
-    // Authorization: `Basic ${btoa(KIRBY_API_USERNAME + ":" + KIRBY_API_PASSWORD)}`,
-    // Authorization: `Bearer ${KIRBY_API_TOKEN}`,
-    Accept: "application/json",
-  };
-
-  const querySite = 'site';
-  const selectSite = {
-    title: true,
-    children: {
-      query: `site.children.listed`,
-      select: {
-        id: true,
-        title: true,
-        url: true,
-        isListed: true,
-      }
-    }
-  }
-
-  const { data: dataSite } = await useFetch(api, {
+  const { data: dataSite } = await useFetch(queryApi, {
     method: "post",
-    body: {
-      query: querySite,
-      select: selectSite,
-    },
-    headers,
+    body: siteQuery,
+    headers: queryHeaders,
   });
 
   // Override site with useFetch, as useKql is not working
