@@ -10,6 +10,7 @@ export const homeQuery: KirbyQuerySchema = {
         id: true,
         title: true,
         isListed: true,
+        symbol: true,
         children: {
           query: `page.children.listed`,
           select: {
@@ -18,6 +19,9 @@ export const homeQuery: KirbyQuerySchema = {
             isListed: true,
             type: true,
             andamento: true,
+            duration: true,
+            position: true,
+            intendedTemplate: true,
             text: 'page.text.kirbytext',
             links: 'page.links.toStructure',
             images: {
