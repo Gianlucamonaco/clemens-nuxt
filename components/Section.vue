@@ -18,14 +18,22 @@ defineProps<{ category: Category }>()
 </template>
 
 <style scoped lang="scss">
+
 .category {
+  height: 170px;
+  border-top: 1px solid #ff0000;
+  border-bottom: 1px solid #ff0000;
+  background-image: linear-gradient(rgba(255, 0, 0, 0.1) 1px, transparent 1px), linear-gradient(to right, rgba(255, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 183.6px 17px;
+  background-repeat: repeat;
+  margin-bottom: 34px;
 
-  &__title {
-    padding: 10px;
-  }
-
-  &__project {
-    padding: 10px 20px;
+  &__items {
+    display: flex;
+    align-items: stretch;
+    height: calc(100% - 34px);
+    overflow-y: hidden;
+    overflow-x: scroll;
   }
 }
 

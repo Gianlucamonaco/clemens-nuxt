@@ -23,4 +23,10 @@ const categories = dataCategories?.value?.result?.children?.filter(p => p.isList
 </template>
 
 <style scoped lang="scss">
+.categories {
+  width: calc(100% - 275.4px);
+  margin-top: 34px;
+  overflow: hidden;
+}
+
 </style>

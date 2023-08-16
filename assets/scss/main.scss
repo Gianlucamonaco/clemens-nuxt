@@ -1,4 +1,53 @@
+$unitVert: 17px;
+$unitHorz: 91.8px;
+
+
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  outline: none;
 }
+
+html {
+  font-family: "prestige-elite-std", monospace;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12.3px;
+  line-height: 17px;
+  color: #ff0000;
+  background-color: #f0f0f0;
+}
+
+h1, h2, h3, h4, h5, h6, li {
+  font-size: 17px;
+  line-height: 17px;
+  font-weight: 400;
+}
+
+main {
+  display: flex;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-track {
+  height: 0px;
+}
+
+$base-color: #036;
+
+@for $i from 1 through 8 {
+  .duration-#{$i} {
+    width: $unitHorz * $i;
+  }
+  
+  .position-#{$i} {
+    padding-top: $unitVert * (8 - $i);
+  }
+}
+

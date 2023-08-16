@@ -34,4 +34,12 @@ const pauseValues = {
 </template>
 
 <style scoped lang="scss">
+.project {
+  flex-shrink: 0;
+}
+
+.pause {
+  flex-shrink: 0;
+  text-align: center;
+}
 </style>

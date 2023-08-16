@@ -26,4 +26,17 @@ const listedChildren = computed(() =>
 </template>
 
 <style scoped lang="scss">
+.header {
+  flex-shrink: 0;
+  width: 275.4px;
+
+  &__title {
+    text-transform: uppercase;
+    margin-bottom: 17px;
+  }
+
+  &__item {
+    padding-left: 20.4px;
+  }
+}
 </style>
