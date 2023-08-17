@@ -2,25 +2,35 @@
 const route = useRoute()
 const site = useSite()
 
-const listedChildren = computed(() =>
+const [ home, about ] = computed(() =>
   (site.value?.children ?? []).filter((i) => i.isListed)
-)
+).value;
 </script>
 
 <template>
   <header class="header">
-    <nav class="header__nav">
-      <NuxtLink
-        v-for="item in listedChildren"
-        :key="item.id"
-        :to="`/${item.id}`"
-        :aria-current="
-          route.path.startsWith(`/${item.id}`) ? 'page' : undefined
-        "
-      >
-        {{ item.title }}
+    <h1 class="header__title">{{ site.title }}</h1>
 
-      </NuxtLink>
+    <nav class="header__nav">
+
+      <li :key="home" class="header__item">
+        <NuxtLink
+          :to="`/${home.id}`"
+          :aria-current="route.path.startsWith(`/${home.id}`) ? 'page' : undefined"
+        >
+          Live score
+        </NuxtLink>
+      </li>
+
+      <li :key="about" class="header__item">
+        <NuxtLink
+          :to="`/${about.id}`"
+          :aria-current="route.path.startsWith(`/${about.id}`) ? 'page' : undefined"
+        >
+          About
+        </NuxtLink>
+      </li>
+
     </nav>
   </header>
 </template>
