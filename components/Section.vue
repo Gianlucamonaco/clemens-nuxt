@@ -20,18 +20,22 @@ defineProps<{ category: Category }>()
 <style scoped lang="scss">
 
 .category {
-  height: 170px;
-  border-top: 1px solid #ff0000;
-  border-bottom: 1px solid #ff0000;
-  background-image: linear-gradient(rgba(255, 0, 0, 0.1) 1px, transparent 1px), linear-gradient(to right, rgba(255, 0, 0, 0.1) 1px, transparent 1px);
-  background-size: 183.6px 17px;
+  height: $row;
+  border-top: 1px solid $color-primary;
+  border-bottom: 1px solid $color-primary;
+  background-image:
+    /* Horizontal lines */    
+    linear-gradient(rgba(255, 0, 0, 0.1) 1px, transparent 1px),
+    /* Vertical lines */
+    linear-gradient(to right, rgba(255, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: $column * 2 $unit-vertical;
   background-repeat: repeat;
-  margin-bottom: 34px;
+  margin-bottom: $unit-vertical * 2;
 
   &__items {
     display: flex;
     align-items: stretch;
-    height: calc(100% - 34px);
+    height: calc(100% - $unit-vertical * 2);
     overflow-y: hidden;
     overflow-x: scroll;
   }

@@ -3,6 +3,10 @@ import { siteQuery } from './queries'
 export default defineNuxtConfig({
   modules: ['@vueuse/nuxt', 'nuxt-kql'],
 
+  css: [
+    '~/assets/scss/main.scss',
+  ],
+
   runtimeConfig: {
     public: {
       siteUrl: '',
@@ -44,6 +48,16 @@ export default defineNuxtConfig({
     //     moduleResolution: 'bundler',
     //   },
     // },
+  },
+
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "@/assets/scss/_1-variables.scss" as *;',
+        },
+      },
+    },
   },
 
   ssr: false,

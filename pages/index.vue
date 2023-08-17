@@ -24,8 +24,8 @@ const categories = dataCategories?.value?.result?.children?.filter(p => p.isList
 
 <style scoped lang="scss">
 .categories {
-  width: calc(100% - 275.4px);
-  margin-top: 34px;
+  width: calc(100vw - $width-sidebar-s);
+  margin-top: $unit-vertical;
   overflow: hidden;
 }
 

@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import '~/assets/scss/main.scss'
-</script>
-
 <template>
   <Html lang="en">
     <Head>

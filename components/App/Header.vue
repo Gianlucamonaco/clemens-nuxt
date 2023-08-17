@@ -28,15 +28,16 @@ const listedChildren = computed(() =>
 <style scoped lang="scss">
 .header {
   flex-shrink: 0;
-  width: 275.4px;
+  width: $width-sidebar-s;
+  padding: $unit-vertical $unit-horizontal * 2;
 
   &__title {
     text-transform: uppercase;
-    margin-bottom: 17px;
+    margin-bottom: $unit-vertical;
   }
 
   &__item {
-    padding-left: 20.4px;
+    padding-left: $unit-horizontal;
   }
 }
 </style>
