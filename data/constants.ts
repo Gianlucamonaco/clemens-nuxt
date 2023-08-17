@@ -7,3 +7,9 @@ export const queryHeaders = {
   // Authorization: `Bearer ${KIRBY_API_TOKEN}`,
   Accept: "application/json",
 };
+
+export const pauseValues = {
+  croma: 2,
+  semiminima: 4,
+  minima: 6,
+}

@@ -7,8 +7,14 @@ export interface Category {
 export interface Project {
   id: any
   type: string
+  intendedTemplate: String
+  title: String
   duration: Number
   position: Number
-  title: String
-  intendedTemplate: String
+  andamento: String
+  downloads: String[]
+  images: String[]
+  links: String[]
 }
+
+export type PauseTypes = 'minima' | 'semiminima' | 'croma';

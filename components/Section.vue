@@ -11,7 +11,12 @@ defineProps<{ category: Category }>()
   <h3 class="category__title">{{ category.symbol }}</h3>
 
   <div class="category__items">
-    <Project v-for="project in category.children" :key="project.id" :project="project" />
+    <div v-for="child in category.children" :key="child.id">
+
+      <Project v-if="child.intendedTemplate === 'project'" :item="child" />
+      <Pause v-else-if="child.intendedTemplate === 'pause'" :item="child" />
+
+    </div>
   </div>
 
 </section>
