@@ -1,20 +1,21 @@
 export interface Category {
-  id: Number
-  symbol: String
+  id: number
+  symbol: string
   children: Project[]
 }
 
 export interface Project {
   id: any
+  num: number
   type: string
-  intendedTemplate: String
-  title: String
-  duration: Number
-  position: Number
-  andamento: String
-  downloads: String[]
-  images: String[]
-  links: String[]
+  intendedTemplate: string
+  title: string
+  duration: number
+  position: number
+  andamento: string
+  downloads: string[]
+  images: string[]
+  links: string[]
 }
 
 export type PauseTypes = 'minima' | 'semiminima' | 'croma';

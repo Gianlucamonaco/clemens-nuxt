@@ -15,6 +15,7 @@ export const homeQuery: KirbyQuerySchema = {
           query: `page.children.listed`,
           select: {
             id: true,
+            num: true,
             title: true,
             isListed: true,
             type: true,

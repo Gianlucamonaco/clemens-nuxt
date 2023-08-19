@@ -1,16 +1,33 @@
 <script setup lang="ts">
 import type { Project } from '../data/types';
 
-defineProps<{ item: Project }>()
+import { shuffle } from 'txt-shuffle';
 
-const projectClass = (duration: Number, position: Number) => {
+const props = defineProps<{ item: Project }>()
+
+const projectClass = (duration: number, position: number) => {
   return ['project', `duration-${duration}`, `position-${position}`]
 }
+
+const str = ref('');
+
+const getShuffled = (text: string) => {
+  shuffle({
+    text,
+    fps: 30,
+    duration: 1,
+    onUpdate: (output: string) => { str.value = output }
+  });
+}
+
+setTimeout(() => {
+  getShuffled(props.item?.title)
+}, 100 * props.item?.num);
 </script>
 
 <template>
-  <div :class="projectClass(item.duration, item.position)">
-    <h3 class="project__title">{{ item.title }}</h3>
+  <div :class="projectClass(item.duration, item.position)" @mouseenter="getShuffled(item.title)">
+    <h3 class="project__title">{{ str }}</h3>
     <div v-if="item.images" class="project__icon project__images"></div>
     <div v-if="item.links" class="project__icon project__links"></div>
     <div v-if="item.andamento" :class="['project__andamento', `project__${item.andamento}`]"></div>
