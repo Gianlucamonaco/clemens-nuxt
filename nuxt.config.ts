@@ -1,4 +1,4 @@
-import { siteQuery } from './queries'
+// import { siteQuery } from './queries'
 
 export default defineNuxtConfig({
   modules: ['@vueuse/nuxt', 'nuxt-kql'],
@@ -19,18 +19,19 @@ export default defineNuxtConfig({
     },
   },
 
-  kql: {
-    auth: 'bearer',
-    prefetch: {
-      // Currently only used to infer the type of the `site` query
-      kirbySite: siteQuery,
-    },
-    // Optionally, cache the queries on the server for an hour
-    server: {
-      // cache: true,
-      // maxAge: 60 * 60,
-    },
-  },
+  // DISABLED: KQL PREFETCH
+  // kql: {
+  //   auth: 'bearer',
+  //   prefetch: {
+  //     // Currently only used to infer the type of the `site` query
+  //     kirbySite: siteQuery,
+  //   },
+  //   // Optionally, cache the queries on the server for an hour
+  //   server: {
+  //     // cache: true,
+  //     // maxAge: 60 * 60,
+  //   },
+  // },
 
   nitro: {
     prerender: {
@@ -39,16 +40,17 @@ export default defineNuxtConfig({
     },
   },
 
-  typescript: {
-    // Recommended: type check in dev and on build
-    // typeCheck: true,
-    // shim: false,
-    // tsConfig: {
-    //   compilerOptions: {
-    //     moduleResolution: 'bundler',
-    //   },
-    // },
-  },
+  // DISABLED: TYPESCRIPT CHECK AND COMPILE ACTIONS
+  // typescript: {
+  //   // Recommended: type check in dev and on build
+  //   typeCheck: true,
+  //   shim: false,
+  //   tsConfig: {
+  //     compilerOptions: {
+  //       moduleResolution: 'bundler',
+  //     },
+  //   },
+  // },
 
   vite: {
     css: {
@@ -60,5 +62,6 @@ export default defineNuxtConfig({
     },
   },
 
-  ssr: false,
+  // ENABLED: SERVER SIDE RENDERING
+  ssr: true,
 })
