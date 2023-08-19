@@ -1,4 +1,5 @@
-export const KIRBY_BASE_URL = 'https://backend.clemens.test';
+// export const KIRBY_BASE_URL = 'https://backend.clemens.test';
+export const KIRBY_BASE_URL = 'http://dev.vacanza.studio/clemens';
 
 export const queryApi = `${KIRBY_BASE_URL}/api/query`;
 
