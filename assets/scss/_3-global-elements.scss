@@ -40,6 +40,6 @@ a {
   }
   
   .position-#{$i} {
-    padding-top: $unit-vertical * (8 - $i);
+    top: $unit-vertical * (8 - $i);
   }
 }

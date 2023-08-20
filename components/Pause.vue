@@ -6,7 +6,7 @@ defineProps<{ item: Project }>()
 
 const pauseClass = (type: PauseTypes) => {
   const duration = pauseValues[type as PauseTypes];
-  return ['pause', `pause__${type}`, 'position-4', `duration-${duration}`]
+  return ['pause', `pause__${type}`, 'position-5', `duration-${duration}`]
 }
 </script>
 
@@ -18,10 +18,16 @@ const pauseClass = (type: PauseTypes) => {
 
 <style scoped lang="scss">
 .pause {
+  position: relative;
   display: flex;
   justify-content: center;
   flex-shrink: 0;
   text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-primary;
+  }
 
   &__icon {
     width: $unit-vertical;

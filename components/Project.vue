@@ -2,34 +2,47 @@
 import type { Project } from '../data/types';
 import { shuffle } from 'txt-shuffle';
 
-const props = defineProps<{ item: Project }>()
-const projectPosition = ref(Math.floor(Math.random() * 8));
-const projectTitle = ref('');
+const props = defineProps<{ 
+  item: Project,
+  categoryIndex: number
+}>()
 
-const projectClass = (duration: number, position: number) => {
+const projectPosition = ref(Math.floor(Math.random() * 7 + 1));
+const projectTitle = ref('');
+let isAnimating = false;
+
+const projectClass = (duration: number) => {
   return ['project', `duration-${duration}`, `position-${projectPosition.value}`]
 }
 
-
 const getShuffled = (text: string) => {
-  shuffle({
-    text,
-    fps: 30,
-    duration: 1,
-    onUpdate: (output: string) => { projectTitle.value = output }
-  });
+  if (!isAnimating) {
+    shuffle({
+      text,
+      fps: 30,
+      duration: 1,
+      glyphs: `█ ${text}`,
+      onUpdate: (output: string) => {
+        isAnimating = true;
+        projectTitle.value = output
+      },
+      onComplete: () => {
+        isAnimating = false;
+      }
+    });
+  }
 }
 
 setTimeout(() => {
   getShuffled(props.item?.title)
-}, 100 * props.item?.num);
+}, 100 * (props.item?.num + props.categoryIndex));
+
 </script>
 
 <template>
-  <div :class="projectClass(item.duration, item.position)" @mouseenter="getShuffled(item.title)">
-    <h3 class="project__title">{{ projectTitle }}</h3>
-    <div v-if="item.images" class="project__icon project__images"></div>
-    <div v-if="item.links" class="project__icon project__links"></div>
+  <div :class="projectClass(item.duration)">
+    <h3 class="project__title" @mouseenter="getShuffled(item.title)">{{ projectTitle }}</h3>
+    <!-- <div v-if="item.links" class="project__icon project__links"></div> -->
     <div v-if="item.andamento" :class="['project__andamento', `project__${item.andamento}`]"></div>
   </div>
 </template>
@@ -52,8 +65,7 @@ setTimeout(() => {
 
   &__icon {
     position: absolute;
-    top: 0;
-    width: $unit-vertical;
+    width: $unit-horizontal;
     height: $unit-vertical;
     background-size: contain;
     background-repeat: no-repeat;
@@ -71,11 +83,6 @@ setTimeout(() => {
   &__andamento {
     width: 100%;
     height: $unit-vertical;
-  }
-
-  &__images {
-    left: $unit-vertical * 0;
-    background-image: $icon-images;
   }
 
   &__videos {
@@ -120,29 +127,4 @@ setTimeout(() => {
   }
 }
 
-.pause {
-  display: flex;
-  justify-content: center;
-  flex-shrink: 0;
-  text-align: center;
-
-  &__icon {
-    width: $unit-vertical;
-    height: $unit-vertical;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  &__croma .pause__icon {
-    background-image: $icon-pause-2;
-  }
-
-  &__semiminima .pause__icon {
-    background-image: $icon-pause-4;
-  }
-
-  &__minima .pause__icon {
-    background-image: $icon-pause-6;
-  }
-}
 </style>

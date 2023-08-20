@@ -2,18 +2,47 @@
 import type { Category } from 'data/types';
 
 defineProps<{ category: Category }>()
+const categoryEl = ref(null) as any;
+const categoryItemsEl = ref(null) as any;
+let scroll = 0;
+let _raf: any;
+
+const handleMouseEnter = () => { animate() };
+
+const handleMouseLeave = () => { cancelAnimationFrame(_raf) }
+
+const handleMouseMove = (e: MouseEvent) => {
+  const { clientWidth, offsetLeft } = categoryEl.value;
+  const { clientX } = e;
+  const perc = (clientX - offsetLeft) / clientWidth;
+
+  if ((perc > 0.25 && perc < 0.75) && scroll !== 0) {
+    scroll = 0
+  }
+  else if (perc > 0.75 && scroll < 1) {
+    scroll = 5 * (perc - 0.75)
+  }
+  else if (perc < 0.25 && scroll > -1) {
+    scroll = -5 * (0.25 - perc)
+  }
+}
+
+const animate = () => {
+  categoryItemsEl.value.scrollLeft += 2 * scroll;
+  _raf = requestAnimationFrame(animate)
+}
 
 </script>
 
 <template>
-<section class="category">
+<section ref="categoryEl" class="category" @mousemove="handleMouseMove" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
 
   <h3 class="category__title">{{ category.symbol }}</h3>
 
-  <div class="category__items">
+  <div ref="categoryItemsEl" class="category__items">
     <div v-for="child in category.children" :key="child.id">
 
-      <Project v-if="child.intendedTemplate === 'project'" :item="child" />
+      <Project v-if="child.intendedTemplate === 'project'" :item="child" :category-index="category.num" />
       <Pause v-else-if="child.intendedTemplate === 'pause'" :item="child" />
 
     </div>
@@ -40,9 +69,9 @@ defineProps<{ category: Category }>()
   &__items {
     display: flex;
     align-items: stretch;
-    height: calc(100% - $unit-vertical * 2);
+    height: calc(100% - $unit-vertical);
     overflow-y: hidden;
-    overflow-x: scroll;
+    overflow-x: hidden;
   }
 }
 
