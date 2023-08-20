@@ -1,4 +1,4 @@
-<script setup lang="js">
+<script setup lang="ts">
 import { homeQuery } from '~/queries';
 import { queryApi, queryHeaders } from "../data/constants";
 

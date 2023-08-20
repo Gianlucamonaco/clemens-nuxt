@@ -1,49 +1,60 @@
 <script setup lang="ts">
 import type { Project } from '../data/types';
-import { shuffle } from 'txt-shuffle';
 
 const props = defineProps<{ 
   item: Project,
   categoryIndex: number
 }>()
 
+const imageChar = '▀';
 const projectPosition = ref(Math.floor(Math.random() * 7 + 1));
 const projectTitle = ref('');
+const imagePositions = ref(
+  Array(props.item.images.length)
+    .fill(undefined)
+    .map(() => Math.floor(Math.random() * props.item.duration * 8))
+    .sort((a, b) => { return a - b })
+);
+
 let isAnimating = false;
 
 const projectClass = (duration: number) => {
   return ['project', `duration-${duration}`, `position-${projectPosition.value}`]
 }
 
-const getShuffled = (text: string) => {
+const getShuffledText = (text: string) => {
   if (!isAnimating) {
-    shuffle({
-      text,
-      fps: 30,
-      duration: 1,
-      glyphs: `█ ${text}`,
-      onUpdate: (output: string) => {
-        isAnimating = true;
-        projectTitle.value = output
-      },
-      onComplete: () => {
-        isAnimating = false;
-      }
-    });
+    useShuffle(text, projectTitle, {
+      onUpdate: () => isAnimating = true,
+      onComplete: () => isAnimating = false,
+    })
   }
 }
 
+const imagePosition = (index: any) => {
+  const left = `${imagePositions.value[index] * 10.2}px`;
+  return { left };
+}
+
 setTimeout(() => {
-  getShuffled(props.item?.title)
+  getShuffledText(props.item?.title)
 }, 100 * (props.item?.num + props.categoryIndex));
 
 </script>
 
 <template>
   <div :class="projectClass(item.duration)">
-    <h3 class="project__title" @mouseenter="getShuffled(item.title)">{{ projectTitle }}</h3>
+    <h3 class="project__title" @mouseenter="getShuffledText(item.title)">{{ projectTitle }}</h3>
+    <div v-if="item.images" class="project__images">
+      <div
+        v-for="image in item.images"
+        :key="image"
+        :class="['project__icon', 'project__image', 'blink-hover-2']"
+        :style="imagePosition(image.indexOf)"
+      >{{ imageChar }}</div>
+    </div>
     <!-- <div v-if="item.links" class="project__icon project__links"></div> -->
-    <div v-if="item.andamento" :class="['project__andamento', `project__${item.andamento}`]"></div>
+    <!-- <div v-if="item.andamento" :class="['project__andamento', `project__${item.andamento}`]"></div> -->
   </div>
 </template>
 
@@ -83,6 +94,11 @@ setTimeout(() => {
   &__andamento {
     width: 100%;
     height: $unit-vertical;
+  }
+
+  &__image {
+    font-size: $fontsize-m;
+    bottom: $unit-vertical * 2;
   }
 
   &__videos {

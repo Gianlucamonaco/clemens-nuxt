@@ -42,4 +42,20 @@ a {
   .position-#{$i} {
     top: $unit-vertical * (8 - $i);
   }
+
+  .blink-#{$i},
+  .blink-hover-#{$i}:hover {
+    animation: blink #{4 / (8 - $i)}s steps(1) infinite;
+  }
+}
+
+@keyframes blink {
+  0% {
+    background-color: $color-primary;
+    color: $color-background;
+  }
+  12.5% {
+    background-color: transparent;
+    color: $color-primary;
+  }
 }

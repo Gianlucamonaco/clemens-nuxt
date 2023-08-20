@@ -2,14 +2,29 @@
 const route = useRoute()
 const site = useSite()
 
+let isAnimating = false;
+const siteTitle = ref('');
+
 const [ home, about ] = computed(() =>
   (site.value?.children ?? []).filter((i) => i.isListed)
 ).value;
+
+const getShuffledText = (text: string) => {
+  if (!isAnimating) {
+    useShuffle(text, siteTitle, {
+      onUpdate: () => isAnimating = true,
+      onComplete: () => isAnimating = false,
+    })
+  }
+}
+
+getShuffledText(site.value?.title);
+
 </script>
 
 <template>
   <header class="header">
-    <h1 class="header__title">{{ site.title }}</h1>
+    <h1 class="header__title">{{ siteTitle }}</h1>
 
     <nav class="header__nav">
 
@@ -47,7 +62,11 @@ const [ home, about ] = computed(() =>
   }
 
   &__item {
-    padding-left: $unit-horizontal;
+    padding-bottom: $unit-vertical;
+
+    &::before {
+      content: '▀ ';
+    }
   }
 }
 </style>

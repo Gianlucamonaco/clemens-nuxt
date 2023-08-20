@@ -10,6 +10,7 @@ export const homeQuery: KirbyQuerySchema = {
         id: true,
         title: true,
         isListed: true,
+        num: true,
         symbol: true,
         children: {
           query: `page.children.listed`,
@@ -27,7 +28,7 @@ export const homeQuery: KirbyQuerySchema = {
             links: 'page.links.toStructure',
             images: {
               query: 'page.images',
-              select: ['id', 'uuid', 'url', 'alt'],
+              select: ['id', 'uuid', 'url', 'alt', 'indexOf'],
             },
           }
         }

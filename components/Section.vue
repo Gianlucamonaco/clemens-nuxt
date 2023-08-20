@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Category } from 'data/types';
 
-defineProps<{ category: Category }>()
+const props = defineProps<{ category: Category }>()
+
 const categoryEl = ref(null) as any;
 const categoryItemsEl = ref(null) as any;
 let scroll = 0;
@@ -27,6 +28,7 @@ const handleMouseMove = (e: MouseEvent) => {
   }
 }
 
+// Section animation on mouse move
 const animate = () => {
   categoryItemsEl.value.scrollLeft += 2 * scroll;
   _raf = requestAnimationFrame(animate)
@@ -35,18 +37,18 @@ const animate = () => {
 </script>
 
 <template>
-<section ref="categoryEl" class="category" @mousemove="handleMouseMove" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+  <section ref="categoryEl" class="category" @mousemove="handleMouseMove" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
 
-  <h3 class="category__title">{{ category.symbol }}</h3>
+    <h3 class="category__title">{{ category.symbol }}</h3>
 
-  <div ref="categoryItemsEl" class="category__items">
-    <div v-for="child in category.children" :key="child.id">
+    <div ref="categoryItemsEl" class="category__items">
+      <div v-for="child in category.children" :key="child.id">
 
-      <Project v-if="child.intendedTemplate === 'project'" :item="child" :category-index="category.num" />
-      <Pause v-else-if="child.intendedTemplate === 'pause'" :item="child" />
+        <Project v-if="child.intendedTemplate === 'project'" :item="child" :category-index="category.num" @gallery="updateGallery" />
+        <Pause v-else-if="child.intendedTemplate === 'pause'" :item="child" />
 
+      </div>
     </div>
-  </div>
 
 </section>
 </template>
@@ -64,7 +66,7 @@ const animate = () => {
     linear-gradient(to right, rgba(255, 0, 0, 0.1) 1px, transparent 1px);
   background-size: $column * 2 $unit-vertical;
   background-repeat: repeat;
-  margin-bottom: $unit-vertical * 2;
+  margin-bottom: $unit-vertical;
 
   &__items {
     display: flex;
