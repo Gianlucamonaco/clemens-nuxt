@@ -14,6 +14,8 @@
         <main class="main">
           <NuxtPage />
         </main>
+
+        <ImageThumb />
       </div>
     </Body>
   </Html>

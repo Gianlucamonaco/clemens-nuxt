@@ -65,8 +65,10 @@ else if (props.item.id ===  page.value.id) {
         :key="image"
         :class="['project__icon', 'project__image', 'blink-hover-2']"
         :style="imagePosition(image.indexOf)"
-      >{{ imageChar }}</div>
-    </div>
+        @mouseenter="setImageThumb(image)"
+        @mouseleave="setImageThumb(null)"
+        >{{ imageChar }}</div>
+      </div>
     <!-- <div v-if="item.links" class="project__icon project__links"></div> -->
     <!-- <div v-if="item.andamento" :class="['project__andamento', `project__${item.andamento}`]"></div> -->
   </div>
