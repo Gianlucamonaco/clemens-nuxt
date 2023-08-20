@@ -63,5 +63,5 @@ export default defineNuxtConfig({
   },
 
   // ENABLED: SERVER SIDE RENDERING
-  ssr: true,
+  ssr: false,
 })
