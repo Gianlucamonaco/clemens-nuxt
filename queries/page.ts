@@ -4,6 +4,8 @@ export interface KirbyPageData {
   id: string
   title: string
   intendedTemplate: string
+  isHomePage: boolean,
+  num: number
   // description: string
   text: string
 }
@@ -17,6 +19,8 @@ export function getPageQuery(pageId: string): KirbyQuerySchema {
       id: true,
       title: true,
       intendedTemplate: true,
+      isHomePage: true,
+      num: true,
       // description: true,
       text: 'page.text.kirbytext',
     },

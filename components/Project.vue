@@ -3,9 +3,12 @@ import type { Project } from '../data/types';
 
 const props = defineProps<{ 
   item: Project,
-  categoryIndex: number
+  categoryIndex: number,
 }>()
 
+const page = usePage();
+
+const route = useRoute();
 const imageChar = '▀';
 const projectPosition = ref(Math.floor(Math.random() * 7 + 1));
 const projectTitle = ref('');
@@ -23,12 +26,10 @@ const projectClass = (duration: number) => {
 }
 
 const getShuffledText = (text: string) => {
-  if (!isAnimating) {
-    useShuffle(text, projectTitle, {
-      onUpdate: () => isAnimating = true,
-      onComplete: () => isAnimating = false,
-    })
-  }
+  if (!isAnimating) useShuffle(text, projectTitle, {
+    onUpdate: () => isAnimating = true,
+    onComplete: () => isAnimating = false,
+  })
 }
 
 const imagePosition = (index: any) => {
@@ -40,11 +41,24 @@ setTimeout(() => {
   getShuffledText(props.item?.title)
 }, 100 * (props.item?.num + props.categoryIndex));
 
+if (page.value.id === 'home') {
+  setGalleryIndex(0);
+}
+
+else if (props.item.id ===  page.value.id) {
+  setGalleryIndex(props.categoryIndex);
+} 
+
 </script>
 
 <template>
   <div :class="projectClass(item.duration)">
-    <h3 class="project__title" @mouseenter="getShuffledText(item.title)">{{ projectTitle }}</h3>
+    <NuxtLink
+      :to="`/${item.id}`"
+      :aria-current="route.path.startsWith(`/${item.id}`) ? 'page' : undefined"
+    >
+      <h3 class="project__title" @mouseenter="getShuffledText(item.title)">{{ projectTitle }}</h3>
+    </NuxtLink>
     <div v-if="item.images" class="project__images">
       <div
         v-for="image in item.images"

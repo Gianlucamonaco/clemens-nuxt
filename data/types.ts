@@ -10,6 +10,7 @@ export interface Project {
   num: number
   type: string
   intendedTemplate: string
+  text: string
   title: string
   duration: number
   position: number

@@ -9,8 +9,20 @@ export const queryHeaders = {
   Accept: "application/json",
 };
 
+const specialChars = {
+  blockFull: '█',
+  blockTop:  '▀',
+  blockBtm:  '▄',
+}
+
 export const pauseValues = {
   croma: 2,
   semiminima: 4,
   minima: 6,
+}
+
+export const pauseSymbols = {
+  croma: ' ▄\n▀ ',
+  semiminima: '█ \n █' ,
+  minima: '▄▄▄▄\n▀▀▀▀',
 }

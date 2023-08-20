@@ -1,32 +1,30 @@
 <script setup lang="ts">
-import { homeQuery } from '~/queries';
-import { queryApi, queryHeaders } from "../data/constants";
+import { getPageQuery } from '~/queries'
+import { queryApi, queryHeaders } from "~/data/constants";
 
-const { data: dataCategories } = await useFetch(queryApi, {
+// Fetch home data
+const { data: pageData } = await useFetch(queryApi, {
   method: "post",
-  body: homeQuery,
+  body: getPageQuery('home'),
   headers: queryHeaders,
 });
 
-const categories = dataCategories?.value?.result?.children?.filter(p => p.isListed) ?? {};
+const data = pageData.value;
+
+// If page content is empty, load the error page
+// if (!data?.result) {
+//   const { data: pageData } = await useKql(getPageQuery('error'))
+//   data = pageData.value
+//   setResponseStatus(useRequestEvent(), 404)
+// }
+
+// Set the current page data for the global page context
+const page = (data as any)?.result;
+
+setPage(page);
 
 </script>
 
 <template>
-  <div class="categories">
-
-    <Section v-for="category in categories" :key="category.id" :category="category">
-      {{ category.title }}
-    </Section>
-
-</div>
+  <Categories />
 </template>
-
-<style scoped lang="scss">
-.categories {
-  width: calc(100vw - $width-sidebar-s);
-  margin-top: $unit-vertical;
-  overflow: hidden;
-}
-
-</style>
