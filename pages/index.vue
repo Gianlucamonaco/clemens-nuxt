@@ -28,3 +28,7 @@ setContent('');
 setDescriptionIndex(-1);
 
 </script>
+
+<template>
+  <span></span>
+</template>
