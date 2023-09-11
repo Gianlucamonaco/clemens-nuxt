@@ -11,9 +11,9 @@
       <div class="page">
         <AppHeader />
 
-        <main class="main">
+        <NuxtLayout>
           <NuxtPage />
-        </main>
+        </NuxtLayout>
 
         <ImageThumb />
       </div>
