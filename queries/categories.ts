@@ -1,6 +1,6 @@
 import type { KirbyQuerySchema } from 'kirby-fest'
 
-export const homeQuery: KirbyQuerySchema = {
+export const categoriesQuery: KirbyQuerySchema = {
   query: 'site',
   select: {
     title: true,

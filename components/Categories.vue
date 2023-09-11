@@ -1,14 +1,30 @@
 <script setup lang="ts">
-import { homeQuery } from '~/queries';
+import { categoriesQuery } from '~/queries';
 import { queryApi, queryHeaders } from "~/data/constants";
 
 const { data: dataCategories } = await useFetch(queryApi, {
   method: "post",
-  body: homeQuery,
+  body: categoriesQuery,
   headers: queryHeaders,
 });
 
 const categories = (dataCategories?.value as any)?.result?.children?.filter((p: any) => p.isListed) ?? {};
+
+// On app load
+categories.forEach((category: any) => {
+  category.children?.forEach((project: any) => {
+
+    // Assign vertical position to each project
+    project.position = Math.floor(Math.random() * 7 + 1);
+
+    const imageSpacing = Math.floor(Math.random() * 4 + 2);
+
+    // Assign offset left to each image dot
+    project.images?.forEach((image: any) => {
+      image.left = `${image.indexOf * imageSpacing * 10.2}px`;
+    })
+  })
+})
 
 </script>
 

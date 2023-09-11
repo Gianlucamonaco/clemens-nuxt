@@ -6,11 +6,11 @@ defineProps<{ item: Project }>()
 
 const pauseClass = (type: PauseTypes) => {
   const duration = pauseValues[type as PauseTypes];
-  return ['pause', `pause__${type}`, 'position-5', `duration-${duration}`]
+  return ['pause', `pause__${type}`, 'position-5', `duration-${duration}`, `blink-hover-${duration}`]
 }
 
 const pauseSymbol = (type: PauseTypes) => {
-  return pauseSymbols[type as PauseTypes];
+  return pauseSymbols[type as PauseTypes]();
 }
 
 </script>
@@ -29,6 +29,13 @@ const pauseSymbol = (type: PauseTypes) => {
   flex-shrink: 0;
   text-align: center;
   cursor: pointer;
+
+  color: $color-secondary;
+
+  &:hover {
+    /* background-color: $color-highlight; */
+    color: $color-highlight;
+  }
 
   &__icon {
     display: inline;

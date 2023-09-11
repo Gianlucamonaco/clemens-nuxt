@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 </script>
 
 <template>
@@ -21,7 +22,7 @@
   </Html>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .page {
   display: flex;
 }

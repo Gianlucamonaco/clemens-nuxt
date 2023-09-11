@@ -6,7 +6,7 @@ let isAnimating = false;
 const siteTitle = ref('');
 
 const [ home, about ] = computed(() =>
-  (site.value?.children ?? []).filter((i) => i.isListed)
+  (site.value?.children ?? []).filter((i: any) => i.isListed)
 ).value;
 
 const getShuffledText = (text: string) => {

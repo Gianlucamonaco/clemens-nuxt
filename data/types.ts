@@ -16,7 +16,7 @@ export interface Project {
   position: number
   andamento: string
   downloads: string[]
-  images: string[]
+  images: any[]
   links: string[]
 }
 

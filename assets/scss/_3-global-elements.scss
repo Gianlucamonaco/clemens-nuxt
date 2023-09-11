@@ -45,17 +45,17 @@ a {
 
   .blink-#{$i},
   .blink-hover-#{$i}:hover {
-    animation: blink #{8 - $i}s steps(1) infinite;
+    animation: blink #{$i * 0.25}s steps(1) infinite;
   }
 }
 
 @keyframes blink {
   0% {
-    background-color: $color-primary;
-    color: $color-background;
+    // background-color: $color-primary;
+    color: $color-highlight;
   }
-  12.5% {
+  10% {
     background-color: transparent;
-    color: $color-primary;
+    color: $color-secondary;
   }
 }

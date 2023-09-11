@@ -9,6 +9,7 @@ const content = useContent();
 const categoryEl = ref(null) as any;
 const categoryItemsEl = ref(null) as any;
 const description = useDescription() as any;
+const scrollSpeed = 10;
 let scroll = 0;
 let _raf: any;
 
@@ -23,14 +24,14 @@ const handleMouseMove = (e: MouseEvent) => {
 // Section animation on mouse move
 const animate = () => {
   if (!categoryItemsEl.value) return;
-  categoryItemsEl.value.scrollLeft += 2 * scroll;
+  categoryItemsEl.value.scrollLeft += scrollSpeed * scroll;
   _raf = requestAnimationFrame(animate)
 }
 
 </script>
 
 <template>
-<div>
+<div class="category-wrap">
   <section
     ref="categoryEl"
     class="category"
@@ -39,13 +40,11 @@ const animate = () => {
     @mouseleave="handleMouseLeave"
   >
 
-    <h3 class="category__title">{{ category.symbol }}</h3>
-
     <div ref="categoryItemsEl" class="category__items">
-
       <div
         v-for="child in category.children"
         :key="child.id"
+        class="project-wrap"
       >
 
         <Project
@@ -61,7 +60,10 @@ const animate = () => {
 
   </section>
 
-  <div class="category__content" :class="{ active: descriptionIndex === props.category?.num }">
+  <div
+    class="category__content"
+    :class="{ active: descriptionIndex === props.category?.num }">
+
     <img v-for="image in description" :key="image" :src="image.url"/>
 
     <div class="category__text" v-html="content"></div>
@@ -70,7 +72,7 @@ const animate = () => {
 </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 
 .category {
   height: $row;
@@ -78,9 +80,9 @@ const animate = () => {
   border-bottom: 1px solid $color-primary;
   background-image:
     /* Horizontal lines */    
-    linear-gradient(rgba(255, 0, 0, 0.1) 1px, transparent 1px),
+    linear-gradient(rgba($color-primary, 0.1) 1px, transparent 1px);
     /* Vertical lines */
-    linear-gradient(to right, rgba(255, 0, 0, 0.1) 1px, transparent 1px);
+    /* linear-gradient(to right, rgba($color-primary, 0.1) 1px, transparent 1px); */
   background-size: $column * 2 $unit-vertical;
   background-repeat: repeat;
   margin-bottom: $unit-vertical;
@@ -88,9 +90,27 @@ const animate = () => {
   &__items {
     display: flex;
     align-items: stretch;
-    height: calc(100% - $unit-vertical);
+    height: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
+
+    &::before {
+      margin-right: #{$unit-horizontal * 4};
+    }
+    &::after {
+      margin-left: #{$unit-horizontal * 4};
+      margin-right: #{$unit-horizontal * 1.6};
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      position: relative;
+      width: $unit-horizontal;
+      height: 100%;
+      background-color: $color-primary;
+      flex-shrink: 0;
+    }
   }
 
   &__content {
@@ -116,8 +136,18 @@ const animate = () => {
     padding-bottom: $unit-vertical;
 
     p {
-      padding-bottom: $unit-vertical;
+      padding-bottom: $unit-vertical !important;
     }
+
+    li {
+      font-size: $fontsize-s !important;
+    }
+
+  }
+
+  &__title {
+    position: absolute;
+    white-space: pre-wrap;
   }
 
 }
