@@ -23,8 +23,8 @@ const page = (data as any)?.result;
 
 setPage(page);
 
-</script>
+setContent('');
 
-<template>
-  <Categories />
-</template>
+setDescriptionIndex(-1);
+
+</script>

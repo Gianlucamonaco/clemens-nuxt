@@ -96,13 +96,14 @@ const animate = () => {
   &__content {
     height: 0;
     opacity: 0;
-    transition: opacity .1s height .5s;
+    transition: opacity .1s, height .5s;
     overflow-y: scroll;
-    
+    transition: all .5s;
+    min-height: 0;
+
     &.active {
       min-height: $row;
       opacity: 1;
-      transition: all .5s;
     }
 
     img {

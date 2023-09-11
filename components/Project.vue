@@ -6,7 +6,7 @@ const props = defineProps<{
   categoryIndex: number,
 }>()
 
-const page = usePage();
+// const page = usePage();
 
 const route = useRoute();
 const imageChar = '▀';
@@ -40,14 +40,6 @@ const imagePosition = (index: any) => {
 setTimeout(() => {
   getShuffledText(props.item?.title)
 }, 100 * (props.item?.num + props.categoryIndex));
-
-if (page.value.id === 'home') {
-  setGalleryIndex(0);
-}
-
-else if (props.item.id ===  page.value.id) {
-  setGalleryIndex(props.categoryIndex);
-} 
 
 </script>
 

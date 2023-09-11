@@ -15,7 +15,11 @@ const categories = (dataCategories?.value as any)?.result?.children?.filter((p: 
 <template>
 <div class="categories">
 
-  <Category v-for="category in categories" :key="category.id" :category="category">
+  <Category
+    v-for="category in categories"
+    :key="category.id"
+    :category="category"
+  >
     {{ category.title }}
   </Category>
 

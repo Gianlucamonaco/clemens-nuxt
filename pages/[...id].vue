@@ -2,6 +2,10 @@
 import { getPageQuery } from '~/queries'
 import { queryApi, queryHeaders } from "~/data/constants";
 
+definePageMeta({
+  scrollToTop: false,
+})
+
 const kirbyPath = useRoute().path;
 
 // Fetch page data
@@ -27,8 +31,10 @@ setPage(page);
 
 setContent(page.text);
 
+setDescriptionIndex(page.parentIndex);
+
 </script>
 
 <template>
-  <Categories />
+  <span></span>
 </template>

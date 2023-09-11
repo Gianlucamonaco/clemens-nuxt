@@ -1,4 +1,9 @@
 <script setup lang="ts">
+
+definePageMeta({
+  layout: "about",
+});
+
 // const { data } = await useKql({
 //   query: `page("${useRoute().path}")`,
 //   select: {
@@ -19,7 +24,7 @@
 </script>
 
 <template>
-  <div></div>
+  <div>About page content</div>
 </template>
 
 <style scoped lang="scss">
