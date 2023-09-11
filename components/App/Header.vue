@@ -39,7 +39,7 @@ getShuffledText(site.value?.title);
 
       <li :key="about" class="header__item">
         <NuxtLink
-          :to="`/${about.id}`"
+          :to="`/biography`"
           :aria-current="route.path.startsWith(`/${about.id}`) ? 'page' : undefined"
         >
           About
