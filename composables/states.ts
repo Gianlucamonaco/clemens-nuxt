@@ -1,9 +1,9 @@
-export const useGallery = () => useState<any>('gallery', () => []);
+export const useDescription = () => useState<any>('description', () => []);
 
-export const useGalleryIndex = () => useState<number>('index', () => 0);
+export const useDescriptionIndex = () => useState<number>('descriptionIndex', () => 0);
 
-export const setGalleryIndex = (index: number) => {
-  useGalleryIndex().value = index;
+export const setDescriptionIndex = (index: number) => {
+  useDescriptionIndex().value = index;
 }
 
 export const useImageThumb = () => useState<any>('image', () => '');

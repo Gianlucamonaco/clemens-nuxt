@@ -3,12 +3,12 @@ import type { Category } from 'data/types';
 
 const props = defineProps<{ category: Category }>()
 
-const galleryIndex = useGalleryIndex();
+const descriptionIndex = useDescriptionIndex();
 const content = useContent();
 
 const categoryEl = ref(null) as any;
 const categoryItemsEl = ref(null) as any;
-const gallery = useGallery() as any;
+const description = useDescription() as any;
 let scroll = 0;
 let _raf: any;
 
@@ -26,15 +26,6 @@ const animate = () => {
   categoryItemsEl.value.scrollLeft += 2 * scroll;
   _raf = requestAnimationFrame(animate)
 }
-
-// const updateGallery = (images: any) => {
-//   // Set gallery images array
-//   gallery.value.length = 0;
-//   gallery.value.push(...images);
-
-//   // Send gallery index to parent
-//   galleryIndex.value = props.category.num;
-// }
 
 </script>
 
@@ -70,8 +61,8 @@ const animate = () => {
 
   </section>
 
-  <div class="category__content" :class="{ active: galleryIndex === props.category?.num }">
-    <img v-for="image in gallery" :key="image" :src="image.url"/>
+  <div class="category__content" :class="{ active: descriptionIndex === props.category?.num }">
+    <img v-for="image in description" :key="image" :src="image.url"/>
 
     <div class="category__text" v-html="content"></div>
   </div>
