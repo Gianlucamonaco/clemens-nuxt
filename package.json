@@ -42,6 +42,7 @@
     }
   },
   "dependencies": {
+    "random": "^4.1.0",
     "sass": "^1.65.1",
     "txt-shuffle": "^1.0.3"
   }
