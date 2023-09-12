@@ -26,4 +26,17 @@
 .page {
   display: flex;
 }
+
+.layout-enter-active,
+.layout-leave-active {
+  transition: all 0.5s;
+}
+.layout-enter-from {
+  opacity: 0;
+  transform: translate(0, $unit-vertical);
+}
+.layout-leave-to {
+  opacity: 0;
+  transform: translate(0, $unit-vertical);
+}
 </style>

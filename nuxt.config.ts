@@ -3,6 +3,13 @@
 export default defineNuxtConfig({
   modules: ['@vueuse/nuxt', 'nuxt-kql'],
 
+  app: {
+    layoutTransition: {
+      name: 'layout',
+      mode: 'out-in' // default
+    }
+  },
+
   css: [
     '~/assets/scss/main.scss',
   ],

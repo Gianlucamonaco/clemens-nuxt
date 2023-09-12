@@ -2,8 +2,6 @@
 import { getPageQuery } from '~/queries'
 import { queryApi, queryHeaders } from "~/data/constants";
 
-defineProps<{ categories: any }>()
-
 // Fetch home data
 const { data: pageData } = await useFetch(queryApi, {
   method: "post",
