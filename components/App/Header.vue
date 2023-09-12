@@ -5,7 +5,7 @@ const site = useSite()
 let isAnimating = false;
 const siteTitle = ref('');
 
-const [ home, about ] = computed(() =>
+const [ home, about, archive ] = computed(() =>
   (site.value?.children ?? []).filter((i: any) => i.isListed)
 ).value;
 
@@ -28,19 +28,28 @@ getShuffledText(site.value?.title);
 
     <nav class="header__nav">
 
-      <li :key="home" class="header__item">
+      <li :key="home" class="header__item" :class="route.path.startsWith('/categories') || route.path === '/' ? 'active' : null">
         <NuxtLink
           :to="`/${home.id}`"
           :aria-current="route.path.startsWith(`/${home.id}`) ? 'page' : undefined"
         >
-          Live score
+          Score
         </NuxtLink>
       </li>
 
-      <li :key="about" class="header__item">
+      <li v-if="archive" :key="archive" class="header__item" :class="route.path.startsWith(`/${archive?.id}`) ? 'active' : null">
+        <NuxtLink
+          :to="`/${archive?.id}`"
+          :aria-current="route.path.startsWith(`/${archive?.id}`) ? 'page' : undefined"
+        >
+          Archive
+        </NuxtLink>
+      </li>
+
+      <li v-if="about" :key="about" class="header__item" :class="route.path.startsWith(`/${about?.id}`) ? 'active' : null">
         <NuxtLink
           :to="`/biography`"
-          :aria-current="route.path.startsWith(`/${about.id}`) ? 'page' : undefined"
+          :aria-current="route.path.startsWith(`/${about?.id}`) ? 'page' : undefined"
         >
           About
         </NuxtLink>
@@ -64,8 +73,25 @@ getShuffledText(site.value?.title);
   &__item {
     padding-bottom: $unit-vertical;
 
-    &::before {
+    &:not(.active) {
+      padding-left: $unit-horizontal * 2;
+    }
+
+    &.active::before {
       content: '▀ ';
+      color: $color-secondary;
+      animation: activeItem 2s steps(1) infinite;
+    }
+  }
+
+  @keyframes activeItem {
+    0% {
+      content: '▄ ';
+      /* color: $color-highlight; */
+    }
+    50% {
+      content: '▀ ';
+      /* color: $color-secondary; */
     }
   }
 }
