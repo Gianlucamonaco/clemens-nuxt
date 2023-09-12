@@ -22,10 +22,7 @@ export const pauseValues = {
 }
 
 export const pauseSymbols = {
-  // croma: ' ▄\n▀ ',
-  // semiminima: '█ \n █' ,
-  // minima: '▄▄▄▄\n▀▀▀▀',
-  croma: () => `${randomChars(1)}\n${randomChars(1)}`,
-  semiminima: () => `${randomChars(2)}\n${randomChars(2)}`,
-  minima: () => `${randomChars(4)}\n${randomChars(4)}`,
+  croma: '    \n▀   \n   ▄\n    ' ,
+  semiminima: '    \n    \n▄▄▄▄\n    ' ,
+  minima: '    \n▀▀▀▀\n    \n    ' ,
 }

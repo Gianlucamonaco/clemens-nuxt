@@ -6,18 +6,20 @@ defineProps<{ item: Project }>()
 
 const pauseClass = (type: PauseTypes) => {
   const duration = pauseValues[type as PauseTypes];
-  return ['pause', `pause__${type}`, 'position-5', `duration-${duration}`, `blink-hover-${duration}`]
+  return ['pause', `pause__${type}`, 'position-6', `duration-${duration}`, `blink-hover-${duration}`]
 }
 
 const pauseSymbol = (type: PauseTypes) => {
-  return pauseSymbols[type as PauseTypes]();
+  return pauseSymbols[type as PauseTypes];
 }
 
 </script>
 
 <template>
   <div :class="pauseClass(item.type.toLowerCase() as PauseTypes)">
-    <h3 class="pause__icon">{{ pauseSymbol(item.type.toLowerCase() as PauseTypes) }}</h3>
+    <h3 class="pause__icon">
+      {{ pauseSymbol(item.type.toLowerCase() as PauseTypes) }}
+    </h3>
   </div>
 </template>
 
@@ -28,7 +30,7 @@ const pauseSymbol = (type: PauseTypes) => {
   justify-content: center;
   flex-shrink: 0;
   text-align: center;
-  cursor: pointer;
+  cursor: crosshair;
 
   color: $color-secondary;
 
