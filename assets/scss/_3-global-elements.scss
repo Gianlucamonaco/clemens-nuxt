@@ -34,13 +34,13 @@ a {
   height: 0px;
 }
 
-@for $i from 1 through 8 {
+@for $i from 0 through 9 {
   .duration-#{$i} {
     width: $column * $i;
   }
   
   .position-#{$i} {
-    top: $unit-vertical * (8 - $i);
+    top: $unit-vertical * (9 - $i);
   }
 
   .blink-#{$i},

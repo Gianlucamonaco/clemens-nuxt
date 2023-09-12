@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { categoriesQuery } from '~/queries';
 import { queryApi, queryHeaders } from "~/data/constants";
+import random from 'random';
 
 const { data: dataCategories } = await useFetch(queryApi, {
   method: "post",
@@ -15,13 +16,20 @@ categories.forEach((category: any) => {
   category.children?.forEach((project: any) => {
 
     // Assign vertical position to each project
-    project.position = Math.floor(Math.random() * 7 + 1);
+    project.position = random.int(0, 4) * 2;
 
-    const imageSpacing = Math.floor(Math.random() * 4 + 2);
+    const imageSpacing = 9;
 
     // Assign offset left to each image dot
     project.images?.forEach((image: any) => {
       image.left = `${image.indexOf * imageSpacing * 10.2}px`;
+
+      if (project.position > 4) {
+        image.top = `${17 + random.int(0, 4) * 17}px`;
+      }
+      else {
+        image.bottom = `${34 + random.int(0, 4) * 17}px`;
+      }
     })
   })
 })

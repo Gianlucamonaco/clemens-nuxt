@@ -7,7 +7,7 @@ const props = defineProps<{
 }>()
 
 const route = useRoute();
-const imageChar = '▀';
+const imageChar = '▀▀▀▀▀▀▀▀';
 const projectTitle = ref('');
 
 let isAnimating = false;
@@ -47,12 +47,21 @@ setTimeout(() => {
         v-for="image in item.images"
         :key="image"
         :class="['project__icon', 'project__image', 'blink-hover-4']"
-        :style="{left: image.left}"
+        :style="{
+          left: image.left,
+          top: (image.top ?? 'auto'),
+          bottom: (image.bottom ?? 'auto'),
+        }"
+        >
+        <!-- 
         @mouseenter="setImageThumb(image)"
         @mousemove="(e) => { setMousePos(e)}"
         @mouseleave="setImageThumb(null)"
-        >{{ imageChar }}</div>
+        -->
+          <img :src="image.url" :alt="image.alt" />
+        </div>
       </div>
+      
     <!-- <div v-if="item.links" class="project__icon project__links"></div> -->
     <!-- <div v-if="item.andamento" :class="['project__andamento', `project__${item.andamento}`]"></div> -->
   </div>
@@ -66,7 +75,7 @@ setTimeout(() => {
 
   &__title {
     display: inline;
-    cursor: pointer;
+    cursor: crosshair;
 
     &:hover {
       background-color: $color-highlight;
@@ -85,13 +94,27 @@ setTimeout(() => {
   }
 
   &__image {
+    position: absolute;
     font-size: $fontsize-m;
-    bottom: $unit-vertical * 2;
-    padding: #{$unit-vertical * 0.5} $unit-horizontal $unit-vertical;
-    width: $unit-horizontal * 3;
-    cursor: none;
+    /* bottom: $unit-vertical * 2; */
+    /* padding: #{$unit-vertical * 0.5} 0 $unit-vertical; */
+    width: $column; // #{$unit-horizontal * 6};
+    max-height: 0;
+    height: auto;
+    /* color: $color-secondary; */
+    border: #{$unit-vertical * 0.5} solid $color-secondary;
+    overflow: hidden;
+    transition: all .25s;
+    cursor: crosshair;
 
-    color: $color-secondary;
+    &:hover {
+      max-height: 100px;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
   }
 }
 

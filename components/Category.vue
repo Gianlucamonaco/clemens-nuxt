@@ -83,7 +83,7 @@ const animate = () => {
     linear-gradient(rgba($color-primary, 0.1) 1px, transparent 1px);
     /* Vertical lines */
     /* linear-gradient(to right, rgba($color-primary, 0.1) 1px, transparent 1px); */
-  background-size: $column * 2 $unit-vertical;
+  background-size: $column * 2 $unit-vertical * 2;
   background-repeat: repeat;
   margin-bottom: $unit-vertical;
 
