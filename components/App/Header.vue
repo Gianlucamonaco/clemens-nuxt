@@ -5,7 +5,7 @@ const site = useSite()
 let isAnimating = false;
 const siteTitle = ref('');
 
-const [ home, about, archive ] = computed(() =>
+const pages = computed(() =>
   (site.value?.children ?? []).filter((i: any) => i.isListed)
 ).value;
 
@@ -17,6 +17,10 @@ const getShuffledText = (text: string) => {
     })
   }
 }
+
+const home = pages.find((p: any) => p.id == 'home');
+const about = pages.find((p: any) => p.id == 'biography');
+const archive = pages.find((p: any) => p.id == 'archive');
 
 getShuffledText(site.value?.title);
 
