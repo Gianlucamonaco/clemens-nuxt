@@ -11,7 +11,6 @@ export const categoriesQuery: KirbyQuerySchema = {
         title: true,
         isListed: true,
         num: true,
-        symbol: true,
         children: {
           query: `page.children.listed`,
           select: {
@@ -23,15 +22,6 @@ export const categoriesQuery: KirbyQuerySchema = {
             duration: true,
             intendedTemplate: true,
             text: 'page.text.kirbytext',
-            links: 'page.links.toStructure',
-            sounds: {
-              query: 'page.sounds.toFiles',
-              select: ['id', 'uuid', 'url', 'alt', 'indexOf'],
-            },
-            images: {
-              query: 'page.images',
-              select: ['id', 'uuid', 'url', 'alt', 'indexOf'],
-            },
           }
         }
       }

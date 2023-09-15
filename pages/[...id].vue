@@ -29,9 +29,14 @@ const page = (data as any)?.result;
 
 setPage(page);
 
-setContent(page.text);
+setContent({
+  description: page?.text,
+  links: page?.links,
+  downloads: page?.downloads,
+  images: page?.images,
+});
 
-setDescriptionIndex(page.parentIndex);
+setDescriptionIndex(page?.parentIndex);
 
 </script>
 

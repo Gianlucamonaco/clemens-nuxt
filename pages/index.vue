@@ -23,7 +23,7 @@ const page = (data as any)?.result;
 
 setPage(page);
 
-setContent('');
+setContent({});
 
 setDescriptionIndex(-1);
 
