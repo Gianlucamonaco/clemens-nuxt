@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { PauseTypes, Project } from '../data/types';
-import { pauseSymbols, pauseValues } from '../data/constants';
+import type { PauseTypes, Project } from '../../data/types';
+import { pauseSymbols, pauseValues } from '../../data/constants';
 
 defineProps<{ item: Project }>()
 
@@ -32,7 +32,7 @@ const pauseSymbol = (type: PauseTypes) => {
   text-align: center;
   cursor: crosshair;
 
-  color: $color-secondary;
+  color: $color-light;
 
   &:hover {
     /* background-color: $color-highlight; */
@@ -41,8 +41,8 @@ const pauseSymbol = (type: PauseTypes) => {
 
   &__icon {
     display: inline;
-    /* width: $unit-vertical; */
-    /* height: $unit-vertical; */
+    /* width: $height-unit; */
+    /* height: $height-unit; */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

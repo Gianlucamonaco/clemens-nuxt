@@ -1,41 +1,24 @@
 <script setup lang="ts">
-import type { Project } from '../data/types';
-import { soundSymbol } from '../data/constants';
+import type { Project } from '../../data/types';
+import { soundSymbol } from '../../data/constants';
 
 const props = defineProps<{ 
   item: Project,
   categoryIndex: number,
 }>()
 
-const projectTitle = ref('');
 const route = useRoute();
 
 const projectClass = ['project', `duration-${props.item.duration}`, `position-${props.item.position}`];
 const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
-
-// when shuffle text is triggered, disable new animations
-// while title is still animating
-let isAnimating = false;
-const getShuffledText = (text: string) => {
-  if (!isAnimating) useShuffle(text, projectTitle, {
-    onUpdate: () => isAnimating = true,
-    onComplete: () => isAnimating = false,
-  })
-}
-
-// on component mount, animate in with a delay
-// based on item index and category index
-setTimeout(() => {
-  getShuffledText(props.item?.title)
-}, 100 * (props.item?.num + props.categoryIndex));
 
 </script>
 
 <template>
   <NuxtLink :to="`/${item.id}`" :aria-current="route.path.startsWith(`/${props.item.id}`) ? 'page' : undefined">
     <div :class="projectClass">
-      <h3 class="project__title" @mouseenter="getShuffledText(item.title)">
-        {{ projectTitle }}
+      <h3 class="project__title">
+        <TextShuffle :text="item.title" :delay="item.num + categoryIndex" />
       </h3>
 
       <div v-if="item.sounds" class="project__sounds">
@@ -65,7 +48,7 @@ setTimeout(() => {
 .project {
   position: relative;
   flex-shrink: 0;
-  padding-right: $unit-horizontal * 4;
+  padding-right: $width-unit * 4;
 
   &__title {
     display: inline;
@@ -73,8 +56,8 @@ setTimeout(() => {
 
   &__icon {
     position: absolute;
-    width: $unit-horizontal;
-    height: $unit-vertical;
+    width: $width-unit;
+    height: $height-unit;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -82,9 +65,9 @@ setTimeout(() => {
 
   &__sound {
     position: absolute;
-    width: $column;
+    width: $width-column;
     font-size: $fontsize-m;
-    color: $color-secondary;
+    color: $color-light;
     transition: all .25s;
   }
 }
@@ -95,7 +78,7 @@ setTimeout(() => {
   [aria-current=page] {
     .project__title {
       background-color: $color-highlight;
-      color: $color-secondary;
+      color: $color-light;
     }
   }
 

@@ -47,13 +47,13 @@ const animate = () => {
         class="project-wrap"
       >
 
-        <Project
+        <SectionProject
           v-if="child.intendedTemplate === 'project'"
           :item="child"
           :category-index="category.num"
         />
 
-        <Pause v-else-if="child.intendedTemplate === 'pause'" :item="child" />
+        <SectionPause v-else-if="child.intendedTemplate === 'pause'" :item="child" />
 
       </div>
     </div>
