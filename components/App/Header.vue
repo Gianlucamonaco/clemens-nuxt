@@ -2,33 +2,21 @@
 const route = useRoute()
 const site = useSite()
 
-let isAnimating = false;
-const siteTitle = ref('');
-
 const pages = computed(() =>
   (site.value?.children ?? []).filter((i: any) => i.isListed)
 ).value;
-
-const getShuffledText = (text: string) => {
-  if (!isAnimating) {
-    useShuffle(text, siteTitle, {
-      onUpdate: () => isAnimating = true,
-      onComplete: () => isAnimating = false,
-    })
-  }
-}
 
 const home = pages.find((p: any) => p.id == 'home');
 const about = pages.find((p: any) => p.id == 'biography');
 const archive = pages.find((p: any) => p.id == 'archive');
 
-getShuffledText(site.value?.title);
-
 </script>
 
 <template>
   <header class="header">
-    <h1 class="header__title">{{ siteTitle }}</h1>
+    <h1 class="header__title">
+      <TextShuffle :text="site.title"/>
+    </h1>
 
     <nav class="header__nav">
 
@@ -37,7 +25,7 @@ getShuffledText(site.value?.title);
           :to="`/${home.id}`"
           :aria-current="route.path.startsWith(`/${home.id}`) ? 'page' : undefined"
         >
-          Score
+        <TextShuffle text="Score" :duration="0.2" />
         </NuxtLink>
       </li>
 
@@ -46,7 +34,7 @@ getShuffledText(site.value?.title);
           :to="`/${archive?.id}`"
           :aria-current="route.path.startsWith(`/${archive?.id}`) ? 'page' : undefined"
         >
-          Archive
+        <TextShuffle text="Archive" :duration="0.2" />
         </NuxtLink>
       </li>
 
@@ -55,7 +43,7 @@ getShuffledText(site.value?.title);
           :to="`/biography`"
           :aria-current="route.path.startsWith(`/${about?.id}`) ? 'page' : undefined"
         >
-          About
+        <TextShuffle text="About" :duration="0.2" />
         </NuxtLink>
       </li>
 
