@@ -30,7 +30,7 @@ const categories = useProcessCategories(rawCategories);
 <style scoped lang="scss">
 .categories {
   width: calc(100vw - $width-sidebar-s);
-  margin-top: $unit-vertical;
+  margin-top: $height-unit;
   overflow: hidden;
 }
 

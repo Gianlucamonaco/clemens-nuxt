@@ -16,7 +16,6 @@
           <NuxtPage />
         </NuxtLayout>
 
-        <ImageThumb />
       </div>
     </Body>
   </Html>
@@ -33,10 +32,10 @@
 }
 .layout-enter-from {
   opacity: 0;
-  transform: translate(0, $unit-vertical);
+  transform: translate(0, $height-unit);
 }
 .layout-leave-to {
   opacity: 0;
-  transform: translate(0, $unit-vertical);
+  transform: translate(0, $height-unit);
 }
 </style>

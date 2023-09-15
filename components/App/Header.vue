@@ -67,23 +67,23 @@ getShuffledText(site.value?.title);
 .header {
   flex-shrink: 0;
   width: $width-sidebar-s;
-  padding: $unit-vertical $unit-horizontal * 2;
+  padding: $height-unit $width-unit * 2;
 
   &__title {
     text-transform: uppercase;
-    margin-bottom: $unit-vertical;
+    margin-bottom: $height-unit;
   }
 
   &__item {
-    padding-bottom: $unit-vertical;
+    padding-bottom: $height-unit;
 
     &:not(.active) {
-      padding-left: $unit-horizontal * 2;
+      padding-left: $width-unit * 2;
     }
 
     &.active::before {
       content: '▀ ';
-      color: $color-secondary;
+      color: $color-light;
       animation: activeItem 2s steps(1) infinite;
     }
   }
@@ -95,7 +95,7 @@ getShuffledText(site.value?.title);
     }
     50% {
       content: '▀ ';
-      /* color: $color-secondary; */
+      /* color: $color-light; */
     }
   }
 }

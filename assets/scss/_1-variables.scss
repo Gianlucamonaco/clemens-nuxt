@@ -1,20 +1,15 @@
-$unit-vertical: 17px;
-$unit-horizontal: 10.2px;
+$height-unit: 17px;
+$height-row: $height-unit * 10;
 
-$row: $unit-vertical * 10;
-$column: $unit-horizontal * 9;
-
-$width-sidebar-s: $column * 3;
-$width-sidebar-m: $column * 8;
+$width-unit: 10.2px;
+$width-column: $width-unit * 9;
+$width-sidebar-s: $width-column * 3;
+$width-sidebar-m: $width-column * 8;
 
 // Colors
-$color-primary: #34372c;
-// $color-primary: #ff0000;
-$color-background: #f0f0f0;
-
 $color-background: #c6c6c2;
-$color-primary: #111111;
-$color-secondary: #ffffff;
+$color-dark: #111111;
+$color-light: #ffffff;
 $color-highlight: #fd582b;
 
 // Typography
@@ -25,24 +20,3 @@ $fontsize-l: 51px;
 $lineheight-s: 17px;
 $lineheight-m: 17px;
 $lineheight-l: 51px;
-
-// Icons
-$icon-pause-2: url(../images/pause-2.svg);
-$icon-pause-4: url(../images/pause-4.svg);
-$icon-pause-6: url(../images/pause-6.svg);
-$icon-downloads: url(../images/icon-downloads.svg);
-$icon-images: url(../images/icon-images.svg);
-$icon-videos: url(../images/icon-videos.svg);
-$icon-links: url(../images/icon-links.svg);
-$icon-map: url(../images/icon-map.svg);
-$symbol-alternate: url(../images/andamento-alternate.svg);
-$symbol-constant: url(../images/andamento-constant.svg);
-$symbol-crescendo: url(../images/andamento-crescendo.svg);
-$symbol-diminuendo: url(../images/andamento-diminuendo.svg);
-$symbol-legato: url(../images/andamento-legato.svg);
-$symbol-vibrato-1: url(../images/andamento-vibrato-1.svg);
-$symbol-vibrato-2: url(../images/andamento-vibrato-2.svg);
-$symbol-vibrato-3: url(../images/andamento-vibrato-3.svg);
-$symbol-slide-1: url(../images/andamento-slide-1.svg);
-$symbol-slide-2: url(../images/andamento-slide-2.svg);
-$symbol-slide-3: url(../images/andamento-slide-3.svg);

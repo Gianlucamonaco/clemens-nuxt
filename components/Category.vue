@@ -75,17 +75,17 @@ const animate = () => {
 <style lang="scss">
 
 .category {
-  height: $row;
-  border-top: 1px solid $color-primary;
-  border-bottom: 1px solid $color-primary;
+  height: $height-row;
+  border-top: 1px solid $color-dark;
+  border-bottom: 1px solid $color-dark;
   background-image:
     /* Horizontal lines */    
-    linear-gradient(rgba($color-primary, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba($color-dark, 0.1) 1px, transparent 1px);
     /* Vertical lines */
-    /* linear-gradient(to right, rgba($color-primary, 0.1) 1px, transparent 1px); */
-  background-size: $column * 2 $unit-vertical * 2;
+    /* linear-gradient(to right, rgba($color-dark, 0.1) 1px, transparent 1px); */
+  background-size: $width-column * 2 $height-unit * 2;
   background-repeat: repeat;
-  margin-bottom: $unit-vertical;
+  margin-bottom: $height-unit;
 
   &__items {
     display: flex;
@@ -95,20 +95,20 @@ const animate = () => {
     overflow-x: hidden;
 
     &::before {
-      margin-right: #{$unit-horizontal * 4};
+      margin-right: #{$width-unit * 4};
     }
     &::after {
-      margin-left: #{$unit-horizontal * 4};
-      margin-right: #{$unit-horizontal * 1.6};
+      margin-left: #{$width-unit * 4};
+      margin-right: #{$width-unit * 1.6};
     }
 
     &::before,
     &::after {
       content: '';
       position: relative;
-      width: $unit-horizontal;
+      width: $width-unit;
       height: 100%;
-      background-color: $color-primary;
+      background-color: $color-dark;
       flex-shrink: 0;
     }
   }
