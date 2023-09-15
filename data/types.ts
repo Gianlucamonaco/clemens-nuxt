@@ -20,6 +20,13 @@ export interface Project {
   links?: string[]
 }
 
+export interface ProjectContent {
+  description?: string,
+  links?: { text: string, url: string }[],
+  downloads?: { text: string, id: number, file: File }[],
+  images?: File[],
+}
+
 export interface File {
   id: any,
   indexOf: number,

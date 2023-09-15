@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import type { Category } from 'data/types';
 
-const props = defineProps<{ category: Category }>()
-
-const descriptionIndex = useDescriptionIndex();
-const content = useContent();
+defineProps<{ category: Category }>()
 
 const categoryEl = ref(null) as any;
 const categoryItemsEl = ref(null) as any;
-const description = useDescription() as any;
 const scrollSpeed = 10;
 let scroll = 0;
 let _raf: any;
@@ -60,14 +56,7 @@ const animate = () => {
 
   </section>
 
-  <div
-    class="category__content"
-    :class="{ active: descriptionIndex === props.category?.num }">
-
-    <img v-for="image in description" :key="image" :src="image.url"/>
-
-    <div class="category__text" v-html="content"></div>
-  </div>
+  <SectionDetails :category-index="category.num" />
 
 </div>
 </template>
@@ -111,38 +100,6 @@ const animate = () => {
       background-color: $color-dark;
       flex-shrink: 0;
     }
-  }
-
-  &__content {
-    height: 0;
-    opacity: 0;
-    transition: opacity .1s, height .5s;
-    overflow-y: scroll;
-    transition: all .5s;
-    min-height: 0;
-
-    &.active {
-      min-height: $row;
-      opacity: 1;
-    }
-
-    img {
-      height: 100%;
-    }
-  }
-
-  &__text {
-    max-width: $column * 8;
-    padding-bottom: $unit-vertical;
-
-    p {
-      padding-bottom: $unit-vertical !important;
-    }
-
-    li {
-      font-size: $fontsize-s !important;
-    }
-
   }
 
   &__title {
