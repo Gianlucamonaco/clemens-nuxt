@@ -149,7 +149,6 @@ const animate = () => {
     position: absolute;
     white-space: pre-wrap;
   }
-
 }
 
 </style>

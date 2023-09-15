@@ -27,11 +27,17 @@ main {
 a {
   color: inherit;
   text-decoration: none;
+  cursor: crosshair;
 }
 
 ::-webkit-scrollbar,
 ::-webkit-scrollbar-track {
   height: 0px;
+}
+
+::selection {
+  background-color: $color-highlight;
+  color: $color-secondary;
 }
 
 @for $i from 0 through 9 {

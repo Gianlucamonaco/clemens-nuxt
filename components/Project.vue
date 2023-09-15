@@ -89,11 +89,19 @@ setTimeout(() => {
   }
 }
 
+.project-wrap {
 
-    img {
-      display: block;
-      width: 100%;
+  &:hover,
+  [aria-current=page] {
+    .project__title {
+      background-color: $color-highlight;
+      color: $color-secondary;
     }
+  }
+
+  a {
+    display: block;
+    height: 100%;
   }
 }
 
