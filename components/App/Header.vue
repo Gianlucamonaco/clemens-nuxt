@@ -7,6 +7,7 @@ const pages = computed(() =>
 ).value;
 
 const home = pages.find((p: any) => p.id == 'home');
+const news = pages.find((p: any) => p.id == 'news');
 const about = pages.find((p: any) => p.id == 'biography');
 const archive = pages.find((p: any) => p.id == 'archive');
 
@@ -35,6 +36,15 @@ const archive = pages.find((p: any) => p.id == 'archive');
           :aria-current="route.path.startsWith(`/${archive?.id}`) ? 'page' : undefined"
         >
         <TextShuffle text="Archive" :duration="0.2" />
+        </NuxtLink>
+      </li>
+
+      <li v-if="news" :key="news" class="header__item" :class="route.path.startsWith(`/${news?.id}`) ? 'active' : null">
+        <NuxtLink
+          :to="`/${news?.id}`"
+          :aria-current="route.path.startsWith(`/${news?.id}`) ? 'page' : undefined"
+        >
+        <TextShuffle text="News" :duration="0.2" />
         </NuxtLink>
       </li>
 
