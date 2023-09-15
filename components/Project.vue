@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import type { Project } from '../data/types';
+import { soundSymbol } from '../data/constants';
 
 const props = defineProps<{ 
   item: Project,
   categoryIndex: number,
 }>()
 
-const route = useRoute();
-const imageChar = '▀▀▀▀▀▀▀▀';
 const projectTitle = ref('');
+const route = useRoute();
 
+const projectClass = ['project', `duration-${props.item.duration}`, `position-${props.item.position}`];
+const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
+
+// when shuffle text is triggered, disable new animations
+// while title is still animating
 let isAnimating = false;
-
-const projectClass = (duration: number) => {
-  return ['project', `duration-${duration}`, `position-${props.item.position}`]
-}
-
 const getShuffledText = (text: string) => {
   if (!isAnimating) useShuffle(text, projectTitle, {
     onUpdate: () => isAnimating = true,
@@ -23,6 +23,8 @@ const getShuffledText = (text: string) => {
   })
 }
 
+// on component mount, animate in with a delay
+// based on item index and category index
 setTimeout(() => {
   getShuffledText(props.item?.title)
 }, 100 * (props.item?.num + props.categoryIndex));
@@ -30,44 +32,36 @@ setTimeout(() => {
 </script>
 
 <template>
-  <div :class="projectClass(item.duration)">
-    <NuxtLink
-      :to="`/${item.id}`"
-      :aria-current="route.path.startsWith(`/${item.id}`) ? 'page' : undefined"
-    >
-    <h3
-      class="project__title"
-      @mouseenter="getShuffledText(item.title)"
-    >
-      {{ projectTitle }}
-    </h3>
-    </NuxtLink>
-    <div v-if="item.images" class="project__images">
-      <div
-        v-for="image in item.images"
-        :key="image"
-        :class="['project__icon', 'project__image', 'blink-hover-4']"
-        :style="{
-          left: image.left,
-          top: (image.top ?? 'auto'),
-          bottom: (image.bottom ?? 'auto'),
-        }"
-        >
-        <!-- 
-        @mouseenter="setImageThumb(image)"
-        @mousemove="(e) => { setMousePos(e)}"
-        @mouseleave="setImageThumb(null)"
-        -->
-          <img :src="image.url" :alt="image.alt" />
+  <NuxtLink :to="`/${item.id}`" :aria-current="route.path.startsWith(`/${props.item.id}`) ? 'page' : undefined">
+    <div :class="projectClass">
+      <h3 class="project__title" @mouseenter="getShuffledText(item.title)">
+        {{ projectTitle }}
+      </h3>
+
+      <div v-if="item.sounds" class="project__sounds">
+        <div
+          v-for="sound in item.sounds"
+          :key="sound.id"
+          :class="soundClass"
+          :style="{
+            left: sound.left,
+            top: (sound.top ?? 'auto'),
+            bottom: (sound.bottom ?? 'auto'),
+          }"
+          >
+          <!-- 
+            @mouseenter="play(sound.url)"
+            @mouseleave="stop()"
+            {{ item.id }}
+          -->
+          {{ soundSymbol }}
         </div>
       </div>
-      
-    <!-- <div v-if="item.links" class="project__icon project__links"></div> -->
-    <!-- <div v-if="item.andamento" :class="['project__andamento', `project__${item.andamento}`]"></div> -->
-  </div>
+    </div>
+  </NuxtLink>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .project {
   position: relative;
   flex-shrink: 0;
@@ -75,14 +69,7 @@ setTimeout(() => {
 
   &__title {
     display: inline;
-    cursor: crosshair;
-
-    &:hover {
-      background-color: $color-highlight;
-      color: $color-secondary;
-    }
   }
-
 
   &__icon {
     position: absolute;
@@ -93,23 +80,15 @@ setTimeout(() => {
     background-position: center;
   }
 
-  &__image {
+  &__sound {
     position: absolute;
+    width: $column;
     font-size: $fontsize-m;
-    /* bottom: $unit-vertical * 2; */
-    /* padding: #{$unit-vertical * 0.5} 0 $unit-vertical; */
-    width: $column; // #{$unit-horizontal * 6};
-    max-height: 0;
-    height: auto;
-    /* color: $color-secondary; */
-    border: #{$unit-vertical * 0.5} solid $color-secondary;
-    overflow: hidden;
+    color: $color-secondary;
     transition: all .25s;
-    cursor: crosshair;
+  }
+}
 
-    &:hover {
-      max-height: 100px;
-    }
 
     img {
       display: block;

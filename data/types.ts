@@ -6,18 +6,29 @@ export interface Category {
 }
 
 export interface Project {
-  id: any
+  id: number
   num: number
   type: string
   intendedTemplate: string
   text: string
   title: string
   duration: number
-  position: number
-  andamento: string
-  downloads: string[]
-  images: any[]
-  links: string[]
+  position?: number
+  sounds?: File[]
+  downloads?: string[]
+  images?: File[]
+  links?: string[]
+}
+
+export interface File {
+  id: any,
+  indexOf: number,
+  uuid: string,
+  url: string,
+  alt: string,
+  left?: number,
+  top?: number,
+  bottom?: number,
 }
 
 export type PauseTypes = 'minima' | 'semiminima' | 'croma';

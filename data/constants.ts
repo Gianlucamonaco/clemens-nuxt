@@ -26,3 +26,5 @@ export const pauseSymbols = {
   semiminima: '    \n    \n▄▄▄▄\n    ' ,
   minima: '    \n▀▀▀▀\n    \n    ' ,
 }
+
+export const soundSymbol = '▀▀▀▀▀▀▀▀';

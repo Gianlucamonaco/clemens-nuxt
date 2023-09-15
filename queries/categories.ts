@@ -20,12 +20,14 @@ export const categoriesQuery: KirbyQuerySchema = {
             title: true,
             isListed: true,
             type: true,
-            andamento: true,
             duration: true,
-            position: true,
             intendedTemplate: true,
             text: 'page.text.kirbytext',
             links: 'page.links.toStructure',
+            sounds: {
+              query: 'page.sounds.toFiles',
+              select: ['id', 'uuid', 'url', 'alt', 'indexOf'],
+            },
             images: {
               query: 'page.images',
               select: ['id', 'uuid', 'url', 'alt', 'indexOf'],
