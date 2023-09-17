@@ -12,51 +12,55 @@ const content = useContent();
 <template>
   <div
     class="details"
-    :class="{ active: descriptionIndex === categoryIndex }">
+    :class="{ active: descriptionIndex === categoryIndex }"
+    :style="{ minHeight: descriptionIndex === categoryIndex ? `${content?.height}px` : 0 }"
+  >
 
-  <div class="details__description" v-html="content.description"></div>
+    <div v-if="content?.images?.length" class="details__images">
+      <img v-for="image in content?.images" :key="image.id" :src="image.url" :alt="image.alt" />
+    </div>
 
-  <div v-if="content.links?.length" class="details__links">
-    <h6>Links:</h6>
-    <ul>
-      <li v-for="link in content.links" :key="link.text">
-        <a :href="link.url" target="blank">
-          <TextShuffle :text="link.text" :duration="0.4" />
-        </a>
-      </li>
-    </ul>
+    <div class="details__text">
+      <div class="details__description" v-html="content?.description"></div>
+
+      <div v-if="content?.links?.length" class="details__links">
+        <h6>Links:</h6>
+        <ul>
+          <li v-for="link in content?.links" :key="link.text">
+            <a :href="link.url" target="blank">
+              <TextShuffle :text="link.text" :duration="0.4" />
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div v-if="content?.downloads?.length" class="details__downloads">
+        <h6>Downloads:</h6>
+        <ul>
+          <li v-for="download in content?.downloads" :key="download.id">
+            <a :href="download.file" download>
+              <TextShuffle :text="download.text" :duration="0.4" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
-
-  <div v-if="content.downloads?.length" class="details__downloads">
-    <h6>Downloads:</h6>
-    <ul>
-      <li v-for="download in content.downloads" :key="download.id">
-        <a :href="download.file" download>
-          <TextShuffle :text="download.text" :duration="0.4" />
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
 
 </template>
 
 <style lang="scss">
 .details {
-  display: flex;
-  gap: $width-unit;
   min-height: 0;
   height: 0;
   opacity: 0;
   font-size: $fontsize-s;
   overflow-y: scroll;
   transition: all .5s;
-  
+
   &.active {
-    min-height: $height-row;
-    /* height: auto; */
+    min-height: $height-row * 2;
     opacity: 1;
-    /* transition: all .5s; */
   }
 
   img {
@@ -86,5 +90,18 @@ const content = useContent();
       font-size: $fontsize-s;
     }
   }
+
+  &__images {
+    display: flex;
+    gap: $width-unit;
+    height: $height-row * 1;
+    margin-bottom: $height-unit;
+  }
+
+  &__text {
+    display: flex;
+    gap: $width-unit;
+  }
+  
 }
 </style>
