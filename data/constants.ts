@@ -28,3 +28,6 @@ export const pauseSymbols = {
 }
 
 export const soundSymbol = '▀▀▀▀▀▀▀▀';
+
+export const HEIGHT_UNIT = 17; 
+export const HEIGHT_ROW = HEIGHT_UNIT * 10;

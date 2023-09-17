@@ -23,7 +23,7 @@ const archive = pages.find((p: any) => p.id == 'archive');
 
       <li :key="home" class="header__item" :class="route.path.startsWith('/categories') || route.path === '/' ? 'active' : null">
         <NuxtLink
-          :to="`/${home.id}`"
+          :to="`/`"
           :aria-current="route.path.startsWith(`/${home.id}`) ? 'page' : undefined"
         >
         <TextShuffle text="Score" :duration="0.2" />
