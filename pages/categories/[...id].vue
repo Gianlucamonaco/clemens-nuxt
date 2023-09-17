@@ -28,15 +28,26 @@ const data = pageData.value;
 const page = (data as any)?.result;
 
 setPage(page);
+setDescriptionIndex(-1);
 
-setContent({
-  description: page?.text,
-  links: page?.links,
-  downloads: page?.downloads,
-  images: page?.images,
-});
+// Load images before setting new content and description index
+await Promise.all(
+  page.images?.map((img: any) => new Promise(res => {
+    const el = new Image();
+    el.onload = () => res('');
+    el.src = img.url;
+  }))
+)
 
-setDescriptionIndex(page?.parentIndex);
+setTimeout(() => {
+  setDescriptionIndex(page?.parentIndex);
+  setContent({
+    description: page?.text,
+    links: page?.links,
+    downloads: page?.downloads,
+    images: page?.images,
+  });
+}, 250)
 
 </script>
 
