@@ -15,7 +15,10 @@ const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
 </script>
 
 <template>
-  <NuxtLink :to="`/${item.id}`" :aria-current="route.path.startsWith(`/${props.item.id}`) ? 'page' : undefined">
+  <NuxtLink
+    :to="route.path.startsWith(`/${props.item.id}`) ? '/' : `/${item.id}`"
+    :aria-current="route.path.startsWith(`/${props.item.id}`) ? 'page' : undefined"
+  >
     <div :class="projectClass">
       <h3 class="project__title">
         <TextShuffle :text="item.title" :delay="item.num + categoryIndex" />
