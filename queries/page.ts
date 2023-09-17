@@ -23,17 +23,15 @@ export function getPageQuery(pageId: string): KirbyQuerySchema {
       num: true,
       parentIndex: 'page.parent.num',
       // description: true,
+      date: 'page.date.toDate',
       text: 'page.text.kirbytext',
       links: 'page.links.toStructure',
       downloads: 'page.downloads.toStructure',
+      // videos: 'page.videos.toStructure',
       images: {
         query: 'page.images',
         select: ['id', 'uuid', 'url', 'alt', 'indexOf'],
       },
-      // videos: {
-      //   query: 'page.videos.toFiles',
-      //   select: ['id', 'uuid', 'url', 'alt', 'indexOf'],
-      // },
     },
   }
 }

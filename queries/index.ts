@@ -1,4 +1,5 @@
 export * from './categories'
-export * from './project'
+export * from './news'
 export * from './page'
+export * from './project'
 export * from './site'
