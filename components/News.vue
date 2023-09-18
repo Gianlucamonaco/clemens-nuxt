@@ -20,10 +20,12 @@ const route = useRoute();
     :key="news.id"
     class="news__item"
   >
-    <NuxtLink :to="`/${news.id}`" :aria-current="route.path.startsWith(`/${news.id}`) ? 'page' : undefined">
+    <NuxtLink
+      :to="route.path.startsWith(`/${news.id}`) ? '/news' : `/${news.id}`"
+      :aria-current="route.path.startsWith(`/${news.id}`) ? 'page' : undefined">
       <div class="news__header">
-        <TextShuffle :text="news.title" :delay="news.num" />
-        <span>{{useFormattedDate(news.date)}}</span>
+        <h3 class="news__title"><TextShuffle :text="news.title" :delay="news.num" /></h3>
+        <span class="news__date">{{useFormattedDate(news.date)}}</span>
       </div>
     </NuxtLink>
 
@@ -47,8 +49,20 @@ const route = useRoute();
   }
 
   &__item {
-    padding: $height-unit 0;
     border-bottom: 1px solid $color-dark;
+
+    &:hover,
+    [aria-current=page] {
+      .news__title {
+        background-color: $color-highlight;
+        color: $color-light;
+      }
+    }
+
+    a {
+      display: block;
+      padding: $height-unit 0;
+    }
   }
 
   &__wrap {

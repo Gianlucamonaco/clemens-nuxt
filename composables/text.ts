@@ -25,5 +25,5 @@ export const useFormattedDate = (
   date: number,
   ) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' } as any;
-  return new Date(date).toLocaleDateString("en-US", options);
+  return new Date(date * 1000).toLocaleDateString("en-US", options);
 }
