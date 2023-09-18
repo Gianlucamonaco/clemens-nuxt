@@ -18,8 +18,13 @@ export const setImageThumb = (image: any) => {
 export const useContent = () => useState<any>('content', () => '')
 
 export const setContent = (content: ProjectContent) => {
-  const imgHeight = content.images?.length ? HEIGHT_ROW + HEIGHT_UNIT * 3 : 0;
-  const txtHeight = content?.description ? Math.ceil(content.description?.length / 50) * HEIGHT_UNIT : HEIGHT_UNIT * 3;
+  const imgHeight = content.images?.length ? HEIGHT_ROW * 2 + HEIGHT_UNIT : 0;
+  const txtHeight = content?.description && content?.description?.length > 500
+    ? HEIGHT_ROW * 2 + HEIGHT_UNIT * 2
+    : content?.description || content?.downloads?.length || content?.links?.length
+      ? HEIGHT_ROW + HEIGHT_UNIT * 2
+      : 0;
+
   content.height = imgHeight + txtHeight;
 
   useContent().value = content;

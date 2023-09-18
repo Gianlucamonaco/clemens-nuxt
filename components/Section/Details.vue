@@ -20,7 +20,7 @@ const content = useContent();
       <img v-for="image in content?.images" :key="image.id" :src="image.url" :alt="image.alt" />
     </div>
 
-    <div class="details__text">
+    <div v-if="content?.description || content?.download?.length || content?.links?.length" class="details__text">
       <div class="details__description" v-html="content?.description"></div>
 
       <div v-if="content?.links?.length" class="details__links">
@@ -85,7 +85,11 @@ const content = useContent();
   &__downloads {
     flex: 1;
     max-width: $width-column * 3;
-    
+
+    h6 {
+      padding-bottom: $height-unit;
+    }
+
     h6, li {
       font-size: $fontsize-s;
     }
@@ -93,9 +97,24 @@ const content = useContent();
 
   &__images {
     display: flex;
-    gap: $width-unit;
-    height: $height-row * 1;
+    gap: $height-unit;
+    height: $height-row * 2;
     margin-bottom: $height-unit;
+    overflow-x: scroll;
+
+    ~ .details__text {
+      padding-top: $height-unit;
+      border-top: 1px solid $color-dark;    
+    }
+
+    img {
+      transition: all .25s;
+      filter: grayscale(1) contrast(0.6);
+
+      &:hover {
+        filter: none;
+      }
+    }
   }
 
   &__text {
