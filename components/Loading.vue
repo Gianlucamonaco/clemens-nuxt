@@ -19,30 +19,27 @@ onMounted(async () => {
   canvas.value.width = vw;
   canvas.value.height = vh;
 
-  document.fonts.load("1px rocky-compressed").then(() => {
+  await document.fonts.load("1px rocky-compressed");
 
-    ctx = canvas.value?.getContext('2d', { willReadFrequently: true });
-    offCtx = offCanvas?.getContext('2d', { willReadFrequently: true });
+  ctx = canvas.value?.getContext('2d', { willReadFrequently: true });
+  offCtx = offCanvas?.getContext('2d', { willReadFrequently: true });
 
-    drawOffset();
+  drawLoadingOffsetCanvas();
 
-    const animate = () => {
-      time++;
-
-      if (time % 5 === 0) {
-        percent = Math.min(threshold, time / (INTRO_DURATION / 20));
-        draw();
-      }
-
-      requestAnimationFrame(animate);
+  const animate = () => {
+    if (time % 5 === 0) {
+      percent = Math.min(threshold, time / (INTRO_DURATION / 20));
+      drawLoadingCanvas();
     }
 
-    animate()
+    time++;
+    requestAnimationFrame(animate);
+  }
 
-  })
+  animate();
 })
 
-const drawOffset = async () => {
+const drawLoadingOffsetCanvas = async () => {
   const fontSize = 0.2 * vw;
 
   offCtx.font = `${fontSize}px rocky-compressed`;
@@ -83,11 +80,11 @@ const drawOffset = async () => {
   }
 }
 
-const draw = () => {
+const drawLoadingCanvas = () => {
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
-      if (r > rows / 4) return;
 
+      // Draw rectangles based on luminosity
       if (blockValues[r][c] < percent) {
         if (Math.random() < percent / 6) {
           ctx.fillRect(
@@ -97,7 +94,9 @@ const draw = () => {
             Math.ceil(heightUnit * dpr),
           );
         }
-        else if (Math.random() < threshold - percent + 0.001) {
+
+      // Clear rectangles
+      else if (Math.random() < threshold - percent + 0.001) {
           ctx.clearRect(
             Math.floor(c * widthUnit * dpr),
             Math.floor(r * heightUnit * dpr),
