@@ -1,30 +1,36 @@
 <script setup lang="ts">
-const route = useRoute()
 const site = useSite()
+const route = useRoute()
 
 const pages = computed(() =>
-  (site.value?.children ?? []).filter((i: any) => i.isListed)
+  (site.value?.children ?? [])
 ).value;
 
 const home = pages.find((p: any) => p.id == 'home');
 const news = pages.find((p: any) => p.id == 'news');
 const about = pages.find((p: any) => p.id == 'biography');
 const archive = pages.find((p: any) => p.id == 'archive');
+const categories = pages.find((p: any) => p.id == 'categories');
 
 </script>
 
 <template>
   <header class="header">
     <h1 class="header__title">
-      <TextShuffle :text="site.title"/>
+      <NuxtLink to="/">
+        <TextShuffle :text="site.title"/>
+      </NuxtLink>
     </h1>
 
     <nav class="header__nav">
 
-      <li :key="home" class="header__item" :class="route.path.startsWith('/categories') || route.path === '/' ? 'active' : null">
+      <li :key="home" class="header__item" :class="route.path.startsWith(`/${categories?.id}`) || route.path === '/' ? 'active' : null">
         <NuxtLink
-          :to="`/`"
-          :aria-current="home?.id && route.path.startsWith(`/${home.id}`) ? 'page' : undefined"
+          :to="`/${categories?.id}`"
+          :aria-current="
+            home?.id && route.path.startsWith(`/${home.id}`) ||
+            categories?.id && route.path.startsWith(`/${categories.id}`)
+            ? 'page' : undefined"
         >
         <TextShuffle text="Score" :duration="0.2" />
         </NuxtLink>
