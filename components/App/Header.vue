@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const site = useSite()
 const route = useRoute()
+const loading = useLoading()
 
 const pages = computed(() =>
   (site.value?.children ?? [])
@@ -15,7 +16,7 @@ const categories = pages.find((p: any) => p.id == 'categories');
 </script>
 
 <template>
-  <header class="header">
+  <header v-if="!loading" class="header">
     <h1 class="header__title">
       <NuxtLink to="/">
         <TextShuffle :text="site.title"/>
