@@ -1,38 +1,22 @@
 <script setup lang="ts">
 import { getPageQuery } from '~/queries'
-import { queryApi, queryHeaders } from "~/data/constants";
 
 definePageMeta({
   scrollToTop: false,
 })
 
-const kirbyPath = useRoute().path;
-
 // Fetch page data
-const { data: pageData } = await useFetch(queryApi, {
-  method: "post",
-  body: getPageQuery(kirbyPath),
-  headers: queryHeaders,
-});
-
-const data = pageData.value;
-
-// If page content is empty, load the error page
-// if (!data?.result) {
-//   const { data: pageData } = await useKql(getPageQuery('error'))
-//   data = pageData.value
-//   setResponseStatus(useRequestEvent(), 404)
-// }
-
-// Set the current page data for the global page context
-const page = (data as any)?.result;
+const kirbyPath = useRoute().path;
+const { queryApi, queryParams } = useQueryParams(getPageQuery(kirbyPath));
+const { data } = await useFetch(queryApi, queryParams);
+const page = (data?.value as any)?.result;
 
 setPage(page);
 setDescriptionIndex(-1);
 
 // Load images before setting new content and description index
-await Promise.all(
-  page.images?.map((img: any) => new Promise(res => {
+if (page?.images) await Promise.all(
+  page?.images?.map((img: any) => new Promise(res => {
     const el = new Image();
     el.onload = () => res('');
     el.src = img.url;

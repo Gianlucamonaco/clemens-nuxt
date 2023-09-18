@@ -14,7 +14,7 @@ const handleMouseEnter = () => { animate() };
 const handleMouseLeave = () => { cancelAnimationFrame(_raf) }
 
 const handleMouseMove = (e: MouseEvent) => {
-  scroll = useScrollAnimation({ width: categoryEl.value.clientWidth, offset: categoryEl.value.offsetLeft, x: e.clientX })
+  scroll = useScrollAnimation({ width: categoryEl?.value?.clientWidth, offset: categoryEl?.value?.offsetLeft, x: e.clientX })
 }
 
 // Section animation on mouse move

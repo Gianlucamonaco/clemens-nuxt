@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import { getPageQuery } from '~/queries'
-import { queryApi, queryHeaders } from "~/data/constants";
 
 definePageMeta({ layout: "news" });
 
 const route = useRoute();
-
-const { data: pageData } = await useFetch(queryApi, {
-  method: "post",
-  body: getPageQuery(route.path),
-  headers: queryHeaders,
-});
-
-const data = pageData.value;
-const page = (data as any)?.result;
+const { queryApi, queryParams } = useQueryParams(getPageQuery(route.path));
+const { data } = await useFetch(queryApi, queryParams);
+const page = (data?.value as any)?.result;
 
 setPage(page);
 setDescriptionIndex(-1);

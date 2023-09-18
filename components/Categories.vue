@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { categoriesQuery } from '~/queries';
-import { queryApi, queryHeaders } from "~/data/constants";
 
-const { data: dataCategories } = await useFetch(queryApi, {
-  method: "post",
-  body: categoriesQuery,
-  headers: queryHeaders,
-});
-
-const rawCategories = (dataCategories?.value as any)?.result?.children?.filter((p: any) => p.isListed) ?? [];
+const { queryApi, queryParams } = useQueryParams(categoriesQuery);
+const { data } = await useFetch(queryApi, queryParams);
+const rawCategories = (data?.value as any)?.result?.children?.filter((p: any) => p.isListed) ?? [];
 const categories = useProcessCategories(rawCategories);
 
 </script>

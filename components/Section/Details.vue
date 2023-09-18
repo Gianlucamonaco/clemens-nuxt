@@ -102,11 +102,6 @@ const content = useContent();
     margin-bottom: $height-unit;
     overflow-x: scroll;
 
-    ~ .details__text {
-      padding-top: $height-unit;
-      border-top: 1px solid $color-dark;    
-    }
-
     img {
       transition: all .25s;
       filter: grayscale(1) contrast(0.6);
@@ -120,6 +115,7 @@ const content = useContent();
   &__text {
     display: flex;
     gap: $width-unit;
+    padding: 0 $width-unit;
   }
   
 }

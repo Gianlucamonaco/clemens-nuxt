@@ -1,11 +1,11 @@
 import type { KirbyQuerySchema } from 'kirby-fest'
 
 export const categoriesQuery: KirbyQuerySchema = {
-  query: 'site',
+  query: 'page("categories")',
   select: {
     title: true,
     children: {
-      query: 'page("categories").children',
+      query: 'page.children',
       select: {
         id: true,
         title: true,
@@ -21,7 +21,6 @@ export const categoriesQuery: KirbyQuerySchema = {
             type: true,
             duration: true,
             intendedTemplate: true,
-            text: 'page.text.kirbytext',
           }
         }
       }

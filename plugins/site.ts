@@ -2,7 +2,6 @@
 // import type { FetchError } from 'ofetch'
 
 import { siteQuery } from '~/queries';
-import { queryApi, queryHeaders } from "../data/constants";
 
 export default defineNuxtPlugin(async () => {
   const site = useSite();
@@ -20,14 +19,9 @@ export default defineNuxtPlugin(async () => {
   // }
 
   // TEMPORARY FIX:
-
-  const { data: dataSite } = await useFetch(queryApi, {
-    method: "post",
-    body: siteQuery,
-    headers: queryHeaders,
-  });
+  const { queryApi, queryParams } = useQueryParams(siteQuery);
+  const { data } = await useFetch(queryApi, queryParams);
 
   // Override site with useFetch, as useKql is not working
-  site.value = dataSite?.value?.result;
-
+  site.value = (data?.value as any)?.result;
 })

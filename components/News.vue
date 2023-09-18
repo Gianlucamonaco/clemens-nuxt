@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { newsQuery } from '~/queries'
-import { queryApi, queryHeaders } from "~/data/constants";
 
-const { data: pageData } = await useFetch(queryApi, {
-  method: "post",
-  body: newsQuery,
-  headers: queryHeaders,
-});
-
-const page = (pageData.value as any)?.result;
+const { queryApi, queryParams } = useQueryParams(newsQuery);
+const { data } = await useFetch(queryApi, queryParams);
+const page = (data.value as any)?.result;
 const route = useRoute();
 
 </script>
@@ -16,7 +11,7 @@ const route = useRoute();
 <template>
 <ul class="news__items">
   <li
-    v-for="news in page.children"
+    v-for="news in page?.children"
     :key="news.id"
     class="news__item"
   >
