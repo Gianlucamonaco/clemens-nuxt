@@ -1,6 +1,6 @@
 <template>
-  <div class="news__wrap">
+  <main>
     <News />
     <slot />
-  </div>
+  </main>
 </template>

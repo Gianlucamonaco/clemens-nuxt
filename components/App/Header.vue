@@ -63,6 +63,7 @@ const archive = pages.find((p: any) => p.id == 'archive');
 
 <style scoped lang="scss">
 .header {
+  position: fixed;
   flex-shrink: 0;
   width: $width-sidebar-s;
   padding: $height-unit $width-unit * 2;

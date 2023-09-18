@@ -39,17 +39,23 @@ const route = useRoute();
 
 <style lang="scss">
 .news {
-  &__content {
-    padding-top: $height-unit;
-  }
 
   &__header {
     display: flex;
     justify-content: space-between;
   }
 
+  &__items {
+    padding-top: $height-unit;
+    margin-right: $height-unit;
+  }
+
   &__item {
     border-bottom: 1px solid $color-dark;
+
+    &:first-of-type {
+      border-top: 1px solid $color-dark;
+    }
 
     &:hover,
     [aria-current=page] {
@@ -63,13 +69,6 @@ const route = useRoute();
       display: block;
       padding: $height-unit 0;
     }
-  }
-
-  &__wrap {
-    width: 100%;
-    margin-top: $height-unit;
-    margin-right: $height-unit;
-    border-top: 1px solid $color-dark;
   }
 }
 </style>

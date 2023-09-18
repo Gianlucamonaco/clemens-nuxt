@@ -22,9 +22,6 @@
 </template>
 
 <style lang="scss">
-.page {
-  display: flex;
-}
 
 .layout-enter-active,
 .layout-leave-active {
