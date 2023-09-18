@@ -1,7 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
   <Html lang="en">
     <Head>
@@ -22,6 +18,9 @@
 </template>
 
 <style lang="scss">
+.page {
+  display: flex;
+}
 
 .layout-enter-active,
 .layout-leave-active {

@@ -18,5 +18,7 @@ export const pauseSymbols = {
 
 export const soundSymbol = '▀▀▀▀▀▀▀▀';
 
-export const HEIGHT_UNIT = 17; 
+export const INTRO_DURATION = 4000;
+export const WIDTH_UNIT = 10.2;
+export const HEIGHT_UNIT = 17;
 export const HEIGHT_ROW = HEIGHT_UNIT * 10;
