@@ -71,4 +71,5 @@ export default defineNuxtConfig({
 
   // ENABLED: SERVER SIDE RENDERING
   ssr: false,
+  spaLoadingTemplate: 'loading.html',
 })
