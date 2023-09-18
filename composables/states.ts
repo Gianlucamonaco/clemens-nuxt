@@ -37,3 +37,9 @@ export const setMousePos = (e: MouseEvent) => {
   useMousePos().value.y = e.clientY;
 }
 
+export const useLoading = () => useState<boolean>('loading', () => false);
+
+export const setLoading = (value: boolean) => {
+  useLoading().value = value;
+}
+
