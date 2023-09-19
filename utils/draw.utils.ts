@@ -1,0 +1,166 @@
+// Draw offset canvas with text
+import { FONTS, HEIGHT_UNIT, INTRO_OPTIONS, WIDTH_UNIT } from "@/data/constants";
+import { randomChars } from '@/utils/text.utils';
+
+export const drawLoadingOffsetCanvas = (ctx: any, text: string) => {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const { unit } = INTRO_OPTIONS;
+
+  const titleFontSize = 0.21 * vw;
+
+  // Measure title size
+  ctx.font = `${titleFontSize}px ${FONTS.rocky}`;
+  ctx.textBaseline = 'top';
+  ctx.letterSpacing = '0';
+
+  const { width: titleWidth, actualBoundingBoxAscent: titleAscent, actualBoundingBoxDescent: titleDescent } = ctx.measureText(text);
+  const titleHeight = (titleDescent - titleAscent);
+
+  // Calculate rows and cols
+  const rows = Math.ceil(titleHeight / unit.h);
+  const cols = Math.ceil(titleWidth / unit.w);
+  
+  ctx.canvas.width = cols * unit.w;
+  ctx.canvas.height = rows * unit.h;
+
+  // Draw background
+  ctx.fillStyle = 'white';
+  ctx.fillRect(0, 0, vw, vh);
+
+  // Draw title
+  ctx.textBaseline = 'top';
+  ctx.font = `${titleFontSize}px ${FONTS.rocky}`;
+  ctx.letterSpacing = '0';
+  ctx.fillStyle = 'black';
+  ctx.fillText(text, 0, 0);
+
+  // Measure luminosity values
+  return {
+    padding: {
+      x: (vw - ctx.canvas.width),
+      y: (vh - ctx.canvas.height),
+    },
+    blockValues: getLuminosityValues(ctx, rows, cols),
+  }
+
+}
+
+// Draw rectangles based on luminosity array values
+export const drawIntroTitleBlocks = (ctx: any, values: number[][], padding: { x: number, y: number }, progress: number) => {
+  const dpr = window.devicePixelRatio;
+  const { threshold, unit } = INTRO_OPTIONS;
+  const rows = values.length;
+  const cols = values[0].length;
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+
+      ctx.fillStyle = 'black';
+
+      if (values?.[r][c] < threshold) {
+        if (Math.random() < progress) {
+          drawIntroBlock(
+            ctx,
+            padding.x + Math.floor(c * unit.w * dpr),
+            padding.y + Math.floor(r * unit.h * dpr),
+            Math.ceil(unit.w * dpr),
+            Math.ceil(unit.h * dpr),
+            progress,
+          );
+        }
+      }
+    }
+  }
+}
+
+// Draw animated frame made of characters
+export const drawIntroFrameBlocks = (ctx: any, progress: number = 1, clearFrame: boolean = true) => {
+  const framePadding = HEIGHT_UNIT;
+  const frameWidth = HEIGHT_UNIT;
+  const { width: cw, height: ch } = ctx.canvas;
+  const dpr = window.devicePixelRatio;
+
+  ctx.fillStyle = 'white';
+
+  if (clearFrame) {
+    ctx.clearRect(0, 0, cw, frameWidth * 4);
+    ctx.clearRect(0, 0, frameWidth * 4, ch);
+    ctx.clearRect(cw - frameWidth * 4, 0, frameWidth * 4, ch);
+    ctx.clearRect(0, ch - frameWidth * 4, cw, frameWidth * 4);
+  }
+
+  const topProgress = Math.min(0.3, progress) / 0.3;
+  const sideProgress = Math.max(0, Math.min(0.3, progress - 0.3)) / 0.3;
+  const bottomProgress = Math.max(0, Math.min(0.6, progress - 0.6)) / 0.4;
+
+  // top
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.font = `${frameWidth * dpr}px ${FONTS.prestige}`;
+
+  ctx.fillText(
+    randomChars(Math.floor((cw - framePadding) / WIDTH_UNIT / 4) * topProgress),
+    cw / 2,
+    framePadding,
+  )
+
+  ctx.textAlign = 'right';
+  ctx.fillText(
+    randomChars(Math.floor((cw - framePadding) / WIDTH_UNIT / 4) * topProgress),
+    cw / 2,
+    framePadding,
+  )
+
+  // left / right
+  ctx.textAlign = 'left';
+
+  const lines = Math.floor((ch - framePadding * 4) / HEIGHT_UNIT * sideProgress);
+  for (let l = 0; l < lines; l++) {
+    ctx.fillText(
+      randomChars(2),
+      framePadding,
+      framePadding + framePadding * l,
+    )
+
+    ctx.fillText(
+      randomChars(2),
+      cw - framePadding - frameWidth * 2.5,
+      framePadding + framePadding * l,
+    )
+  }
+
+  // bottom
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.font = `${frameWidth * dpr}px ${FONTS.prestige}`;
+
+  ctx.fillText(
+    randomChars(Math.floor((cw - framePadding) / WIDTH_UNIT / 4) * bottomProgress),
+    framePadding,
+    framePadding + lines * HEIGHT_UNIT,
+  )
+
+  ctx.textAlign = 'right';
+  ctx.fillText(
+    randomChars(Math.floor((cw - framePadding) / WIDTH_UNIT / 4) * bottomProgress),
+    cw - framePadding,
+    framePadding + lines * HEIGHT_UNIT,
+  )  
+}
+
+export const drawIntroBlock = (ctx: any, x: number, y: number, w: number, h: number, progress: number = 1) => {
+  const blocks = [
+    () => {
+      ctx.fillRect(x, y, w, h / 2);
+    },
+    () => {
+      if (Math.random() < 1 - progress * 2) ctx.fillStyle = 'white'
+      ctx.fillRect(x, y + h / 2, w, h / 2);
+    },
+    () => {
+      ctx.fillRect(x, y, w, h);
+    }
+  ]
+  blocks[Math.floor(Math.random() * blocks.length)]();
+}

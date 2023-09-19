@@ -1,5 +1,3 @@
-import { INTRO_OPTIONS } from "@/data/constants";
-
 export const getAreaColor = (ctx: any, x: number, y: number, width: number, height: number) => {
   const { data: imgData } = ctx.getImageData(x, y, width, height);
   const values = { r: [], g: [], b: [] };
@@ -53,48 +51,3 @@ export const getLuminosityValues = (ctx: any, rows: number, cols: number) => {
   }
   return values;
 }
-
-// Draw rectangles based on luminosity of image area
-export const drawIntroTitleBlocks = (ctx: any, values: number[][], padding: { x: number, y: number }, progress: number) => {
-  const dpr = window.devicePixelRatio;
-  const { threshold, unit } = INTRO_OPTIONS;
-  const rows = values.length;
-  const cols = values[0].length;
-
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-
-      ctx.fillStyle = 'black';
-
-      if (values?.[r][c] < threshold) {
-        if (Math.random() < progress) {
-          drawIntroBlock(
-            ctx,
-            padding.x + Math.floor(c * unit.w * dpr * 2),
-            padding.y + Math.floor(r * unit.h * dpr * 2),
-            Math.ceil(unit.w * dpr * 2),
-            Math.ceil(unit.h * dpr * 2),
-            progress,
-          );
-        }
-      }
-    }
-  }
-}
-
-export const drawIntroBlock = (ctx: any, x: number, y: number, w: number, h: number, progress: number = 1) => {
-  const blocks = [
-    () => {
-      ctx.fillRect(x, y, w, h / 2);
-    },
-    () => {
-      if (Math.random() < 1 - progress * 2) ctx.fillStyle = 'white'
-      ctx.fillRect(x, y + h / 2, w, h / 2);
-    },
-    () => {
-      ctx.fillRect(x, y, w, h);
-    }
-  ]
-  blocks[Math.floor(Math.random() * blocks.length)]();
-}
-
