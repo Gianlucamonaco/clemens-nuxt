@@ -10,7 +10,7 @@ if (route.path === '/') {
 
   setTimeout(() => {
     setLoading(false);
-  }, INTRO_DURATION);
+  }, INTRO_DURATION * 1000);
 }
 
 // Set the current page data for the global page context

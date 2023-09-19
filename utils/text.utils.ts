@@ -1,4 +1,4 @@
-import {specialChars} from '../data/constants';
+import {specialChars} from '@/data/constants';
 
 export const randomChars = (count: number): string => {
   const charset = Object.values(specialChars);
