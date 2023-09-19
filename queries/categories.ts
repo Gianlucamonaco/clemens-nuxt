@@ -12,7 +12,7 @@ export const categoriesQuery: KirbyQuerySchema = {
         isListed: true,
         num: true,
         children: {
-          query: `page.children.listed`,
+          query: 'page.children.listed',
           select: {
             id: true,
             num: true,
@@ -20,6 +20,10 @@ export const categoriesQuery: KirbyQuerySchema = {
             isListed: true,
             type: true,
             duration: true,
+            sounds: {
+              query: 'page.sounds.toFiles',
+              select: ['id', 'uuid', 'url', 'alt', 'indexOf'],
+            },
             intendedTemplate: true,
           }
         }

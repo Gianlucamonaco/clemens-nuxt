@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Project } from '../../data/types';
-import { soundSymbol } from '../../data/constants';
+import type { Project } from '@/data/types';
+import { soundSymbol } from '@/data/constants';
 
 const props = defineProps<{ 
   item: Project,

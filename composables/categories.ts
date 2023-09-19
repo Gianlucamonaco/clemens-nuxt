@@ -1,4 +1,5 @@
-import type { Category } from '../data/types';
+import type { Category } from '@/data/types';
+import { soundSymbol } from '@/data/constants';
 import random from 'random';
 
 export const useProcessCategories = (raw: Category[]) => {
@@ -9,11 +10,9 @@ export const useProcessCategories = (raw: Category[]) => {
       // Assign vertical position to each project
       project.position = random.int(0, 4) * 2;
   
-      const soundSpacing = 9;
-  
       // Assign offset left to each sound dot
       project.sounds?.forEach((sound: any) => {
-        sound.left = `${sound.indexOf * soundSpacing * 10.2}px`;
+        sound.left = `${sound.num * soundSymbol.length * 10.2}px`;
   
         if (project.position > 4) {
           sound.top = `${17 + random.int(0, 4) * 17}px`;
