@@ -1,131 +1,226 @@
 <script setup lang="ts">
-import { HEIGHT_UNIT, INTRO_DURATION, WIDTH_UNIT } from '@/data/constants';
+import gsap from 'gsap';
+import { EASING, HEIGHT_UNIT, INTRO_DURATION, INTRO_OPTIONS, WIDTH_UNIT } from '@/data/constants';
+import { drawIntroTitleBlocks, getLuminosityValues } from '@/utils/canvas.utils';
+import { randomChars } from '@/utils/text.utils';
 
 let ctx: CanvasRenderingContext2D, offCtx: any;
-const dpr = window.devicePixelRatio, vw = window.innerWidth * dpr, vh = window.innerHeight * dpr;
+let rows: number, cols: number, titleHeight: number;
+let padding: { x: number, y: number };
+let blockValues: number[][];
+
+const dpr = window.devicePixelRatio, vw = window.innerWidth, vh = window.innerHeight;
 const canvas = ref(null) as any;
-const offCanvas = new OffscreenCanvas(vw, vh);
-const blockValues = [] as number[][];
-const text = 'CLEMENS WENGER';
-const heightUnit = HEIGHT_UNIT / 2;
-const widthUnit = WIDTH_UNIT / 2;
-const rows = Math.floor(vw / heightUnit);
-const cols = Math.floor(vh / widthUnit);
-const threshold = 0.65;
-let time = 0;
-let percent: number;
+const offCanvas = new OffscreenCanvas(1, 1);
+const progress = ref(0) as any;
+const loaded = ref(false) as any;
+const { unit } = INTRO_OPTIONS;
+let ticker = 0;
+
+const site = useSite().value;
+const home = site.children.find((p: any) => p.id === 'home');
+
+const content = {
+  title: site.title.toUpperCase(),
+  subtitle: home.subtitle.toUpperCase(),
+  date: home.date.toUpperCase(),
+};
 
 onMounted(async () => {
-  canvas.value.width = vw;
-  canvas.value.height = vh;
+  canvas.value.width = vw * dpr;
+  canvas.value.height = vh * dpr;
 
   await document.fonts.load("1px rocky-compressed");
 
-  ctx = canvas.value?.getContext('2d', { willReadFrequently: true });
   offCtx = offCanvas?.getContext('2d', { willReadFrequently: true });
+  ctx = canvas.value?.getContext('2d');
 
   drawLoadingOffsetCanvas();
 
-  const animate = () => {
-    if (time % 5 === 0) {
-      percent = Math.min(threshold, time / (INTRO_DURATION / 20));
-      drawLoadingCanvas();
-    }
+  // Start animation;
+  gsap.to(progress, {
+    value: 1,
+    duration: INTRO_DURATION,
+    ease: EASING,
+    onUpdate: () => {
+      ticker++;
 
-    time++;
-    requestAnimationFrame(animate);
-  }
-
-  animate();
+      if (ticker % 10 == 0) {
+        drawLoadingCanvas();
+        ticker = 0;
+      }
+      
+      // Trigger component fade-out
+      if (progress.value >= 0.995 && !loaded.value) loaded.value = true;
+    },
+  })
 })
 
 const drawLoadingOffsetCanvas = async () => {
-  const fontSize = 0.2 * vw;
+  const titleSize = 0.21 * vw;
 
-  offCtx.font = `${fontSize}px rocky-compressed`;
+  // Measure title size
+  offCtx.font = `${titleSize}px rocky-compressed`;
   offCtx.textBaseline = 'top';
+  offCtx.letterSpacing = '0';
 
-  // Draw offset canvas
-  const { width, actualBoundingBoxAscent, actualBoundingBoxDescent } = offCtx.measureText(text);
-  const textHeight = (actualBoundingBoxDescent - actualBoundingBoxAscent);
-  const textWidth = width;
+  const { width: titleWidth, actualBoundingBoxAscent: titleAscent, actualBoundingBoxDescent: titleDescent } = offCtx.measureText(content.title);
+  titleHeight = (titleDescent - titleAscent);
+
+  // Calculate rows and cols
+  rows = Math.ceil(titleHeight / unit.h);
+  cols = Math.ceil(titleWidth / unit.w);
   
-  const padding = {
-    x: (offCtx.canvas.width - textWidth) / dpr,
-    y: (offCtx.canvas.height - textHeight) / dpr,
+  offCanvas.width = cols * WIDTH_UNIT;
+  offCanvas.height = rows * HEIGHT_UNIT;
+
+  padding = {
+    x: (canvas.value.width - offCanvas.width) / 2,
+    y: (canvas.value.height - offCanvas.height) / 2,
   }
 
+  // Draw background
   offCtx.fillStyle = 'white';
   offCtx.fillRect(0, 0, vw, vh);
 
+  // Draw title
+  offCtx.textBaseline = 'top';
+  offCtx.font = `${titleSize}px rocky-compressed`;
+  offCtx.letterSpacing = '0';
   offCtx.fillStyle = 'black';
-  offCtx.fillText(text, padding.x, padding.y);
+  offCtx.fillText(content.title, 0, 0);
 
   // Measure luminosity values
-  for (let r = 0; r < rows; r++) {
-    blockValues.push([]);
-
-    for (let c = 0; c < cols; c++) {
-      const color = getAreaColor(
-        offCtx,
-        Math.floor(c * widthUnit * dpr),
-        Math.floor(r * heightUnit * dpr),
-        Math.floor(widthUnit * dpr),
-        Math.floor(heightUnit * dpr),
-      );
-
-      const luminosity = getLuminosity(color[0], color[1], color[2]);
-      blockValues[r].push(luminosity);
-    }
-  }
+  blockValues = getLuminosityValues(offCtx, rows, cols);
 }
 
 const drawLoadingCanvas = () => {
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
 
-      // Draw rectangles based on luminosity
-      if (blockValues[r][c] < percent) {
-        if (Math.random() < percent / 6) {
-          ctx.fillRect(
-            Math.floor(c * widthUnit * dpr),
-            Math.floor(r * heightUnit * dpr),
-            Math.ceil(widthUnit * dpr),
-            Math.ceil(heightUnit * dpr),
-          );
-        }
+  drawIntroTitleBlocks(ctx, blockValues, padding, progress.value);
 
-      // Clear rectangles
-      else if (Math.random() < threshold - percent + 0.001) {
-          ctx.clearRect(
-            Math.floor(c * widthUnit * dpr),
-            Math.floor(r * heightUnit * dpr),
-            Math.ceil(widthUnit * dpr),
-            Math.ceil(heightUnit * dpr),
-          );
-        }
-      }
-    }
+  // Draw loading frame
+  const framePadding = HEIGHT_UNIT;
+  const frameWidth = HEIGHT_UNIT;
+
+  ctx.fillStyle = 'white';
+
+  ctx.clearRect(0, 0, canvas.value.width * dpr, frameWidth * 4);
+  ctx.clearRect(0, 0, frameWidth * 4, canvas.value.height * dpr);
+  ctx.clearRect(canvas.value.width * dpr - frameWidth * 4, 0, frameWidth * 4, canvas.value.height * dpr);
+  ctx.clearRect(0, canvas.value.height - frameWidth * 4, canvas.value.width * dpr, frameWidth * 4);
+
+  const topProgress = Math.min(0.3, progress.value) / 0.3;
+  const sideProgress = Math.max(0, Math.min(0.3, progress.value - 0.3)) / 0.3;
+  const bottomProgress = Math.max(0, Math.min(0.6, progress.value - 0.6)) / 0.4;
+
+  // top
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.font = `${frameWidth * dpr}px prestige-elite-std`;
+
+  ctx.fillText(
+    randomChars(Math.floor((vw - framePadding) / WIDTH_UNIT / 2) * topProgress),
+    canvas.value.width / 2,
+    framePadding,
+  )
+
+  ctx.textAlign = 'right';
+  ctx.fillText(
+    randomChars(Math.floor((vw - framePadding) / WIDTH_UNIT / 2) * topProgress),
+    canvas.value.width / 2,
+    framePadding,
+  )
+
+  // left / right
+  ctx.textAlign = 'left';
+
+  const lines = Math.floor((canvas.value.height - framePadding * 4) / HEIGHT_UNIT * sideProgress);
+  for (let l = 0; l < lines; l++) {
+    ctx.fillText(
+      randomChars(2),
+      framePadding,
+      framePadding + framePadding * l,
+    )
+
+    ctx.fillText(
+      randomChars(2),
+      canvas.value.width - framePadding - frameWidth * 2.5,
+      framePadding + framePadding * l,
+    )
   }
+
+  // bottom
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.font = `${frameWidth * dpr}px prestige-elite-std`;
+
+  ctx.fillText(
+    randomChars(Math.floor((vw - framePadding) / WIDTH_UNIT / 2) * bottomProgress),
+    framePadding,
+    framePadding + lines * HEIGHT_UNIT,
+  )
+
+  ctx.textAlign = 'right';
+  ctx.fillText(
+    randomChars(Math.floor((vw - framePadding) / WIDTH_UNIT / 2) * bottomProgress),
+    canvas.value.width - framePadding,
+    framePadding + lines * HEIGHT_UNIT,
+  )
 }
 
 </script>
 
 <template>
-  <canvas ref="canvas" class="loading" />
+  <div class="loading" :class="{ loaded }">
+    <canvas ref="canvas" />
+    <TextShuffle class="loading__subtitle" :text="content.subtitle" :delay="6" :duration="1" />
+    <TextShuffle class="loading__date" :text="content.date" :delay="10" :duration="1" />
+  </div>
 </template>
 
 <style lang="scss">
 .loading {
-  opacity: 1;
   position: fixed;
+  z-index: 9999;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   font-size: 200px;
   background-color: $color-background;
+  opacity: 1;
   overflow: hidden;
-  /* pointer-events: none; */
+  transition: opacity .5s;
+  pointer-events: none;
+
+  &.loaded {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__subtitle,
+  &__date {
+    font-size: $fontsize-m;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  &__subtitle {
+    top: 75%;
+  }
+  &__date {
+    top: calc(75% + $height-unit * 2);
+  }
 }
 </style>
