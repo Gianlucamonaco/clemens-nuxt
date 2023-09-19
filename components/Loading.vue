@@ -47,7 +47,7 @@ onMounted(async () => {
       // Redraw every 10 frames
       if (ticker.value % 10 == 0) {
         drawIntroTitleBlocks(ctx, blockValues, padding, progress.value);
-        drawIntroFrameBlocks(ctx, progress.value, true);
+        drawIntroFrameBlocks(ctx, progress.value, false);
         ticker.value = 0;
       }
       
