@@ -38,8 +38,8 @@ export const drawLoadingOffsetCanvas = (ctx: any, text: string) => {
   // Measure luminosity values
   return {
     padding: {
-      x: (vw - ctx.canvas.width),
-      y: (vh - ctx.canvas.height),
+      x: (vw - ctx.canvas.width) * window.devicePixelRatio / 2,
+      y: (vh - ctx.canvas.height) * window.devicePixelRatio / 2,
     },
     blockValues: getLuminosityValues(ctx, rows, cols),
   }
@@ -76,23 +76,35 @@ export const drawIntroTitleBlocks = (ctx: any, values: number[][], padding: { x:
 
 // Draw animated frame made of characters
 export const drawIntroFrameBlocks = (ctx: any, progress: number = 1, clearFrame: boolean = true) => {
-  const framePadding = HEIGHT_UNIT;
+  const framePadding = {
+    x: HEIGHT_UNIT,
+    y: HEIGHT_UNIT,
+  };
   const frameWidth = HEIGHT_UNIT;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
   const { width: cw, height: ch } = ctx.canvas;
   const dpr = window.devicePixelRatio;
 
   ctx.fillStyle = 'white';
 
   if (clearFrame) {
-    ctx.clearRect(0, 0, cw, frameWidth * 4);
-    ctx.clearRect(0, 0, frameWidth * 4, ch);
-    ctx.clearRect(cw - frameWidth * 4, 0, frameWidth * 4, ch);
-    ctx.clearRect(0, ch - frameWidth * 4, cw, frameWidth * 4);
+    ctx.clearRect(0, 0, cw, frameWidth * 5);
+    ctx.clearRect(0, 0, frameWidth * 5, ch);
+    ctx.clearRect(cw - frameWidth * 5, 0, frameWidth * 5, ch);
+    ctx.clearRect(0, ch - frameWidth * 5, cw, frameWidth * 5);
   }
 
   const topProgress = Math.min(0.3, progress) / 0.3;
   const sideProgress = Math.max(0, Math.min(0.3, progress - 0.3)) / 0.3;
   const bottomProgress = Math.max(0, Math.min(0.6, progress - 0.6)) / 0.4;
+
+  const horzMaxChars = Math.floor((vw - framePadding.x * 2) / WIDTH_UNIT);
+  const vertMaxChars = Math.floor((vh - framePadding.y * 2 - frameWidth * 2) / HEIGHT_UNIT);
+  const opticalAdjustmentX = 0.875;
+
+  framePadding.x = (vw - horzMaxChars * WIDTH_UNIT) / 2 * opticalAdjustmentX * dpr;
+  framePadding.y = (vh - vertMaxChars * HEIGHT_UNIT) / 2;
 
   // top
   ctx.textAlign = 'left';
@@ -100,33 +112,33 @@ export const drawIntroFrameBlocks = (ctx: any, progress: number = 1, clearFrame:
   ctx.font = `${frameWidth * dpr}px ${FONTS.prestige}`;
 
   ctx.fillText(
-    randomChars(Math.floor((cw - framePadding) / WIDTH_UNIT / 4) * topProgress),
+    randomChars(horzMaxChars / 2 * topProgress),
     cw / 2,
-    framePadding,
+    framePadding.y,
   )
 
   ctx.textAlign = 'right';
   ctx.fillText(
-    randomChars(Math.floor((cw - framePadding) / WIDTH_UNIT / 4) * topProgress),
+    randomChars(horzMaxChars / 2 * topProgress),
     cw / 2,
-    framePadding,
+    framePadding.y,
   )
 
   // left / right
-  ctx.textAlign = 'left';
-
-  const lines = Math.floor((ch - framePadding * 4) / HEIGHT_UNIT * sideProgress);
+  const lines = vertMaxChars * sideProgress * dpr;
   for (let l = 0; l < lines; l++) {
+    ctx.textAlign = 'left';
     ctx.fillText(
       randomChars(2),
-      framePadding,
-      framePadding + framePadding * l,
+      framePadding.x,
+      framePadding.y + frameWidth * l,
     )
 
+    ctx.textAlign = 'right';
     ctx.fillText(
       randomChars(2),
-      cw - framePadding - frameWidth * 2.5,
-      framePadding + framePadding * l,
+      cw - framePadding.x,
+      framePadding.y + frameWidth * l,
     )
   }
 
@@ -136,16 +148,16 @@ export const drawIntroFrameBlocks = (ctx: any, progress: number = 1, clearFrame:
   ctx.font = `${frameWidth * dpr}px ${FONTS.prestige}`;
 
   ctx.fillText(
-    randomChars(Math.floor((cw - framePadding) / WIDTH_UNIT / 4) * bottomProgress),
-    framePadding,
-    framePadding + lines * HEIGHT_UNIT,
+    randomChars(horzMaxChars / 2 * bottomProgress),
+    framePadding.x,
+    framePadding.y + lines * HEIGHT_UNIT,
   )
 
   ctx.textAlign = 'right';
   ctx.fillText(
-    randomChars(Math.floor((cw - framePadding) / WIDTH_UNIT / 4) * bottomProgress),
-    cw - framePadding,
-    framePadding + lines * HEIGHT_UNIT,
+    randomChars(horzMaxChars / 2 * bottomProgress),
+    cw - framePadding.x,
+    framePadding.y + lines * HEIGHT_UNIT,
   )  
 }
 
