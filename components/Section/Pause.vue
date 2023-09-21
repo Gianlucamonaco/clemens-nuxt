@@ -2,7 +2,14 @@
 import type { PauseTypes, Project } from '../../data/types';
 import { pauseSymbols, pauseValues } from '../../data/constants';
 
-defineProps<{ item: Project }>()
+const props = defineProps<{ item: Project }>()
+
+const { play, pause } = useAudioPlayer();
+
+if (props.item.sounds?.length) {
+  useLoadAudio(props.item.sounds.map(sound => sound.url))
+}
+
 
 const pauseClass = (type: PauseTypes) => {
   const duration = pauseValues[type as PauseTypes];
@@ -16,7 +23,14 @@ const pauseSymbol = (type: PauseTypes) => {
 </script>
 
 <template>
-  <div :class="pauseClass(item.type.toLowerCase() as PauseTypes)">
+  <div
+    :class="pauseClass(item.type.toLowerCase() as PauseTypes)"
+    @mouseenter="() => {
+      const sound = props.item.sounds?.[0];
+      if (sound) play(sound.url, sound.title);
+    }"
+    @mouseleave="pause()"
+  >
     <h3 class="pause__icon">
       {{ pauseSymbol(item.type.toLowerCase() as PauseTypes) }}
     </h3>

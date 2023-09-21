@@ -8,6 +8,12 @@ const props = defineProps<{
 }>()
 
 const route = useRoute();
+const { play, pause } = useAudioPlayer();
+
+// Load all sounds
+if (props.item.sounds?.length) {
+  useLoadAudio(props.item.sounds.map(sound => sound.url))
+}
 
 const projectClass = ['project', `duration-${props.item.duration}`, `position-${props.item.position}`];
 const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
@@ -24,7 +30,7 @@ const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
         <TextShuffle :text="item.title" :delay="item.num + categoryIndex" />
       </h3>
 
-      <div v-if="item.sounds" class="project__sounds">
+      <div v-if="item.sounds?.length" class="project__sounds">
         <div
           v-for="sound in item.sounds"
           :key="sound.id"
@@ -34,12 +40,10 @@ const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
             top: (sound.top ?? 'auto'),
             bottom: (sound.bottom ?? 'auto'),
           }"
-          >
-          <!-- 
-            @mouseenter="play(sound.url)"
-            @mouseleave="stop()"
-            {{ item.id }}
-          -->
+          @mouseenter="play(sound.url, sound.title)"
+          @mouseleave="pause()"
+        >
+          <audio :src="sound.url"></audio>
           {{ soundSymbol }}
         </div>
       </div>

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 const site = useSite()
 const route = useRoute()
+const audioTitle = useAudioTitle();
 const loading = useLoading()
+const isAudioAllowed = useIsAudioAllowed();
 
 const pages = computed(() =>
   (site.value?.children ?? [])
@@ -65,23 +67,44 @@ const categories = pages.find((p: any) => p.id == 'categories');
       </li>
 
     </nav>
+
+    <div class="header__controls">
+      <div
+        class="header__allow-audio"
+        :class="{ active: isAudioAllowed }"
+        @click="() => { setIsAudioAllowed(!isAudioAllowed) }"
+      >
+        Sound {{ isAudioAllowed ? 'on' : 'off' }}
+      </div>
+
+      <div class="header__now-playing">
+        <span v-if="audioTitle && isAudioAllowed">Listening: {{ audioTitle }}</span>
+        <span v-else-if="!isAudioAllowed">Enable sound for full experience.</span>
+      </div>
+
+    </div>
   </header>
 </template>
 
 <style scoped lang="scss">
 .header {
   position: fixed;
+  display: flex;
   flex-shrink: 0;
+  flex-direction: column;
+  height: 100%;
   width: $width-sidebar-s;
   padding: $height-unit $width-unit * 2;
 
   &__title {
     text-transform: uppercase;
     margin-bottom: $height-unit;
+    user-select: none;
   }
 
   &__item {
     padding-bottom: $height-unit;
+    user-select: none;
 
     &:not(.active) {
       padding-left: $width-unit * 2;
@@ -97,11 +120,49 @@ const categories = pages.find((p: any) => p.id == 'categories');
   @keyframes activeItem {
     0% {
       content: '▄ ';
-      /* color: $color-highlight; */
     }
     50% {
       content: '▀ ';
-      /* color: $color-light; */
+    }
+  }
+
+  &__controls {
+    border-top: 1px solid $color-dark-muted;
+  }
+
+  &__nav {
+    padding-bottom: 1px;
+  }
+
+  &__now-playing {
+    padding-bottom: $height-unit;
+  }
+
+  &__allow-audio {
+    display: flex;
+    /* justify-content: space-between; */
+    gap: $width-unit;
+    width: 100%;
+    font-size: $fontsize-m;
+    padding: $height-unit 0;
+    user-select: none;
+    cursor: crosshair;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      position: relative;
+      background-color: $color-dark-muted;
+      border-left: $width-unit solid $color-light;
+      border-right: none;
+      width: $width-unit * 2;
+      height: $height-unit;
+    }
+
+    &.active:before {
+      background-color: $color-highlight;
+      border-right: $width-unit solid $color-light;
+      border-left: none;
     }
   }
 }
