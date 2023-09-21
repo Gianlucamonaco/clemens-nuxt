@@ -71,9 +71,9 @@ const animate = () => {
   border-bottom: 1px solid $color-dark;
   background-image:
     /* Horizontal lines */    
-    linear-gradient(rgba($color-dark, 0.1) 1px, transparent 1px);
+    linear-gradient($color-dark-muted 1px, transparent 1px);
     /* Vertical lines */
-    /* linear-gradient(to right, rgba($color-dark, 0.1) 1px, transparent 1px); */
+    /* linear-gradient(to right, $color-dark-muted 1px, transparent 1px); */
   background-size: $width-column * 2 $height-unit * 2;
   background-repeat: repeat;
   margin-bottom: $height-unit;
