@@ -12,12 +12,14 @@ const { isMobile, isDesktop } = useDevice();
 let scroll = 0;
 let _raf: any;
 
-const handleMouseEnter = () => { animate() };
+const handleMouseEnter = () => { if (isDesktop) animate() };
 
-const handleMouseLeave = () => { cancelAnimationFrame(_raf) }
+const handleMouseLeave = () => { if (isDesktop) cancelAnimationFrame(_raf) }
 
 const handleMouseMove = (e: MouseEvent) => {
-  scroll = useScrollAnimation({ width: categoryEl?.value?.clientWidth, offset: categoryEl?.value?.offsetLeft, x: e.clientX })
+  if (isDesktop) {
+    scroll = useScrollAnimation({ width: categoryEl?.value?.clientWidth, offset: categoryEl?.value?.offsetLeft, x: e.clientX })
+  }
 }
 
 // Section animation on mouse move
@@ -79,6 +81,10 @@ const animate = () => {
   background-repeat: repeat;
   margin-bottom: $height-unit;
 
+  @media (max-width: $breakpoint-mobile) {
+    height: auto;
+  }
+
   &__items {
     display: flex;
     align-items: stretch;
@@ -102,6 +108,13 @@ const animate = () => {
       height: 100%;
       background-color: $color-dark;
       flex-shrink: 0;
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+      flex-direction: column;
+      padding-top: calc($height-unit + 4px);
+      border-left: $width-unit solid $color-dark;
+      border-right: $width-unit solid $color-dark;
     }
   }
 

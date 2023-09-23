@@ -101,6 +101,7 @@ const categories = pages.find((p: any) => p.id == 'categories');
     text-transform: uppercase;
     margin-bottom: $height-unit;
     user-select: none;
+    white-space: nowrap;
   }
 
   &__item {
@@ -164,6 +165,40 @@ const categories = pages.find((p: any) => p.id == 'categories');
       background-color: $color-highlight;
       border-right: $width-unit solid $color-light;
       border-left: none;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .header {
+    z-index: 99999;
+    flex-direction: row;
+    justify-content: space-between;
+    height: $height-unit * 3;
+    width: 100%;
+    background-color: $color-background;
+    border-bottom: 1px solid $color-dark;
+
+    &__nav {
+      display: flex;
+    }
+
+    &__item {
+      position: relative;
+      &.active {
+        padding-left: $width-unit * 2;
+      }
+
+      &.active::before {
+        content: '▀ ';
+        z-index: -1;
+        position: absolute;
+        left: $width-unit;
+      }
+    }
+
+    &__controls {
+      display: none;
     }
   }
 }

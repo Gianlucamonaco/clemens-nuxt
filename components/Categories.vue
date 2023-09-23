@@ -27,6 +27,11 @@ const categories = useProcessCategories(rawCategories);
   width: calc(100vw - $width-sidebar-s);
   padding-top: $height-unit;
   overflow: hidden;
+
+  @media (max-width: $breakpoint-mobile) {
+    width: 100%;
+  }
 }
+
 
 </style>

@@ -23,7 +23,7 @@ setTimeout(() => {
 </script>
 
 <template>
-  <span class="project__title" @mouseenter="getShuffledText(text)">
+  <span class="shuffle" @mouseenter="getShuffledText(text)">
     {{ animatedText }}
   </span>
 </template>

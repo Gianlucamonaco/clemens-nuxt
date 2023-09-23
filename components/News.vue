@@ -38,11 +38,22 @@ const route = useRoute();
   &__header {
     display: flex;
     justify-content: space-between;
+    padding: $height-unit 0;
+
+    @media (max-width: $breakpoint-mobile) {
+      padding: $height-unit $width-unit;
+      border-left: $width-unit solid $color-dark;
+      border-right: $width-unit solid $color-dark;
+    }
   }
 
   &__items {
-    padding-top: $height-unit;
+    margin-top: $height-unit;
     margin-right: $height-unit;
+
+    @media (max-width: $breakpoint-mobile) {
+      margin-right: 0;
+    }
   }
 
   &__item {
@@ -54,7 +65,7 @@ const route = useRoute();
 
     &:hover,
     [aria-current=page] {
-      .news__title {
+      .news__title span {
         background-color: $color-highlight;
         color: $color-light;
       }
@@ -62,8 +73,15 @@ const route = useRoute();
 
     a {
       display: block;
-      padding: $height-unit 0;
     }
+  }
+
+  &__date {
+    white-space: nowrap;
+  }
+
+  &__content .details.active {
+    padding-top: $height-unit;
   }
 }
 </style>

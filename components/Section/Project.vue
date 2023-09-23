@@ -60,6 +60,11 @@ const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
   flex-shrink: 0;
   padding-right: $width-unit * 4;
 
+  @media (max-width: $breakpoint-mobile) {
+    position: static;
+    padding: $height-unit * 2 $width-unit calc($height-unit - 2px);
+  }
+
   &__title {
     display: inline;
   }
@@ -79,6 +84,10 @@ const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
     font-size: $fontsize-m;
     color: $color-light;
     transition: all .25s;
+
+    @media (max-width: $breakpoint-mobile) {
+      display: none;
+    }
   }
 }
 

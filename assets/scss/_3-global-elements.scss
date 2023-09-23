@@ -22,6 +22,11 @@ h1, h2, h3, h4, h5, h6, li {
 main {
   width: 100%;
   margin-left: $width-column * 3;
+
+  @media (max-width: $breakpoint-mobile) {
+    margin-left: 0;
+    margin-top: $height-unit * 3;
+  }
 }
 
 a {

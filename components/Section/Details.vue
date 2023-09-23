@@ -64,13 +64,19 @@ const content = useContent();
   }
 
   img {
-    height: 100%;
+    max-height: 100%;
+    max-width: $width-column * 6;
+    height: fit-content;
   }
 
   &__description {
     flex: 2;
     max-width: $width-column * 6;
     padding-bottom: $height-unit;
+
+    @media (max-width: $breakpoint-mobile) {
+      padding-bottom: 0;
+    }
 
     p, ul {
       padding-bottom: $height-unit !important;
@@ -102,6 +108,10 @@ const content = useContent();
     margin-bottom: $height-unit;
     overflow-x: scroll;
 
+    @media (max-width: $breakpoint-mobile) {
+      padding-left: $width-unit;
+    }
+
     img {
       transition: all .25s;
       filter: grayscale(1) contrast(0.6);
@@ -116,6 +126,17 @@ const content = useContent();
     display: flex;
     gap: $width-unit;
     padding: 0 $width-unit;
+
+    @media (max-width: $breakpoint-mobile) {
+      flex-direction: column;
+      gap: $height-unit;
+      padding-bottom: $height-unit;
+
+      li {
+        padding-left: $width-unit * 2;
+      }
+    }
+
   }
   
 }
