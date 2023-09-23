@@ -8,6 +8,7 @@ const props = defineProps<{
 }>()
 
 const route = useRoute();
+const { isDesktop } = useDevice();
 const { play, pause } = useAudioPlayer();
 
 // Load all sounds
@@ -15,7 +16,9 @@ if (props.item.sounds?.length) {
   useLoadAudio(props.item.sounds.map(sound => sound.url))
 }
 
-const projectClass = ['project', `duration-${props.item.duration}`, `position-${props.item.position}`];
+const projectClass = isDesktop
+  ? ['project', `duration-${props.item.duration}`, `position-${props.item.position}`]
+  : ['project'];
 const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
 
 </script>

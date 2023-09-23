@@ -4,6 +4,7 @@ const route = useRoute()
 const audioTitle = useAudioTitle();
 const loading = useLoading()
 const isAudioAllowed = useIsAudioAllowed();
+const { isDesktop } = useDevice();
 
 const pages = computed(() =>
   (site.value?.children ?? [])
@@ -68,7 +69,7 @@ const categories = pages.find((p: any) => p.id == 'categories');
 
     </nav>
 
-    <div class="header__controls">
+    <div v-if="isDesktop" class="header__controls">
       <div
         class="header__allow-audio"
         :class="{ active: isAudioAllowed }"

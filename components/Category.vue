@@ -7,6 +7,7 @@ const categoryEl = ref(null) as any;
 const categoryItemsEl = ref(null) as any;
 const scrollSpeed = 10;
 const loading = useLoading();
+const { isMobile, isDesktop } = useDevice();
 
 let scroll = 0;
 let _raf: any;
@@ -51,7 +52,7 @@ const animate = () => {
           :category-index="category.num"
         />
 
-        <SectionPause v-else-if="child.intendedTemplate === 'pause'" :item="child" />
+        <SectionPause v-else-if="child.intendedTemplate === 'pause' && !isMobile" :item="child" />
 
       </div>
     </div>
