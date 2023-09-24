@@ -7,7 +7,18 @@ export const siteQuery: KirbyQuerySchema = {
     description: true,
     children: {
       query: 'site.children',
-      select: ['id', 'title', 'subtitle', 'date', 'url', 'isListed'],
+      select: {
+        id: true,
+        title: true,
+        subtitle: true,
+        date: true,
+        url: true,
+        isListed: true,
+        sounds: {
+          query: 'page.sounds.toFiles',
+          select: ['id', 'uuid', 'url', 'title', 'indexOf'],
+        }
+      },
     },
   },
 }

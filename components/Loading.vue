@@ -17,6 +17,17 @@ const progress = ref(0) as any;
 const ticker = ref(0) as any;
 const site = useSite().value;
 const home = site.children.find((p: any) => p.id === 'home');
+const introSound = home.sounds?.[0];
+const isAudioAllowed = useIsAudioAllowed();
+
+const { play, isPlaying } = useAudioPlayer();
+
+if (introSound) {
+  useLoadAudio([introSound.url])
+  ?.then(() => {
+    if (introSound) play(introSound.url, '', { loop: false }).then(() => loaded.value = true)
+  });
+}
 
 const content = {
   title: site.title.toUpperCase(),
@@ -52,7 +63,7 @@ onMounted(async () => {
       }
       
       // Trigger component fade-out
-      if (progress.value >= 0.995 && !loaded.value) loaded.value = true;
+      if (progress.value >= 0.995 && !loaded.value && !isPlaying()) loaded.value = true;
     },
   })
 })
@@ -60,7 +71,15 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="loading" :class="{ loaded }">
+  <div
+    :class="['loading', loaded ? 'loaded' : null ]"
+    @click="() => {
+      setIsAudioAllowed(true);
+      if (introSound && !isPlaying()) {
+        play(introSound.url, '', { loop: false }).then(() => loaded = true)
+      }
+    }"
+  >
     <Switch
       class="loading__enable"
       text="Click anywhere to activate sound"

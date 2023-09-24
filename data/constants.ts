@@ -31,7 +31,7 @@ export const FONTS = {
   rocky: 'rocky-compressed',
 }
 
-export const INTRO_DURATION = 6;
+export const INTRO_DURATION = 7;
 export const INTRO_OPTIONS = {
   threshold: 0.5,
   unit: {

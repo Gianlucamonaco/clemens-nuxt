@@ -1,5 +1,4 @@
 const player = ref(new Audio);
-const loadedFiles = ref(0);
 const audioFiles = ref([]) as any;
 
 export const useAudioTrack = () => useState<any>('audioTrack', () => null)
@@ -15,10 +14,12 @@ export const setAudioTitle = (title: string | undefined) => {
   useAudioTitle().value = title;
 }
 
-export const useIsAudioLoaded = () => useState<boolean>('isAudioLoaded', () => false)
+export const useIsAudioLoaded = (src: string) => {
+  return audioFiles.value.indexOf(src) >= 0;
+}
 
-export const setIsAudioLoaded = (isLoaded: boolean) => {
-  useIsAudioLoaded().value = isLoaded;
+export const setIsAudioLoaded = (src: string) => {
+  audioFiles.value.push(src);
 }
 
 export const useIsAudioAllowed = () => useState<boolean>('isAudioAllowed', () => false)
@@ -29,35 +30,41 @@ export const setIsAudioAllowed = (isAllowed: boolean) => {
 
 export const useLoadAudio = (files: string[]) => {
   if (!files?.length) return;
-  // Reset isLoaded to false when new files are being loaded
-  setIsAudioLoaded(false);
 
   files?.forEach(src => {
     const loadPlayer = new Audio();
-    loadPlayer.addEventListener('canplaythrough', onAudioLoaded, false);
+    loadPlayer.addEventListener('canplaythrough', () => onAudioLoaded(src), false);
     loadPlayer.src = src;
-    audioFiles.value.push(loadPlayer);
   })
+
+  return {
+    then: (callback: () => void) => { callback() }
+  }
 }
 
-const onAudioLoaded = () => {
-  loadedFiles.value++;
-
-  if (loadedFiles.value == audioFiles.value.length - 1){
-    setIsAudioLoaded(true);
+const onAudioLoaded = (src: string) => {
+  if (!useIsAudioLoaded(src)){
+    setIsAudioLoaded(src);
   }
 }
 
 export const useAudioPlayer = () => {  
   addEventListener("blur", () => pause());
-  
-  const play = (src: string, title: string | undefined) => {
+
+  const play = (src: string, title?: string | undefined, options?: { loop: boolean }) => {
     setAudioTrack(src);
     setAudioTitle(title);
 
-    if (!isPlaying() && useIsAudioAllowed().value && useIsAudioLoaded().value) {
+    if (!isPlaying() && useIsAudioAllowed().value && useIsAudioLoaded(src)) {
+      player.value.loop = options?.loop ?? false;
       player.value.play();
     }
+
+    return {
+      then: (callback: () => void) => {
+        player.value.addEventListener('ended', () => callback());        
+      }
+    }  
   }
 
   const pause = () => {    
