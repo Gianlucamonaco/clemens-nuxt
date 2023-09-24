@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { WIDTH_UNIT } from '@/data/constants';
+
 const site = useSite()
 const route = useRoute()
 const audioTitle = useAudioTitle();
@@ -70,13 +72,14 @@ const categories = pages.find((p: any) => p.id == 'categories');
     </nav>
 
     <div v-if="isDesktop" class="header__controls">
-      <div
+      <LayoutFlex
+        :gap="WIDTH_UNIT"
         class="header__allow-audio"
         :class="{ active: isAudioAllowed }"
         @click="() => { setIsAudioAllowed(!isAudioAllowed) }"
       >
         Sound {{ isAudioAllowed ? 'on' : 'off' }}
-      </div>
+      </LayoutFlex>
 
       <div class="header__now-playing">
         <span v-if="audioTitle && isAudioAllowed">Listening: {{ audioTitle }}</span>
@@ -141,9 +144,6 @@ const categories = pages.find((p: any) => p.id == 'categories');
   }
 
   &__allow-audio {
-    display: flex;
-    /* justify-content: space-between; */
-    gap: $width-unit;
     width: 100%;
     font-size: $fontsize-m;
     padding: $height-unit 0;

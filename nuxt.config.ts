@@ -1,7 +1,7 @@
 // import { siteQuery } from './queries'
 
 export default defineNuxtConfig({
-  modules: ['@vueuse/nuxt', 'nuxt-kql', '@nuxtjs/device', 'txt-shuffle'],
+  modules: ['@vueuse/nuxt', 'nuxt-kql', '@nuxtjs/device'],
 
   app: {
     layoutTransition: {

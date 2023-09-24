@@ -18,10 +18,10 @@ const route = useRoute();
     <NuxtLink
       :to="route.path.startsWith(`/${news.id}`) ? '/news' : `/${news.id}`"
       :aria-current="route.path.startsWith(`/${news.id}`) ? 'page' : undefined">
-      <div class="news__header">
+      <LayoutFlex class="news__header" justify-content="space-between">
         <h3 class="news__title"><TextShuffle :text="news.title" :delay="news.num" /></h3>
         <span class="news__date">{{useFormattedDate(news.date)}}</span>
-      </div>
+      </LayoutFlex>
     </NuxtLink>
 
     <div class="news__content">
@@ -34,10 +34,7 @@ const route = useRoute();
 
 <style lang="scss">
 .news {
-
   &__header {
-    display: flex;
-    justify-content: space-between;
     padding: $height-unit 0;
 
     @media (max-width: $breakpoint-mobile) {

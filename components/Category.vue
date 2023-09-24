@@ -22,6 +22,12 @@ const handleMouseMove = (e: MouseEvent) => {
   }
 }
 
+// Note: ref doesn't work directly on Component.
+// On mount, look for first child of categoryEl and assign ref manually
+onMounted(() => {
+  categoryItemsEl.value = categoryEl.value.children[0];
+})
+
 // Section animation on mouse move
 const animate = () => {
   if (!categoryItemsEl.value) return;
@@ -41,7 +47,7 @@ const animate = () => {
     @mouseleave="handleMouseLeave"
   >
 
-    <div ref="categoryItemsEl" class="category__items">
+    <LayoutFlex class="category__items">
       <div
         v-for="child in category.children"
         :key="child.id"
@@ -57,7 +63,7 @@ const animate = () => {
         <SectionPause v-else-if="child.intendedTemplate === 'pause' && !isMobile" :item="child" />
 
       </div>
-    </div>
+    </LayoutFlex>
 
   </section>
 
@@ -86,7 +92,6 @@ const animate = () => {
   }
 
   &__items {
-    display: flex;
     align-items: stretch;
     height: 100%;
     overflow-y: hidden;

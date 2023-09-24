@@ -5,23 +5,19 @@
     </Head>
 
     <Body>
-      <div class="page">
+      <LayoutFlex class="page">
         <AppHeader />
 
         <NuxtLayout>
           <NuxtPage />
         </NuxtLayout>
 
-      </div>
+      </LayoutFlex>
     </Body>
   </Html>
 </template>
 
 <style lang="scss">
-.page {
-  display: flex;
-}
-
 .layout-enter-active,
 .layout-leave-active {
   transition: all 0.5s;

@@ -23,8 +23,9 @@ const pauseSymbol = (type: PauseTypes) => {
 </script>
 
 <template>
-  <div
+  <LayoutFlex
     :class="pauseClass(item.type.toLowerCase() as PauseTypes)"
+    justify-content="center"
     @mouseenter="() => {
       const sound = props.item.sounds?.[0];
       if (sound) play(sound.url, sound.title);
@@ -34,14 +35,12 @@ const pauseSymbol = (type: PauseTypes) => {
     <h3 class="pause__icon">
       {{ pauseSymbol(item.type.toLowerCase() as PauseTypes) }}
     </h3>
-  </div>
+  </LayoutFlex>
 </template>
 
 <style scoped lang="scss">
 .pause {
   position: relative;
-  display: flex;
-  justify-content: center;
   flex-shrink: 0;
   text-align: center;
   cursor: crosshair;

@@ -1,6 +1,8 @@
 
 import { link } from 'fs';
 <script setup lang="ts">
+import { HEIGHT_UNIT, WIDTH_UNIT } from '@/data/constants';
+
 
 defineProps<{ categoryIndex: number }>()
 
@@ -16,11 +18,11 @@ const content = useContent();
     :style="{ minHeight: descriptionIndex === categoryIndex ? `${content?.height}px` : 0 }"
   >
 
-    <div v-if="content?.images?.length" class="details__images">
+    <LayoutFlex v-if="content?.images?.length" class="details__images" :gap="HEIGHT_UNIT">
       <img v-for="image in content?.images" :key="image.id" :src="image.url" :alt="image.alt" />
-    </div>
+    </LayoutFlex>
 
-    <div v-if="content?.description || content?.download?.length || content?.links?.length" class="details__text">
+    <LayoutFlex v-if="content?.description || content?.download?.length || content?.links?.length" class="details__text" :gap="WIDTH_UNIT">
       <div class="details__description" v-html="content?.description"></div>
 
       <div v-if="content?.links?.length" class="details__links">
@@ -44,7 +46,7 @@ const content = useContent();
           </li>
         </ul>
       </div>
-    </div>
+    </LayoutFlex>
   </div>
 
 </template>
@@ -102,8 +104,6 @@ const content = useContent();
   }
 
   &__images {
-    display: flex;
-    gap: $height-unit;
     height: $height-row * 2;
     margin-bottom: $height-unit;
     overflow-x: scroll;
@@ -123,13 +123,11 @@ const content = useContent();
   }
 
   &__text {
-    display: flex;
-    gap: $width-unit;
     padding: 0 $width-unit;
 
     @media (max-width: $breakpoint-mobile) {
+      gap: $height-unit !important;
       flex-direction: column;
-      gap: $height-unit;
       padding-bottom: $height-unit;
 
       li {
