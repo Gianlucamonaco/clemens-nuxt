@@ -10,7 +10,6 @@ if (props.item.sounds?.length) {
   useLoadAudio(props.item.sounds.map(sound => sound.url))
 }
 
-
 const pauseClass = (type: PauseTypes) => {
   const duration = pauseValues[type as PauseTypes];
   return ['pause', `pause__${type}`, 'position-6', `duration-${duration}`, `blink-hover-${duration}`]
@@ -26,13 +25,16 @@ const pauseSymbol = (type: PauseTypes) => {
   <LayoutFlex
     :class="pauseClass(item.type.toLowerCase() as PauseTypes)"
     justify-content="center"
-    @mouseenter="() => {
-      const sound = props.item.sounds?.[0];
-      if (sound) play(sound.url, sound.title);
-    }"
-    @mouseleave="pause()"
-  >
-    <h3 class="pause__icon">
+    >
+    <h3
+      v-if="item.sounds?.[0]"
+      class="pause__icon"
+      @mouseenter="() => {
+        const sound = item.sounds?.[0];
+        if (sound) play(sound.url, sound.title, { loop: true });
+      }"
+      @mouseleave="pause()"
+    >
       {{ pauseSymbol(item.type.toLowerCase() as PauseTypes) }}
     </h3>
   </LayoutFlex>

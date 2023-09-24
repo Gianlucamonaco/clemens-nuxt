@@ -43,7 +43,7 @@ const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
             top: (sound.top ?? 'auto'),
             bottom: (sound.bottom ?? 'auto'),
           }"
-          @mouseenter="play(sound.url, sound.title)"
+          @mouseenter="play(sound.url, sound.title, { loop: true })"
           @mouseleave="pause()"
         >
           <audio :src="sound.url"></audio>
@@ -59,6 +59,7 @@ const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
   position: relative;
   flex-shrink: 0;
   padding-right: $width-unit * 4;
+  height: $height-unit;
 
   @media (max-width: $breakpoint-mobile) {
     position: static;
@@ -66,7 +67,7 @@ const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
   }
 
   &__title {
-    display: inline;
+    display: inline-block;
   }
 
   &__icon {
