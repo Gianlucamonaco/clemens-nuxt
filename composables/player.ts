@@ -50,6 +50,7 @@ const onAudioLoaded = (src: string) => {
 
 export const useAudioPlayer = () => {  
   addEventListener("blur", () => pause());
+  addEventListener("mouseout", () => pause());
 
   const play = (src: string, title?: string | undefined, options?: { loop: boolean }) => {
     setAudioTrack(src);
