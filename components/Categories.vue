@@ -25,11 +25,13 @@ const categories = useProcessCategories(rawCategories);
 <style scoped lang="scss">
 .categories {
   width: calc(100vw - $width-sidebar-s);
+  margin-left: $width-column * 3;
   padding-top: $height-unit;
   overflow: hidden;
-
+  
   @media (max-width: $breakpoint-mobile) {
     width: 100%;
+    margin-left: 0;
   }
 }
 

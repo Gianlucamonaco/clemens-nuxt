@@ -137,10 +137,10 @@ onMounted(async () => {
   }
 
   &__subtitle {
-    top: 75%;
+    top: 80%;
   }
   &__date {
-    top: calc(75% + $height-unit * 2);
+    top: calc(80% + $height-unit * 2);
   }
 }
 </style>

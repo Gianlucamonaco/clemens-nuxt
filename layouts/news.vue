@@ -1,6 +1,6 @@
 <template>
   <main>
-    <News />
     <slot />
+    <News />
   </main>
 </template>

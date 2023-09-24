@@ -142,7 +142,7 @@ const categories = pages.find((p: any) => p.id == 'categories');
 
 @media (max-width: $breakpoint-mobile) {
   .header {
-    z-index: 99999;
+    z-index: 9999;
     flex-direction: row;
     justify-content: space-between;
     height: $height-unit * 3;

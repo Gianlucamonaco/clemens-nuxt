@@ -9,31 +9,42 @@ const route = useRoute();
 </script>
 
 <template>
-<ul class="news__items">
-  <li
-    v-for="news in page?.children"
-    :key="news.id"
-    class="news__item"
-  >
-    <NuxtLink
-      :to="route.path.startsWith(`/${news.id}`) ? '/news' : `/${news.id}`"
-      :aria-current="route.path.startsWith(`/${news.id}`) ? 'page' : undefined">
-      <LayoutFlex class="news__header" justify-content="space-between">
-        <h3 class="news__title"><TextShuffle :text="news.title" :delay="news.num" /></h3>
-        <span class="news__date">{{useFormattedDate(news.date)}}</span>
-      </LayoutFlex>
-    </NuxtLink>
+<div class="news">
+  <ul class="news__items">
+    <li
+      v-for="news in page?.children"
+      :key="news.id"
+      class="news__item"
+    >
+      <NuxtLink
+        :to="route.path.startsWith(`/${news.id}`) ? '/news' : `/${news.id}`"
+        :aria-current="route.path.startsWith(`/${news.id}`) ? 'page' : undefined">
+        <LayoutFlex class="news__header" justify-content="space-between">
+          <h3 class="news__title"><TextShuffle :text="news.title" :delay="news.num" /></h3>
+          <span class="news__date">{{useFormattedDate(news.date)}}</span>
+        </LayoutFlex>
+      </NuxtLink>
 
-    <div class="news__content">
-      <SectionDetails :category-index="news.num" />
-    </div>
+      <div class="news__content">
+        <SectionDetails :category-index="news.num" />
+      </div>
 
-  </li>
-</ul>
+    </li>
+  </ul>
+</div>
 </template>
 
 <style lang="scss">
 .news {
+  width: calc(100vw - $width-sidebar-s);
+  margin-left: $width-sidebar-s;
+  margin-top: $height-unit;
+
+  @media (max-width: $breakpoint-mobile) {
+    width: 100%;
+    margin-left: 0;
+  }
+
   &__header {
     padding: $height-unit 0;
 
@@ -45,15 +56,15 @@ const route = useRoute();
   }
 
   &__items {
-    margin-top: $height-unit;
-    margin-right: $height-unit;
+    padding-right: $height-unit;
 
     @media (max-width: $breakpoint-mobile) {
-      margin-right: 0;
+      padding-right: 0;
     }
   }
 
   &__item {
+    width: 100%;
     border-bottom: 1px solid $color-dark;
 
     &:first-of-type {
