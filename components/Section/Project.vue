@@ -82,8 +82,10 @@ const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
   &__sound {
     position: absolute;
     width: $width-column;
+    height: $height-unit * 2;
     font-size: $fontsize-m;
     color: $color-light;
+    padding-top: $height-unit;
     transition: all .25s;
 
     @media (max-width: $breakpoint-mobile) {

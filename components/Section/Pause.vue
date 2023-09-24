@@ -12,7 +12,7 @@ if (props.item.sounds?.length) {
 
 const pauseClass = (type: PauseTypes) => {
   const duration = pauseValues[type as PauseTypes];
-  return ['pause', `pause__${type}`, 'position-6', `duration-${duration}`, `blink-hover-${duration}`]
+  return ['pause', `pause__${type}`, 'position-6', `duration-${duration}`];
 }
 
 const pauseSymbol = (type: PauseTypes) => {
@@ -28,7 +28,7 @@ const pauseSymbol = (type: PauseTypes) => {
     >
     <h3
       v-if="item.sounds?.[0]"
-      class="pause__icon"
+      :class="['pause__icon', `blink-hover-${pauseValues[item.type.toLowerCase() as PauseTypes]}`]"
       @mouseenter="() => {
         const sound = item.sounds?.[0];
         if (sound) play(sound.url, sound.title, { loop: true });
@@ -45,14 +45,8 @@ const pauseSymbol = (type: PauseTypes) => {
   position: relative;
   flex-shrink: 0;
   text-align: center;
-  cursor: crosshair;
-
   color: $color-light;
-
-  &:hover {
-    /* background-color: $color-highlight; */
-    color: $color-highlight;
-  }
+  cursor: crosshair;
 
   &__icon {
     display: inline;

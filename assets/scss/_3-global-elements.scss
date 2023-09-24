@@ -76,11 +76,10 @@ a {
 
 @keyframes blink {
   0% {
-    // background-color: $color-dark;
-    color: $color-highlight;
+    color: $color-light;
   }
   10% {
     background-color: transparent;
-    color: $color-light;
+    color: $color-highlight;
   }
 }
