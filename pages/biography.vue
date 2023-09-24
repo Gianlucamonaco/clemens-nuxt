@@ -1,31 +1,31 @@
 <script setup lang="ts">
+import { aboutQuery } from '~/queries'
 
 definePageMeta({
   layout: "about",
 });
 
-// const { data } = await useKql({
-//   query: `page("${useRoute().path}")`,
-//   select: {
-//     id: true,
-//     title: true,
-//     intendedTemplate: true,
-//     description: true,
-//     // images: {
-//     //   query: 'page.images',
-//     //   select: ['id', 'uuid', 'url', 'alt'],
-//     // },
-//   },
-// })
+const { queryApi, queryParams } = useQueryParams(aboutQuery);
+const { data } = await useFetch(queryApi, queryParams);
+const page = (data?.value as any)?.result;
 
-// // Set the current page data for the global page context
-// const page = data.value?.result
-// setPage(page)
+setPage(page);
+
 </script>
 
 <template>
-  <div>About page content</div>
+<div class="about">
+  <div class="about__text kirbytext" v-html="page.text"></div>
+</div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
+.about {
+  width: calc(100vw - $width-sidebar-s);
+  margin-left: $width-sidebar-s;
+  margin-top: $height-unit;
+
+  /* &__text {
+  } */
+}
 </style>

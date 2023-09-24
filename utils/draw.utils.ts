@@ -3,22 +3,23 @@ import { FONTS, HEIGHT_UNIT, INTRO_OPTIONS, WIDTH_UNIT } from "@/data/constants"
 import { randomChars } from '@/utils/text.utils';
 
 export const drawLoadingOffsetCanvas = (ctx: any, text: string) => {
+  const { unit } = INTRO_OPTIONS;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
-  const { unit } = INTRO_OPTIONS;
-
-  const titleFontSize = 0.21 * vw;
+  const portrait = vw < vh;
+  const textLines = portrait ? text.split(' ') : [text];
+  const titleFontSize = portrait ? 0.3 * vw : 0.21 * vw;
 
   // Measure title size
   ctx.font = `${titleFontSize}px ${FONTS.rocky}`;
   ctx.textBaseline = 'top';
   ctx.letterSpacing = '0';
 
-  const { width: titleWidth, actualBoundingBoxAscent: titleAscent, actualBoundingBoxDescent: titleDescent } = ctx.measureText(text);
+  const { width: titleWidth, actualBoundingBoxAscent: titleAscent, actualBoundingBoxDescent: titleDescent } = ctx.measureText(textLines[0]);
   const titleHeight = (titleDescent - titleAscent);
 
   // Calculate rows and cols
-  const rows = Math.ceil(titleHeight / unit.h);
+  const rows = Math.ceil(titleHeight * textLines.length / unit.h);
   const cols = Math.ceil(titleWidth / unit.w);
   
   ctx.canvas.width = cols * unit.w;
@@ -30,10 +31,14 @@ export const drawLoadingOffsetCanvas = (ctx: any, text: string) => {
 
   // Draw title
   ctx.textBaseline = 'top';
+  ctx.textAlign = 'center';
   ctx.font = `${titleFontSize}px ${FONTS.rocky}`;
   ctx.letterSpacing = '0';
   ctx.fillStyle = 'black';
-  ctx.fillText(text, 0, 0);
+
+  textLines.forEach((line, i) => {
+    ctx.fillText(line, titleWidth / 2, i * titleHeight);
+  })
 
   // Measure luminosity values
   return {
