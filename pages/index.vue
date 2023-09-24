@@ -2,6 +2,11 @@
 import { INTRO_DURATION } from '@/data/constants';
 import { getPageQuery } from '~/queries'
 
+definePageMeta({
+  pageTransition: false,
+  layoutTransition: false
+})
+
 const route = useRoute();
 
 // Use loading component only on homepage
