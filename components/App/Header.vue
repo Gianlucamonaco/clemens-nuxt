@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { WIDTH_UNIT } from '@/data/constants';
 
 const site = useSite()
 const route = useRoute()
-const audioTitle = useAudioTitle();
 const loading = useLoading()
+const audioTitle = useAudioTitle();
 const isAudioAllowed = useIsAudioAllowed();
 const { isDesktop } = useDevice();
 
@@ -72,14 +71,11 @@ const categories = pages.find((p: any) => p.id == 'categories');
     </nav>
 
     <div v-if="isDesktop" class="header__controls">
-      <LayoutFlex
-        :gap="WIDTH_UNIT"
-        class="header__allow-audio"
-        :class="{ active: isAudioAllowed }"
-        @click="() => { setIsAudioAllowed(!isAudioAllowed) }"
-      >
-        Sound {{ isAudioAllowed ? 'on' : 'off' }}
-      </LayoutFlex>
+      <Switch
+        :text="`Sound ${ isAudioAllowed ? 'on' : 'off' }`"
+        :is-audio-allowed="isAudioAllowed"
+        :on-click="() => { setIsAudioAllowed(!isAudioAllowed) }"
+      />
 
       <div class="header__now-playing">
         <span v-if="audioTitle && isAudioAllowed">Listening: {{ audioTitle }}</span>
@@ -141,31 +137,6 @@ const categories = pages.find((p: any) => p.id == 'categories');
 
   &__now-playing {
     padding-bottom: $height-unit;
-  }
-
-  &__allow-audio {
-    width: 100%;
-    font-size: $fontsize-m;
-    padding: $height-unit 0;
-    user-select: none;
-    cursor: crosshair;
-
-    &:before {
-      content: '';
-      display: inline-block;
-      position: relative;
-      background-color: $color-dark-muted;
-      border-left: $width-unit solid $color-light;
-      border-right: none;
-      width: $width-unit * 2;
-      height: $height-unit;
-    }
-
-    &.active:before {
-      background-color: $color-highlight;
-      border-right: $width-unit solid $color-light;
-      border-left: none;
-    }
   }
 }
 

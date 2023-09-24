@@ -61,6 +61,11 @@ onMounted(async () => {
 
 <template>
   <div class="loading" :class="{ loaded }">
+    <Switch
+      class="loading__enable"
+      text="Click anywhere to activate sound"
+      :is-audio-allowed="isAudioAllowed"
+    />
     <canvas ref="canvas" />
     <TextShuffle class="loading__subtitle" :text="content.subtitle" :delay="6" :duration="1" />
     <TextShuffle class="loading__date" :text="content.date" :delay="10" :duration="1" />
@@ -80,7 +85,7 @@ onMounted(async () => {
   opacity: 1;
   overflow: hidden;
   transition: opacity .5s;
-  pointer-events: none;
+  cursor: crosshair;
 
   &.loaded {
     opacity: 0;
@@ -95,14 +100,21 @@ onMounted(async () => {
     height: 100%;
   }
 
-  &__subtitle,
-  &__date {
+  &__date,
+  &__enable,
+  &__subtitle {
     font-size: $fontsize-m;
     position: fixed;
     left: 0;
     width: 100%;
     text-align: center;
     pointer-events: none;
+    user-select: none;
+  }
+
+  &__enable {
+    top: 15%;
+    justify-content: center !important;
   }
 
   &__subtitle {
