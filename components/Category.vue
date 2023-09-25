@@ -83,6 +83,10 @@ const animate = () => {
 
   @media (max-width: $breakpoint-mobile) {
     height: auto;
+    margin-bottom: 0;
+    background: none;
+    border-top: none;
+    border-bottom: none;
   }
 
   &__items {
@@ -112,7 +116,6 @@ const animate = () => {
 
     @media (max-width: $breakpoint-mobile) {
       flex-direction: column;
-      padding-top: calc($height-unit + 4px);
       border-left: $width-unit solid $color-dark;
       border-right: $width-unit solid $color-dark;
     }

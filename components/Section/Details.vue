@@ -60,9 +60,11 @@ const content = useContent();
   overflow-y: scroll;
   transition: all .5s;
 
-  &.active {
-    min-height: $height-row * 2;
-    opacity: 1;
+  @media (min-width: $breakpoint-mobile) {
+    &.active {
+      min-height: $height-row * 2;
+      opacity: 1;
+    }
   }
 
   img {

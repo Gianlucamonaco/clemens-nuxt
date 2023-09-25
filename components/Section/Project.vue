@@ -63,7 +63,10 @@ const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
 
   @media (max-width: $breakpoint-mobile) {
     position: static;
-    padding: $height-unit * 2 $width-unit calc($height-unit - 2px);
+    width: 100%;
+    height: auto;
+    padding: $height-unit $width-unit * 2;
+    border-bottom: 1px solid $color-dark;
   }
 
   &__title {

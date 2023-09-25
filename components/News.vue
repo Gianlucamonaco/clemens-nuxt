@@ -43,6 +43,7 @@ const route = useRoute();
   @media (max-width: $breakpoint-mobile) {
     width: 100%;
     margin-left: 0;
+    margin-top: 0;
   }
 
   &__header {
@@ -57,19 +58,17 @@ const route = useRoute();
 
   &__items {
     padding-right: $height-unit;
+    border-top: 1px solid $color-dark;
 
     @media (max-width: $breakpoint-mobile) {
       padding-right: 0;
+      border-top: none;
     }
   }
 
   &__item {
     width: 100%;
     border-bottom: 1px solid $color-dark;
-
-    &:first-of-type {
-      border-top: 1px solid $color-dark;
-    }
 
     &:hover,
     [aria-current=page] {

@@ -32,6 +32,7 @@ const categories = useProcessCategories(rawCategories);
   @media (max-width: $breakpoint-mobile) {
     width: 100%;
     margin-left: 0;
+    padding-top: 0;
   }
 }
 

@@ -48,6 +48,10 @@ const pauseSymbol = (type: PauseTypes) => {
   color: $color-light;
   cursor: crosshair;
 
+  @media (max-width: $breakpoint-mobile) {
+    display: none;
+  }
+
   &__icon {
     display: inline;
     /* width: $height-unit; */

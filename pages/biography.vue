@@ -25,7 +25,18 @@ setPage(page);
   margin-left: $width-sidebar-s;
   margin-top: $height-unit;
 
-  /* &__text {
-  } */
+  @media (max-width: $breakpoint-mobile) {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  &__text {
+    p, ul, h1, h2, h3, h4, h5, h6 {
+     @media (max-width: $breakpoint-mobile) {
+        padding: 0 $width-unit * 2;
+      }
+    }
+  }
 }
 </style>

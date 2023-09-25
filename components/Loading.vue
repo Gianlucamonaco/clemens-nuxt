@@ -134,6 +134,8 @@ onMounted(async () => {
   &__enable {
     top: 15%;
     justify-content: center !important;
+    padding: 0 $width-unit * 6 !important;
+    
   }
 
   &__subtitle {
