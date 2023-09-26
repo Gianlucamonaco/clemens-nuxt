@@ -97,7 +97,7 @@ const content = useContent();
   }
 
   &__images {
-    height: $height-row * 2;
+    height: $height-row * 1.5;
     margin-bottom: $height-unit;
     overflow-x: scroll;
 
