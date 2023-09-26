@@ -12,9 +12,8 @@ const pages = computed(() =>
 ).value;
 
 const home = pages.find((p: any) => p.id == 'home');
-const news = pages.find((p: any) => p.id == 'news');
-const about = pages.find((p: any) => p.id == 'biography');
-const archive = pages.find((p: any) => p.id == 'archive');
+const dates = pages.find((p: any) => p.id == 'dates' || p.id == 'news');
+const biography = pages.find((p: any) => p.id == 'about' || p.id == 'biography');
 const categories = pages.find((p: any) => p.id == 'categories');
 
 </script>
@@ -41,30 +40,21 @@ const categories = pages.find((p: any) => p.id == 'categories');
         </NuxtLink>
       </li>
 
-      <li v-if="archive" :key="archive" class="header__item" :class="route.path.startsWith(`/${archive?.id}`) ? 'active' : null">
+      <li v-if="dates" :key="dates" class="header__item" :class="route.path.startsWith(`/${dates?.id}`) ? 'active' : null">
         <NuxtLink
-          :to="`/${archive?.id}`"
-          :aria-current="route.path.startsWith(`/${archive?.id}`) ? 'page' : undefined"
+          :to="`/${dates?.id}`"
+          :aria-current="route.path.startsWith(`/${dates?.id}`) ? 'page' : undefined"
         >
-        <TextShuffle text="Archive" :duration="0.2" />
+        <TextShuffle text="Dates" :duration="0.2" />
         </NuxtLink>
       </li>
 
-      <li v-if="news" :key="news" class="header__item" :class="route.path.startsWith(`/${news?.id}`) ? 'active' : null">
-        <NuxtLink
-          :to="`/${news?.id}`"
-          :aria-current="route.path.startsWith(`/${news?.id}`) ? 'page' : undefined"
-        >
-        <TextShuffle text="News" :duration="0.2" />
-        </NuxtLink>
-      </li>
-
-      <li v-if="about" :key="about" class="header__item" :class="route.path.startsWith(`/${about?.id}`) ? 'active' : null">
+      <li v-if="biography" :key="biography" class="header__item" :class="route.path.startsWith(`/${biography?.id}`) ? 'active' : null">
         <NuxtLink
           :to="`/biography`"
-          :aria-current="route.path.startsWith(`/${about?.id}`) ? 'page' : undefined"
+          :aria-current="route.path.startsWith(`/${biography?.id}`) ? 'page' : undefined"
         >
-        <TextShuffle text="About" :duration="0.2" />
+        <TextShuffle text="Biography" :duration="0.2" />
         </NuxtLink>
       </li>
 
