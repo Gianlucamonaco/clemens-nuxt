@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Project } from '@/data/types';
-import { soundSymbol } from '@/data/constants';
 
 const props = defineProps<{ 
   item: Project,
@@ -9,7 +8,6 @@ const props = defineProps<{
 
 const route = useRoute();
 const { isDesktop } = useDevice();
-const { play, pause } = useAudioPlayer();
 
 // Load all sounds
 if (props.item.sounds?.length) {
@@ -19,7 +17,6 @@ if (props.item.sounds?.length) {
 const projectClass = isDesktop
   ? ['project', `duration-${props.item.duration}`, `position-${props.item.position}`]
   : ['project'];
-const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
 
 </script>
 
@@ -32,24 +29,6 @@ const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
       <h3 class="project__title">
         <TextShuffle :text="item.title" :delay="item.num + categoryIndex" />
       </h3>
-
-      <div v-if="item.sounds?.length" class="project__sounds">
-        <div
-          v-for="sound in item.sounds"
-          :key="sound.id"
-          :class="soundClass"
-          :style="{
-            left: sound.left,
-            top: (sound.top ?? 'auto'),
-            bottom: (sound.bottom ?? 'auto'),
-          }"
-          @mouseenter="play(sound.url, sound.title, { loop: true })"
-          @mouseleave="pause()"
-        >
-          <audio :src="sound.url"></audio>
-          {{ soundSymbol }}
-        </div>
-      </div>
     </div>
   </NuxtLink>
 </template>
@@ -80,20 +59,6 @@ const soundClass = ['project__icon', 'project__sound', 'blink-hover-4'];
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-  }
-
-  &__sound {
-    position: absolute;
-    width: $width-column;
-    height: $height-unit * 2;
-    font-size: $fontsize-m;
-    color: $color-light;
-    padding-top: $height-unit;
-    transition: all .25s;
-
-    @media (max-width: $breakpoint-mobile) {
-      display: none;
-    }
   }
 }
 
