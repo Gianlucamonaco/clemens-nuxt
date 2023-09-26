@@ -37,9 +37,14 @@ export const setMousePos = (e: MouseEvent) => {
   useMousePos().value.y = e.clientY;
 }
 
-export const useLoading = () => useState<boolean>('loading', () => false);
+export const useIntroLoaded = () => useState<boolean>('introLoading', () => true);
 
-export const setLoading = (value: boolean) => {
-  useLoading().value = value;
+export const setIntroLoaded = (value: boolean) => {
+  useIntroLoaded().value = value;
 }
 
+export const useIntroSetup = () => useState<boolean>('introSetting', () => false);
+
+export const setIntroSetup = (value: boolean) => {
+  useIntroSetup().value = value;
+}

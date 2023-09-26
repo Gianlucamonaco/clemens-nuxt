@@ -6,7 +6,7 @@ defineProps<{ category: Category }>()
 const categoryEl = ref(null) as any;
 const categoryItemsEl = ref(null) as any;
 const scrollSpeed = 10;
-const loading = useLoading();
+const loaded = useIntroLoaded();
 const { isMobile, isDesktop } = useDevice();
 
 let scroll = 0;
@@ -32,7 +32,7 @@ const animate = () => {
 </script>
 
 <template>
-<div v-if="!loading" class="category-wrap">
+<div v-if="loaded" class="category-wrap">
   <section
     ref="categoryEl"
     class="category"

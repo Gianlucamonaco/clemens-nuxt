@@ -1,23 +1,26 @@
 <script setup lang="ts">
-import { INTRO_DURATION } from '@/data/constants';
 import { getPageQuery } from '~/queries'
 
 const route = useRoute();
+const isIntroLoaded = useIntroLoaded();
+const isIntroSetup = useIntroSetup();
 
-// Use loading component only on homepage
-if (route.path === '/') {
-  setLoading(true);
-
-  setTimeout(() => {
-    setLoading(false);
-  }, INTRO_DURATION * 1000);
+const isHomepage = route.path === '/';
+if (isHomepage) {
+  if (!isIntroSetup.value) {
+    setIntroSetup(false);
+    setIntroLoaded(false)
+  }
+  else {
+    setIntroSetup(true);
+    setIntroLoaded(false)
+  }
 }
 
 // Set the current page data for the global page context
 const { queryApi, queryParams } = useQueryParams(getPageQuery('home'));
 const { data } = await useFetch(queryApi, queryParams);
 const page = (data?.value as any)?.result;
-const loading = useLoading();
 
 setPage(page);
 
@@ -28,5 +31,5 @@ setDescriptionIndex(-1);
 </script>
 
 <template>
-  <Loading v-if="loading" />
+  <Intro v-if="!isIntroLoaded || !isIntroSetup" />
 </template>

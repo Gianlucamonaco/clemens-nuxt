@@ -2,7 +2,7 @@
 
 const site = useSite()
 const route = useRoute()
-const loading = useLoading()
+const loaded = useIntroLoaded();
 const audioTitle = useAudioTitle();
 const isAudioAllowed = useIsAudioAllowed();
 const { isDesktop } = useDevice();
@@ -19,7 +19,7 @@ const categories = pages.find((p: any) => p.id == 'categories');
 </script>
 
 <template>
-  <header v-if="!loading" class="header">
+  <header v-if="loaded" class="header">
     <h1 class="header__title">
       <NuxtLink to="/">
         <TextShuffle :text="site.title"/>

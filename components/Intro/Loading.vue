@@ -16,18 +16,11 @@ const loaded = ref(false) as any;
 const progress = ref(0) as any;
 const ticker = ref(0) as any;
 const site = useSite().value;
-const home = site.children.find((p: any) => p.id === 'home');
+const home = useHomepage();
 const introSound = home.sounds?.[0];
-const isAudioAllowed = useIsAudioAllowed();
-
 const { play, isPlaying } = useAudioPlayer();
 
-if (introSound) {
-  useLoadAudio([introSound.url])
-  ?.then(() => {
-    if (introSound) play(introSound.url, '', { loop: false }).then(() => loaded.value = true)
-  });
-}
+if (introSound) play(introSound.url, '', { loop: false }).then(() => loaded.value = true)
 
 const content = {
   title: site.title.toUpperCase(),
@@ -65,26 +58,16 @@ onMounted(async () => {
       // Trigger component fade-out
       if (progress.value >= 0.995 && !loaded.value && !isPlaying()) loaded.value = true;
     },
+    onComplete: () => {
+      setIntroLoaded(true);
+    }
   })
 })
 
 </script>
 
 <template>
-  <div
-    :class="['loading', loaded ? 'loaded' : null ]"
-    @click="() => {
-      setIsAudioAllowed(true);
-      if (introSound && !isPlaying()) {
-        play(introSound.url, '', { loop: false }).then(() => loaded = true)
-      }
-    }"
-  >
-    <Switch
-      class="loading__enable"
-      text="Click anywhere to activate sound"
-      :is-audio-allowed="isAudioAllowed"
-    />
+  <div :class="['loading', loaded ? 'loaded' : null ]">
     <canvas ref="canvas" />
     <TextShuffle class="loading__subtitle" :text="content.subtitle" :delay="6" :duration="1" />
     <TextShuffle class="loading__date" :text="content.date" :delay="10" :duration="1" />
@@ -93,14 +76,9 @@ onMounted(async () => {
 
 <style lang="scss">
 .loading {
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  font-size: 200px;
-  background-color: $color-background;
+  position: relative;
+  width: 100%;
+  height: 100%;
   opacity: 1;
   overflow: hidden;
   transition: opacity .5s;
