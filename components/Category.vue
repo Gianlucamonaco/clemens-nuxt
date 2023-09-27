@@ -54,7 +54,7 @@ const animate = () => {
           :category-index="category.num"
         />
 
-        <SectionPause v-else-if="child.intendedTemplate === 'pause' && !isMobile" :item="child" />
+        <SectionPause v-else-if="child.intendedTemplate === 'pause'" :item="child" />
 
       </div>
     </div>
@@ -72,11 +72,8 @@ const animate = () => {
   height: $height-row;
   border-top: 1px solid $color-dark;
   border-bottom: 1px solid $color-dark;
-  background-image:
-    /* Horizontal lines */    
-    linear-gradient($color-dark-muted 1px, transparent 1px);
-    /* Vertical lines */
-    /* linear-gradient(to right, $color-dark-muted 1px, transparent 1px); */
+  /* Horizontal lines */    
+  background-image: linear-gradient($color-dark-muted 1px, transparent 1px);
   background-size: $width-column * 2 $height-unit * 2;
   background-repeat: repeat;
   margin-bottom: $height-unit;

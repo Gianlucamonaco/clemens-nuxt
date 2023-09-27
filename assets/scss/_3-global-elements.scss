@@ -12,6 +12,15 @@ html {
 
 body {
   overflow-x: hidden;
+  min-height: 100vh;
+
+  @media (max-width: $breakpoint-mobile) {
+    /* Vertical lines */
+    background-image: linear-gradient(to right, $color-dark-muted 1px, transparent 1px);
+    background-size: calc((100vw - $width-unit * 2) / 5) $height-unit * 2;
+    background-position: $width-unit;
+    background-repeat: repeat;
+  }
 }
 
 h1, h2, h3, h4, h5, h6, li {
@@ -23,7 +32,9 @@ main {
   width: 100%;
   
   @media (max-width: $breakpoint-mobile) {
+    height: 100%;
     margin-top: $height-unit * 3;
+    margin-bottom: $height-unit * 3;
   }
 }
 
@@ -42,16 +53,6 @@ a {
   border: 1px solid $color-dark;
   border-radius: 0;
   cursor: crosshair;
-}
-
-::-webkit-scrollbar,
-::-webkit-scrollbar-track {
-  height: 0px;
-}
-
-::selection {
-  background-color: $color-highlight;
-  color: $color-light;
 }
 
 .kirbytext {
@@ -73,16 +74,34 @@ a {
 @for $i from 0 through 9 {
   .duration-#{$i} {
     width: $width-column * $i;
+
+    @media (max-width: $breakpoint-mobile) {
+      width: auto;
+    }
   }
   
   .position-#{$i} {
     top: $height-unit * (9 - $i);
+
+    @media (max-width: $breakpoint-mobile) {
+      top: auto;
+    }
   }
 
   .blink-#{$i},
   .blink-hover-#{$i}:hover {
     animation: blink #{$i * 0.25}s steps(1) infinite;
   }
+}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-track {
+  height: 0px;
+}
+
+::selection {
+  background-color: $color-highlight;
+  color: $color-light;
 }
 
 @keyframes blink {

@@ -49,7 +49,8 @@ const pauseSymbol = (type: PauseTypes) => {
   cursor: crosshair;
 
   @media (max-width: $breakpoint-mobile) {
-    display: none;
+    position: static;
+    width: auto !important;
   }
 
   &__icon {

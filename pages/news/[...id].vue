@@ -17,3 +17,7 @@ setTimeout(() => {
 }, 250)
 
 </script>
+
+<template>
+  <span></span>
+</template>

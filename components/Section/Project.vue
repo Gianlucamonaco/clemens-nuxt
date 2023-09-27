@@ -44,8 +44,7 @@ const projectClass = isDesktop
     position: static;
     width: 100%;
     height: auto;
-    padding: $height-unit $width-unit * 2;
-    border-bottom: 1px solid $color-dark;
+    padding: $height-unit $width-unit;
   }
 
   &__title {

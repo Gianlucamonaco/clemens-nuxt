@@ -5,7 +5,7 @@ const route = useRoute()
 const loaded = useIntroLoaded();
 const audioTitle = useAudioTitle();
 const isAudioAllowed = useIsAudioAllowed();
-const { isDesktop } = useDevice();
+const { isDesktop, isMobile } = useDevice();
 
 const pages = computed(() =>
   (site.value?.children ?? [])
@@ -54,7 +54,7 @@ const categories = pages.find((p: any) => p.id == 'categories');
           :to="`/biography`"
           :aria-current="route.path.startsWith(`/${biography?.id}`) ? 'page' : undefined"
         >
-        <TextShuffle text="Biography" :duration="0.2" />
+        <TextShuffle :text="isMobile ? 'Bio' : 'Biography'" :duration="0.2" />
         </NuxtLink>
       </li>
 
@@ -139,6 +139,8 @@ const categories = pages.find((p: any) => p.id == 'categories');
     width: 100%;
     background-color: $color-background;
     border-bottom: 1px solid $color-dark;
+    padding-left: $width-unit;
+    padding-right: $width-unit;
 
     &__nav {
       display: flex;
@@ -147,11 +149,14 @@ const categories = pages.find((p: any) => p.id == 'categories');
     &__item {
       position: relative;
       &.active {
-        padding-left: $width-unit * 2;
+        margin-left: $width-unit * 2;
+        background-color: $color-highlight;
+        color: $color-light;
       }
 
       &.active::before {
-        content: '▀ ';
+        content: '';
+        display: none;
         z-index: -1;
         position: absolute;
         left: $width-unit;

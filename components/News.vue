@@ -51,8 +51,6 @@ const route = useRoute();
 
     @media (max-width: $breakpoint-mobile) {
       padding: $height-unit $width-unit;
-      border-left: $width-unit solid $color-dark;
-      border-right: $width-unit solid $color-dark;
     }
   }
 
