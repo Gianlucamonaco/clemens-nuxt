@@ -1,16 +1,19 @@
 <script setup>
 import { WIDTH_UNIT } from '@/data/constants';
 
-// Load intro sound
+// Preload intro sound
 const introSound = useHomepage().sounds?.[0];
 if (introSound) useLoadAudio([introSound.url]);
-
 </script>
 
 <template>
   <LayoutFlex class="intro__setting" justify-content="center" align-items="center">
     <div class="intro__dialogue">
-      <div class="intro__message">Please select your preference.<br/>For best experience, turn audio on.</div>
+
+      <div class="intro__message">
+        Please select your preference.<br/>Turn sound on for the best experience.
+      </div>
+
       <LayoutFlex justify-content="center" :gap="WIDTH_UNIT * 2">
         <TextShuffle
           class="button intro__button intro__button--muted"
@@ -31,6 +34,7 @@ if (introSound) useLoadAudio([introSound.url]);
           }"
         />
       </LayoutFlex>
+
     </div>
   </LayoutFlex>
 </template>

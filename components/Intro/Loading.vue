@@ -12,15 +12,15 @@ let ctx: CanvasRenderingContext2D, offCtx: any;
 const dpr = window.devicePixelRatio, vw = window.innerWidth, vh = window.innerHeight;
 const offCanvas = new OffscreenCanvas(1, 1);
 const canvas = ref(null) as any;
-const loaded = ref(false) as any;
 const progress = ref(0) as any;
+const opacityProgress = ref(1) as any;
 const ticker = ref(0) as any;
 const site = useSite().value;
 const home = useHomepage();
 const introSound = home.sounds?.[0];
-const { play, isPlaying } = useAudioPlayer();
+const { play } = useAudioPlayer();
 
-if (introSound) play(introSound.url, '', { loop: false }).then(() => loaded.value = true)
+if (introSound) play(introSound.url, '', { loop: false })
 
 const content = {
   title: site.title.toUpperCase(),
@@ -40,8 +40,10 @@ onMounted(async () => {
 
   const { padding, blockValues } = drawLoadingOffsetCanvas(offCtx, content.title);
 
-  // Start animation;
-  gsap.to(progress, {
+  const timeline = gsap.timeline();
+  
+  // Intro animation
+  const animationIntro = gsap.to(progress, {
     value: 1,
     duration: INTRO_DURATION,
     ease: EASING,
@@ -55,72 +57,29 @@ onMounted(async () => {
         ticker.value = 0;
       }
       
-      // Trigger component fade-out
-      if (progress.value >= 0.995 && !loaded.value && !isPlaying()) loaded.value = true;
     },
+  })
+
+  // Fade-out animation
+  const animationFade = gsap.to(opacityProgress, {
+    value: 0,
+    duration: 1,
+    ease: EASING,
     onComplete: () => {
       setIntroLoaded(true);
     }
   })
+
+  timeline.add(animationIntro);
+  timeline.add(animationFade);
 })
 
 </script>
 
 <template>
-  <div :class="['loading', loaded ? 'loaded' : null ]">
-    <canvas ref="canvas" />
-    <TextShuffle class="loading__subtitle" :text="content.subtitle" :delay="6" :duration="1" />
-    <TextShuffle class="loading__date" :text="content.date" :delay="10" :duration="1" />
+  <div class="intro__loading" :style="{ opacity: opacityProgress }">
+    <canvas ref="canvas" class="intro__canvas" />
+    <TextShuffle class="intro__subtitle" :text="content.subtitle" :delay="6" :duration="1" />
+    <TextShuffle class="intro__date" :text="content.date" :delay="10" :duration="1" />
   </div>
 </template>
-
-<style lang="scss">
-.loading {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  opacity: 1;
-  overflow: hidden;
-  transition: opacity .5s;
-  cursor: crosshair;
-
-  &.loaded {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  canvas {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  &__date,
-  &__enable,
-  &__subtitle {
-    font-size: $fontsize-m;
-    position: fixed;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  &__enable {
-    top: 15%;
-    justify-content: center !important;
-    padding: 0 $width-unit * 6 !important;
-    
-  }
-
-  &__subtitle {
-    top: 80%;
-  }
-  &__date {
-    top: calc(80% + $height-unit * 2);
-  }
-}
-</style>
