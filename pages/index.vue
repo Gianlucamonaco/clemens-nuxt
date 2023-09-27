@@ -4,10 +4,11 @@ import { getPageQuery } from '~/queries'
 const route = useRoute();
 const isIntroLoaded = useIntroLoaded();
 const isIntroSetup = useIntroSetup();
+const {isMobile} = useDevice();
 
 const isHomepage = route.path === '/';
 if (isHomepage) {
-  if (!isIntroSetup.value) {
+  if (!isIntroSetup.value && !isMobile) {
     setIntroSetup(false);
     setIntroLoaded(false)
   }
