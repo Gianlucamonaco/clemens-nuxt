@@ -26,6 +26,7 @@ if (page?.images) await Promise.all(
 setTimeout(() => {
   setDescriptionIndex(page?.parentIndex);
   setContent({
+    title: page?.title,
     description: page?.text,
     links: page?.links,
     downloads: page?.downloads,

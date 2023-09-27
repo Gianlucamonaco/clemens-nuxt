@@ -21,6 +21,7 @@ export interface Project {
 }
 
 export interface ProjectContent {
+  title?: string,
   description?: string,
   links?: { text: string, url: string }[],
   downloads?: { text: string, id: number, file: File }[],

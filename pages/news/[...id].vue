@@ -13,7 +13,10 @@ setDescriptionIndex(-1);
 
 setTimeout(() => {
   setDescriptionIndex(page?.num);
-  setContent({ description: page?.text });
+  setContent({
+    title: page?.title,
+    description: page?.text,
+  });
 }, 250)
 
 </script>
