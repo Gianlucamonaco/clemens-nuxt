@@ -1,9 +1,15 @@
 // Draw offset canvas with text
-import { FONTS, HEIGHT_UNIT, INTRO_OPTIONS, WIDTH_UNIT } from "@/data/constants";
+import { FONTS, INTRO_OPTIONS } from "@/data/constants";
 import { randomChars } from '@/utils/text.utils';
 
+const mobileUnit = {
+  w: INTRO_OPTIONS.unit.w / 2,
+  h: INTRO_OPTIONS.unit.h / 2,
+}
+
 export const drawLoadingOffsetCanvas = (ctx: any, text: string) => {
-  const { unit } = INTRO_OPTIONS;
+  const { isMobile } = useDevice();
+  const unit = isMobile ? mobileUnit : INTRO_OPTIONS.unit;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
   const portrait = vw < vh;
@@ -53,8 +59,11 @@ export const drawLoadingOffsetCanvas = (ctx: any, text: string) => {
 
 // Draw rectangles based on luminosity array values
 export const drawIntroTitleBlocks = (ctx: any, values: number[][], padding: { x: number, y: number }, progress: number) => {
+  const { isMobile } = useDevice();
   const dpr = window.devicePixelRatio;
-  const { threshold, unit } = INTRO_OPTIONS;
+  const { threshold } = INTRO_OPTIONS;
+  const unit = isMobile ? mobileUnit : INTRO_OPTIONS.unit;
+
   const rows = values.length;
   const cols = values[0].length;
 
@@ -81,11 +90,10 @@ export const drawIntroTitleBlocks = (ctx: any, values: number[][], padding: { x:
 
 // Draw animated frame made of characters
 export const drawIntroFrameBlocks = (ctx: any, progress: number = 1, clearFrame: boolean = true) => {
-  const framePadding = {
-    x: HEIGHT_UNIT,
-    y: HEIGHT_UNIT,
-  };
-  const frameWidth = HEIGHT_UNIT;
+  const { isMobile } = useDevice();
+  const unit = isMobile ? mobileUnit : INTRO_OPTIONS.unit;
+  const framePadding = { x: unit.h, y: unit.h };
+  const frameWidth = unit.h;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
   const { width: cw, height: ch } = ctx.canvas;
@@ -104,12 +112,12 @@ export const drawIntroFrameBlocks = (ctx: any, progress: number = 1, clearFrame:
   const sideProgress = Math.max(0, Math.min(0.3, progress - 0.3)) / 0.3;
   const bottomProgress = Math.max(0, Math.min(0.6, progress - 0.6)) / 0.4;
 
-  const horzMaxChars = Math.floor((vw - framePadding.x * 2) / WIDTH_UNIT);
-  const vertMaxChars = Math.floor((vh - framePadding.y * 2 - frameWidth * 2) / HEIGHT_UNIT);
+  const horzMaxChars = Math.floor((vw - framePadding.x * 2) / unit.w);
+  const vertMaxChars = Math.floor((vh - framePadding.y * 2 - frameWidth * 2) / unit.h);
   const opticalAdjustmentX = 0.875;
 
-  framePadding.x = (vw - horzMaxChars * WIDTH_UNIT) / 2 * opticalAdjustmentX * dpr;
-  framePadding.y = (vh - vertMaxChars * HEIGHT_UNIT) / 2;
+  framePadding.x = (vw - horzMaxChars * unit.w) / 2 * opticalAdjustmentX * dpr;
+  framePadding.y = (vh - vertMaxChars * unit.h) / 2;
 
   // top
   ctx.textAlign = 'left';
@@ -155,14 +163,14 @@ export const drawIntroFrameBlocks = (ctx: any, progress: number = 1, clearFrame:
   ctx.fillText(
     randomChars(horzMaxChars / 2 * bottomProgress),
     framePadding.x,
-    framePadding.y + lines * HEIGHT_UNIT,
+    framePadding.y + lines * unit.h,
   )
 
   ctx.textAlign = 'right';
   ctx.fillText(
     randomChars(horzMaxChars / 2 * bottomProgress),
     cw - framePadding.x,
-    framePadding.y + lines * HEIGHT_UNIT,
+    framePadding.y + lines * unit.h,
   )  
 }
 
