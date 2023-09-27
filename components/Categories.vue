@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { categoriesQuery } from '~/queries';
 
+const { isMobile } = useDevice();
 const { queryApi, queryParams } = useQueryParams(categoriesQuery);
 const { data } = await useFetch(queryApi, queryParams);
 const rawCategories = (data?.value as any)?.result?.children?.filter((p: any) => p.isListed) ?? [];
@@ -19,6 +20,8 @@ const categories = useProcessCategories(rawCategories);
     {{ category.title }}
   </Category>
 
+  <SectionMobileDetails v-if="isMobile" parentUrl="/categories" />
+
 </div>
 </template>
 
@@ -35,6 +38,4 @@ const categories = useProcessCategories(rawCategories);
     padding-top: 0;
   }
 }
-
-
 </style>

@@ -1,10 +1,16 @@
+<script setup lang="ts">
+const content = useContent();
+const { isMobile } = useDevice();
+
+</script>
+
 <template>
   <Html lang="en">
     <Head>
       <Link rel="icon" href="/favicon.ico" type="image/x-icon" />
     </Head>
 
-    <Body>
+    <Body :class="[content?.title && isMobile && 'no-scroll']">
       <LayoutFlex class="page">
         <AppHeader />
 

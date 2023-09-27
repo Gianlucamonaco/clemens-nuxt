@@ -1,14 +1,11 @@
 
-import { link } from 'fs';
 <script setup lang="ts">
 import { HEIGHT_UNIT, WIDTH_UNIT } from '@/data/constants';
-
 
 defineProps<{ categoryIndex: number }>()
 
 const descriptionIndex = useDescriptionIndex();
 const content = useContent();
-
 </script>
 
 <template>
@@ -51,7 +48,7 @@ const content = useContent();
 
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .details {
   min-height: 0;
   height: 0;
@@ -59,12 +56,10 @@ const content = useContent();
   font-size: $fontsize-s;
   overflow-y: scroll;
   transition: all .5s;
-
-  @media (min-width: $breakpoint-mobile) {
-    &.active {
-      min-height: $height-row * 2;
-      opacity: 1;
-    }
+  
+  &.active {
+    min-height: $height-row * 2;
+    opacity: 1;
   }
 
   img {

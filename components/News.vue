@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { newsQuery } from '~/queries'
 
+const route = useRoute();
+const { isMobile } = useDevice();
 const { queryApi, queryParams } = useQueryParams(newsQuery);
 const { data } = await useFetch(queryApi, queryParams);
 const page = (data.value as any)?.result;
-const route = useRoute();
+
 
 </script>
 
@@ -26,11 +28,13 @@ const route = useRoute();
       </NuxtLink>
 
       <div class="news__content">
-        <SectionDetails :category-index="news.num" />
+        <SectionDetails v-if="!isMobile" :category-index="news.num" />
       </div>
 
     </li>
   </ul>
+
+  <SectionMobileDetails v-if="isMobile" parentUrl="/news" />
 </div>
 </template>
 
@@ -67,6 +71,10 @@ const route = useRoute();
   &__item {
     width: 100%;
     border-bottom: 1px solid $color-dark;
+
+    @media (max-width: $breakpoint-mobile) {
+      border-bottom: none;
+    }
 
     &:hover,
     [aria-current=page] {

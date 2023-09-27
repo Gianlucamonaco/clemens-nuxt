@@ -61,7 +61,7 @@ const animate = () => {
 
   </section>
 
-  <SectionDetails :category-index="category.num" />
+  <SectionDetails v-if="!isMobile" :category-index="category.num" />
 
 </div>
 </template>
@@ -113,8 +113,6 @@ const animate = () => {
 
     @media (max-width: $breakpoint-mobile) {
       flex-direction: column;
-      border-left: $width-unit solid $color-dark;
-      border-right: $width-unit solid $color-dark;
     }
   }
 

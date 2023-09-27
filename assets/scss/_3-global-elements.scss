@@ -26,6 +26,7 @@ body {
 h1, h2, h3, h4, h5, h6, li {
   font-size: $fontsize-m;
   line-height: $lineheight-m;
+  font-weight: 400;
 }
 
 main {
@@ -53,6 +54,11 @@ a {
   border: 1px solid $color-dark;
   border-radius: 0;
   cursor: crosshair;
+}
+
+.no-scroll {
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .kirbytext {
