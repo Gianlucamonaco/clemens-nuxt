@@ -33,6 +33,7 @@ export default defineNuxtConfig({
   //   },
   // },
 
+  // ENABLED: PRERENDER INDEX PAGE
   nitro: {
     prerender: {
       // Prerender the index page
@@ -52,6 +53,7 @@ export default defineNuxtConfig({
   //   },
   // },
 
+  // ENABLED: AUTO IMPORT SASS VARIABLES
   vite: {
     css: {
       preprocessorOptions: {
@@ -64,4 +66,7 @@ export default defineNuxtConfig({
 
   // ENABLED: SERVER SIDE RENDERING
   ssr: false,
+
+  // ENABLED: SKIP DEFAULT NUXT LOADING PAGE
+  spaLoadingTemplate: 'loading.html',
 })

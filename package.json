@@ -42,7 +42,6 @@
     }
   },
   "dependencies": {
-    "sass": "^1.65.1",
-    "txt-shuffle": "^1.0.3"
+    "sass": "^1.65.1"
   }
 }

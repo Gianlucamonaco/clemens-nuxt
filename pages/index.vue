@@ -1,32 +1,19 @@
 <script setup lang="ts">
 import { homeQuery } from '~/queries';
-import { queryApi, queryHeaders } from "../data/constants";
 
-const { data: dataCategories } = await useFetch(queryApi, {
-  method: "post",
-  body: homeQuery,
-  headers: queryHeaders,
-});
+const { queryApi, queryParams } = useQueryParams(homeQuery);
+const { data } = await useFetch(queryApi, queryParams);
+const page = (data?.value as any)?.result;
 
-const categories = dataCategories?.value?.result?.children?.filter(p => p.isListed) ?? {};
-
+setPage(page);
 </script>
 
 <template>
-  <div class="categories">
+<div class="content">
 
-    <Section v-for="category in categories" :key="category.id" :category="category">
-      {{ category.title }}
-    </Section>
+  <h1>{{ page?.title }}</h1>
+  <div v-router-links v-html="page?.text" />
+  <Section v-for="item in page.children" :key="item.id" :item="item" />
 
 </div>
 </template>
-
-<style scoped lang="scss">
-.categories {
-  width: calc(100vw - $width-sidebar-s);
-  margin-top: $unit-vertical;
-  overflow: hidden;
-}
-
-</style>

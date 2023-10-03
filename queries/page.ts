@@ -17,7 +17,6 @@ export function getPageQuery(pageId: string): KirbyQuerySchema {
       id: true,
       title: true,
       intendedTemplate: true,
-      // description: true,
       text: 'page.text.kirbytext',
     },
   }

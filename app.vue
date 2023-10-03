@@ -11,13 +11,9 @@
         <main class="main">
           <NuxtPage />
         </main>
+
+        <AppFooter />
       </div>
     </Body>
   </Html>
 </template>
-
-<style scoped lang="scss">
-.page {
-  display: flex;
-}
-</style>

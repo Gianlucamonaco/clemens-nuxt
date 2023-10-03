@@ -1,26 +1,18 @@
 <script setup lang="ts">
-const { data } = await useKql({
-  query: `page("${useRoute().path}")`,
-  select: {
-    id: true,
-    title: true,
-    intendedTemplate: true,
-    description: true,
-    // images: {
-    //   query: 'page.images',
-    //   select: ['id', 'uuid', 'url', 'alt'],
-    // },
-  },
-})
+import { getPageQuery } from '~/queries'
 
-// Set the current page data for the global page context
-const page = data.value?.result
-setPage(page)
+const { queryApi, queryParams } = useQueryParams(getPageQuery('about'));
+const { data } = await useFetch(queryApi, queryParams);
+const page = (data?.value as any)?.result;
+
+setPage(page);
 </script>
 
 <template>
-  <div></div>
-</template>
+<div class="content">
 
-<style scoped lang="scss">
-</style>
+  <h1>{{ page?.title }}</h1>
+  <div v-router-links v-html="page?.text" />
+
+</div>
+</template>
