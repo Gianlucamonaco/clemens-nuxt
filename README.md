@@ -1,30 +1,14 @@
-<p align="center">
-  <img src="https://nuxt-kql.jhnn.dev/logo-shadow.svg" alt="Kirby Nuxt Starter Kit" width="128" height="128">
-</p>
+# Kirby Nuxt Boilerplage
 
-<h3 align="center">Kirby Nuxt Starter Kit</h3>
-
-<p align="center">
-  Kirby's sample site – but rewritten in Nuxt 3<br>
-  <a href="https://kirby-nuxt-starterkit.netlify.app"><strong>Explore the kit live »</strong></a>
-</p>
-
-<br>
-
-# Kirby Nuxt Starter Kit
-
-This repository is a port of the [Kirby Starter Kit](https://github.com/getkirby/starterkit) to Nuxt 3. The content is fetched using the [`nuxt-kql`](https://nuxt-kql.jhnn.dev) module from [Kirby Headless Starter](https://github.com/johannschopplich/kirby-headless-starter), a headless Kirby instance instance.
+This is a cleaned version of Johann Schopplich's [Kirby Nuxt Starter Kit](https://github.com/johannschopplich/kirby-nuxt-starterkit).
 
 ## Key Features
 
 - 🫂 Kirby Query Language with [`nuxt-kql`](https://nuxt-kql.jhnn.dev)
 - 🪁 [Component based Kirby Blocks](./components/Kirby/Block/)
 - 🏛 Global [site data](./plugins/site.ts) similar to Kirby's `$site`
-- 🗳 [Collections](./composables/collections.ts) for pre-defined queries
 - 🔎 SSR generated SEO metadata
-- 📐 Prettier & ESLint
 - 🔢 Pre-configured [VSCode settings](./.vscode/settings.json)
-- 🔖 And much more!
 
 ## Usage
 
