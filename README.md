@@ -1,4 +1,4 @@
-# Kirby Nuxt Boilerplage
+# Kirby Nuxt Boilerplate
 
 This is a cleaned version of Johann Schopplich's [Kirby Nuxt Starter Kit](https://github.com/johannschopplich/kirby-nuxt-starterkit).
 
