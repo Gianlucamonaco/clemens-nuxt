@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { getPageQuery } from '~/queries'
+import { getDefaultPageQuery, getPageQuery } from '~/queries'
 
 definePageMeta({
   scrollToTop: false,
 })
 
 // Fetch page data
-const kirbyPath = useRoute().path;
-const { queryApi, queryParams } = useQueryParams(getPageQuery(kirbyPath));
+const route = useRoute();
+const { queryApi, queryParams } = useQueryParams(route.path == '/categories' ? getDefaultPageQuery(route.path) : getPageQuery(route.path));
 const { data } = await useFetch(queryApi, queryParams);
 const page = (data?.value as any)?.result;
 

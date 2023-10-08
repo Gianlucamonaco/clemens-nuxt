@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getPageQuery } from '~/queries'
+import { getDefaultPageQuery } from '~/queries'
 
 const route = useRoute();
 const isIntroLoaded = useIntroLoaded();
@@ -19,7 +19,7 @@ if (isHomepage) {
 }
 
 // Set the current page data for the global page context
-const { queryApi, queryParams } = useQueryParams(getPageQuery('home'));
+const { queryApi, queryParams } = useQueryParams(getDefaultPageQuery('home'));
 const { data } = await useFetch(queryApi, queryParams);
 const page = (data?.value as any)?.result;
 

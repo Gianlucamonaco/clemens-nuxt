@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { getPageQuery } from '~/queries'
+import { getDefaultPageQuery, getPageQuery } from '~/queries'
 
 definePageMeta({ layout: "news" });
 
 const route = useRoute();
-const { queryApi, queryParams } = useQueryParams(getPageQuery(route.path));
+const { queryApi, queryParams } = useQueryParams(route.path == '/news' ? getDefaultPageQuery(route.path) : getPageQuery(route.path));
 const { data } = await useFetch(queryApi, queryParams);
 const page = (data?.value as any)?.result;
 

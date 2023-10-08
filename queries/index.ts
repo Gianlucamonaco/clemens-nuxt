@@ -1,5 +1,6 @@
 export * from './about'
 export * from './categories'
+export * from './default'
 export * from './news'
 export * from './page'
 export * from './project'
