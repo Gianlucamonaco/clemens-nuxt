@@ -17,9 +17,11 @@ export const useQueryParams = (body: any) => {
   const runtimeConfig = useRuntimeConfig();
   const queryApi = `${runtimeConfig.app.KIRBY_BASE_URL}/api/query`;
   const queryHeaders = {
-    // Authorization: `Basic ${btoa(KIRBY_API_USERNAME + ":" + KIRBY_API_PASSWORD)}`,
-    Authorization: `Bearer ${runtimeConfig.app.KIRBY_API_TOKEN}`,
+    // Authorization: `Bearer ${runtimeConfig.app.KIRBY_API_TOKEN}`,
+    Authorization: `Basic ${btoa(runtimeConfig.app.KIRBY_API_USERNAME + ":" + runtimeConfig.app.KIRBY_API_PASSWORD)}`,
+    "Content-Type": "application/json",
     Accept: "application/json",
+    referrerPolicy: "no-referrer",
   };
 
   return {
