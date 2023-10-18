@@ -20,6 +20,9 @@ dependencies:
   txt-shuffle:
     specifier: ^1.0.3
     version: 1.0.3
+  vue-height-collapsible:
+    specifier: ^0.1.1
+    version: 0.1.1
 
 devDependencies:
   '@nuxt/eslint-config':
@@ -6727,6 +6730,16 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vue-height-collapsible@0.1.1:
+    resolution: {integrity: sha512-GnjExhRPMA/YaGkOb18AImeGGyjnHLsUKtKHSmnqGPpaSbRgh44nlLqgXOl9nL+HFAlTZ4a4gpUaDno1HyZnHw==}
+    engines: {node: '>=12', npm: '>=6'}
+    peerDependencies:
+      vue: 2.6.x || 3.x.x
+    peerDependenciesMeta:
+      vue:
+        optional: true
+    dev: false
 
   /vue-router@4.2.2(vue@3.3.4):
     resolution: {integrity: sha512-cChBPPmAflgBGmy3tBsjeoe3f3VOSG6naKyY5pjtrqLGbNEXdzCigFUHgBvp9e3ysAtFtEx7OLqcSDh/1Cq2TQ==}

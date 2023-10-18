@@ -1,6 +1,7 @@
 
 <script setup lang="ts">
-import { HEIGHT_UNIT, WIDTH_UNIT } from '@/data/constants';
+import { HEIGHT_ROW, HEIGHT_UNIT, WIDTH_UNIT } from '@/data/constants';
+import HeightCollapsible from "vue-height-collapsible/vue3";
 
 defineProps<{ categoryIndex: number }>()
 
@@ -9,8 +10,9 @@ const content = useContent();
 </script>
 
 <template>
-  <div
+  <HeightCollapsible
     class="details"
+    :is-open="descriptionIndex === categoryIndex"
     :class="{ active: descriptionIndex === categoryIndex }"
     :style="{ minHeight: descriptionIndex === categoryIndex ? `${content?.height}px` : 0 }"
   >
@@ -44,13 +46,12 @@ const content = useContent();
         </ul>
       </div>
     </LayoutFlex>
-  </div>
+  </HeightCollapsible>
 
 </template>
 
 <style scoped lang="scss">
 .details {
-  min-height: 0;
   height: 0;
   opacity: 0;
   font-size: $fontsize-s;
@@ -58,7 +59,7 @@ const content = useContent();
   transition: all .5s;
   
   &.active {
-    min-height: $height-row * 2;
+    height: auto;
     opacity: 1;
   }
 
@@ -81,6 +82,7 @@ const content = useContent();
   &__downloads {
     flex: 1;
     max-width: $width-column * 3;
+    padding-bottom: $height-unit * 2;
 
     h6 {
       padding-bottom: $height-unit;
@@ -95,6 +97,7 @@ const content = useContent();
     height: $height-row * 1.5;
     margin-bottom: $height-unit;
     overflow-x: scroll;
+    overflow-y: hidden;
 
     @media (max-width: $breakpoint-mobile) {
       padding-left: $width-unit;

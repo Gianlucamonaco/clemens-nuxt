@@ -47,6 +47,7 @@
     "gsap": "^3.12.2",
     "random": "^4.1.0",
     "sass": "^1.65.1",
-    "txt-shuffle": "^1.0.3"
+    "txt-shuffle": "^1.0.3",
+    "vue-height-collapsible": "^0.1.1"
   }
 }
