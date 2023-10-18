@@ -6,16 +6,10 @@ export const specialChars = {
   btm:  '▄',
 }
 
-export const pauseValues = {
-  croma: 2,
-  semiminima: 4,
-  minima: 6,
-}
-
 export const pauseSymbols = {
-  croma: '    \n▀   \n   ▄\n    ' ,
-  semiminima: '    \n    \n▄▄▄▄\n    ' ,
-  minima: '    \n▀▀▀▀\n    \n    ' ,
+  pause1: '    \n▀   \n   ▄\n    ' ,
+  pause2: '    \n    \n▄▄▄▄\n    ' ,
+  pause3: '        \n▀▀▀▀▀▀▀▀\n        \n        ' ,
 }
 
 export const soundSymbol = '▀▀▀▀▀▀▀▀';

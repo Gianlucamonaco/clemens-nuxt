@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { PauseTypes, Project } from '../../data/types';
-import { pauseSymbols, pauseValues } from '../../data/constants';
+import type { Project } from '../../data/types';
+import { pauseSymbols } from '../../data/constants';
 
 const props = defineProps<{ item: Project }>()
 
@@ -10,32 +10,23 @@ if (props.item.sounds?.length) {
   useLoadAudio(props.item.sounds.map(sound => sound.url))
 }
 
-const pauseClass = (type: PauseTypes) => {
-  const duration = pauseValues[type as PauseTypes];
-  return ['pause', `pause__${type}`, 'position-6', `duration-${duration}`];
-}
-
-const pauseSymbol = (type: PauseTypes) => {
-  return pauseSymbols[type as PauseTypes];
-}
-
 </script>
 
 <template>
   <LayoutFlex
-    :class="pauseClass(item.type.toLowerCase() as PauseTypes)"
+    :class="['pause', 'position-6', `duration-${item.duration}`]"
     justify-content="center"
     >
     <h3
       v-if="item.sounds?.[0]"
-      :class="['pause__icon', `blink-hover-${pauseValues[item.type.toLowerCase() as PauseTypes]}`]"
+      :class="['pause__icon', `blink-hover-${item.duration}`]"
       @mouseenter="() => {
         const sound = item.sounds?.[0];
         if (sound) play(sound.url, sound.title, { loop: true });
       }"
       @mouseleave="pause()"
     >
-      {{ pauseSymbol(item.type.toLowerCase() as PauseTypes) }}
+      {{ pauseSymbols[item.type as 'pause1' | 'pause2' | 'pause3'] }}
     </h3>
   </LayoutFlex>
 </template>
@@ -55,8 +46,6 @@ const pauseSymbol = (type: PauseTypes) => {
 
   &__icon {
     display: inline;
-    /* width: $height-unit; */
-    /* height: $height-unit; */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
