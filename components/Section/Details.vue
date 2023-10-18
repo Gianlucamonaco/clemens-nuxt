@@ -25,7 +25,7 @@ const content = useContent();
     </LayoutFlex>
 
     <LayoutFlex v-if="content?.description || content?.download?.length || content?.links?.length" class="details__text" :gap="WIDTH_UNIT">
-      <div class="details__description kirbytext" v-html="content?.description"></div>
+      <div v-if="content?.description" class="details__description kirbytext" v-html="content?.description"></div>
 
       <div v-if="content?.links?.length" class="details__links">
         <h6>Links:</h6>
