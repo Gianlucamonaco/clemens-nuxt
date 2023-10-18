@@ -26,7 +26,7 @@ export interface ProjectContent {
   links?: { text: string, url: string }[],
   downloads?: { text: string, id: number, file: File }[],
   images?: File[],
-  height?: number,
+  videos?: { text: string, src: string },
 }
 
 export interface File {

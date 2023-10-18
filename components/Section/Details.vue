@@ -14,11 +14,14 @@ const content = useContent();
     class="details"
     :is-open="descriptionIndex === categoryIndex"
     :class="{ active: descriptionIndex === categoryIndex }"
-    :style="{ minHeight: descriptionIndex === categoryIndex ? `${content?.height}px` : 0 }"
   >
 
-    <LayoutFlex v-if="content?.images?.length" class="details__images" :gap="HEIGHT_UNIT">
+    <LayoutFlex v-if="content?.images?.length || content?.videos?.length" class="details__images" :gap="HEIGHT_UNIT">
       <img v-for="image in content?.images" :key="image.id" :src="image.url" :alt="image.alt" />
+
+      <div v-for="video in content?.videos" :key="video.text">
+        <iframe width="460" :height="HEIGHT_ROW * 1.5" :src="useVideo(video.src)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
     </LayoutFlex>
 
     <LayoutFlex v-if="content?.description || content?.download?.length || content?.links?.length" class="details__text" :gap="WIDTH_UNIT">

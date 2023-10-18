@@ -31,6 +31,7 @@ setTimeout(() => {
     links: page?.links,
     downloads: page?.downloads,
     images: page?.images,
+    videos: page?.videos,
   });
 }, 250)
 
