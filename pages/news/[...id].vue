@@ -16,6 +16,10 @@ setTimeout(() => {
   setContent({
     title: page?.title,
     description: page?.text,
+    links: page?.links,
+    downloads: page?.downloads,
+    images: page?.images,
+    videos: page?.videos,
   });
 }, 250)
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { WIDTH_UNIT } from '~/data/constants';
 import { newsQuery } from '~/queries'
 
 const route = useRoute();
@@ -21,8 +22,9 @@ const page = (data.value as any)?.result;
       <NuxtLink
         :to="route.path.startsWith(`/${news.id}`) ? '/news' : `/${news.id}`"
         :aria-current="route.path.startsWith(`/${news.id}`) ? 'page' : undefined">
-        <LayoutFlex class="news__header" justify-content="space-between">
+        <LayoutFlex class="news__header" justify-content="space-between" :gap="WIDTH_UNIT">
           <h3 class="news__title"><TextShuffle :text="news.title" :delay="news.num" /></h3>
+          <span class="news__location">{{news.location}}</span>
           <span class="news__date">{{useFormattedDate(news.date)}}</span>
         </LayoutFlex>
       </NuxtLink>
@@ -34,7 +36,7 @@ const page = (data.value as any)?.result;
     </li>
   </ul>
 
-  <SectionMobileDetails v-if="isMobile" parentUrl="/news" />
+  <SectionMobileDetails v-if="isMobile" parent-url="/news" />
 </div>
 </template>
 
@@ -89,8 +91,18 @@ const page = (data.value as any)?.result;
     }
   }
 
+  &__title {
+    flex: 4;
+  }
+
+  &__location {
+    flex: 1;
+  }
+
   &__date {
+    flex: 1;
     white-space: nowrap;
+    text-align: right;
   }
 
   &__content .details.active {

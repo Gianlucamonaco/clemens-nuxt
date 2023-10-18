@@ -12,6 +12,7 @@ export const newsQuery: KirbyQuerySchema = {
         isListed: true,
         num: true,
         intendedTemplate: true,
+        location: true,
         date: 'page.date.toDate',
         text: 'page.text.kirbytext',
       }
