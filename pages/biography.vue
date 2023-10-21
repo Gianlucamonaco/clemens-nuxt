@@ -38,6 +38,9 @@ setPage(page);
     width: 100%;
     margin-left: 0;
     margin-top: 0;
+
+    font-size: 16px;
+    line-height: 25px;
   }
 
   &__text {

@@ -83,7 +83,7 @@ const animate = () => {
     margin-bottom: 0;
     background: none;
     border-top: none;
-    border-bottom: none;
+    border-bottom: 1px solid $color-dark;
   }
 
   &__items {

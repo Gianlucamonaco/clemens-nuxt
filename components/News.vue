@@ -56,6 +56,7 @@ const page = (data.value as any)?.result;
     padding: $height-unit 0;
 
     @media (max-width: $breakpoint-mobile) {
+      flex-wrap: wrap;
       padding: $height-unit $width-unit;
     }
   }
@@ -74,10 +75,6 @@ const page = (data.value as any)?.result;
     width: 100%;
     border-bottom: 1px solid $color-dark;
 
-    @media (max-width: $breakpoint-mobile) {
-      border-bottom: none;
-    }
-
     &:hover,
     [aria-current=page] {
       .news__title span {
@@ -93,16 +90,28 @@ const page = (data.value as any)?.result;
 
   &__title {
     flex: 4;
+
+    @media (max-width: $breakpoint-mobile) {
+      min-width: 100%;
+    }
   }
 
   &__location {
     flex: 1;
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: $fontsize-s;
+    }
   }
 
   &__date {
     flex: 1;
     white-space: nowrap;
     text-align: right;
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: $fontsize-s;
+    }
   }
 
   &__content .details.active {

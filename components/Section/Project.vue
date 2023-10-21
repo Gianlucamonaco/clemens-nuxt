@@ -48,7 +48,7 @@ const projectClass = isDesktop
   }
 
   &__title {
-    display: inline-block;
+    display: inline;
   }
 
   &__icon {
