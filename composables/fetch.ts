@@ -30,6 +30,7 @@ export const useQueryParams = (body: any) => {
       headers: queryHeaders,
       method: "post",
       body,
+      key: body.query, // Important: Key makes sure that on first load projects are loaded
     } as any,
   }
 }

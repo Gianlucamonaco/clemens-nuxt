@@ -43,7 +43,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       // Prerender the index page
-      routes: ['/'],
+      // routes: ['/'],
     },
   },
 
@@ -69,7 +69,9 @@ export default defineNuxtConfig({
     },
   },
 
-  // ENABLED: SERVER SIDE RENDERING
+  // DISABLED: SERVER SIDE RENDERING
   ssr: false,
+
+  // ENABLED: REPLACE NUXT DEFAULT LOADING SCREEN WITH EMPTY SCREEN
   spaLoadingTemplate: 'loading.html',
 })

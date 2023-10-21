@@ -30,7 +30,7 @@ const page = (data.value as any)?.result;
       </NuxtLink>
 
       <div class="news__content">
-        <SectionDetails v-if="!isMobile" :category-index="news.num" />
+        <SectionDetails v-if="!isMobile" :category-index="news.num ?? -1" />
       </div>
 
     </li>

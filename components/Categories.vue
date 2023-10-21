@@ -20,7 +20,7 @@ const categories = useProcessCategories(rawCategories);
     {{ category.title }}
   </Category>
 
-  <SectionMobileDetails v-if="isMobile" parentUrl="/categories" />
+  <SectionMobileDetails v-if="isMobile" parent-url="/categories" />
 
 </div>
 </template>

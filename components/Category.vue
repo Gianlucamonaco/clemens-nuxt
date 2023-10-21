@@ -61,7 +61,7 @@ const animate = () => {
 
   </section>
 
-  <SectionDetails v-if="!isMobile" :category-index="category.num" />
+  <SectionDetails v-if="!isMobile" :category-index="category.num ?? -1" />
 
 </div>
 </template>
