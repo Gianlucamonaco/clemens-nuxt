@@ -26,6 +26,7 @@ export function getPageQuery(pageId: string): KirbyQuerySchema {
       date: 'page.date.toDate',
       text: 'page.text.kirbytext',
       links: 'page.links.toStructure',
+      tickets: 'page.tickets.toStructure',
       downloads: {
         query: 'page.downloads.toStructure',
         select: {
@@ -38,7 +39,7 @@ export function getPageQuery(pageId: string): KirbyQuerySchema {
       },
       images: {
         query: 'page.galleryImages.toFiles',
-        select: ['id', 'uuid', 'url', 'title', 'indexOf'],
+        select: ['id', 'uuid', 'url', 'title', 'indexOf', 'caption'],
       },
       videos: {
         query: 'page.galleryVideos.toStructure',

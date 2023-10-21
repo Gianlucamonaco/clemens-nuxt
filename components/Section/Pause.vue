@@ -22,7 +22,7 @@ if (props.item.sounds?.length) {
       :class="['pause__icon', `blink-hover-${item.duration}`]"
       @mouseenter="() => {
         const sound = item.sounds?.[0];
-        if (sound) play(sound.url, sound.title, { loop: true });
+        if (sound) play(sound.url, sound.caption, { loop: true });
       }"
       @mouseleave="pause()"
     >

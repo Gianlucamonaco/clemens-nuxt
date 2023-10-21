@@ -22,7 +22,7 @@ export const categoriesQuery: KirbyQuerySchema = {
             duration: true,
             sounds: {
               query: 'page.sounds.toFiles',
-              select: ['id', 'uuid', 'url', 'title', 'indexOf'],
+              select: ['id', 'url', 'caption', 'indexOf'],
             },
             intendedTemplate: true,
           }

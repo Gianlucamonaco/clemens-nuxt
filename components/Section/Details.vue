@@ -17,7 +17,10 @@ const content = useContent();
   >
 
     <LayoutFlex v-if="content?.images?.length || content?.videos?.length" class="details__images" :gap="HEIGHT_UNIT">
-      <img v-for="image in content?.images" :key="image.id" :src="image.url" :alt="image.alt" />
+      <figure v-for="image in content?.images" :key="image.id">
+        <img :src="image.url" :alt="image.alt" />
+        <figcaption>{{ image.caption }}</figcaption>
+      </figure>
 
       <div v-for="video in content?.videos" :key="video.text">
         <iframe width="460" :height="HEIGHT_ROW * 1.5" :src="useVideo(video.src)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -41,8 +44,8 @@ const content = useContent();
       <div v-if="content?.downloads?.length" class="details__downloads">
         <h6 class="details__label">Downloads:</h6>
         <ul>
-          <li v-for="download in content?.downloads" :key="download.id">
-            <a :href="download?.file.url" target="_blank" download>
+          <li v-for="download in content?.downloads" :key="download.text">
+            <a :href="download.file?.url" target="_blank" download>
               <TextShuffle :text="download.text" :duration="0.4" />
             </a>
           </li>
@@ -65,14 +68,8 @@ const content = useContent();
     opacity: 1;
   }
 
-  img {
-    max-height: 100%;
-    max-width: $width-column * 6;
-    height: fit-content;
-  }
-
   li {
-    font-size: 16px;
+    font-size: $fontsize-m;
     line-height: 22.5px;
   }
 
@@ -90,7 +87,7 @@ const content = useContent();
   &__description,
   &__label {
     font-family: "rocky", serif;
-    font-size: 16px;
+    font-size: $fontsize-m;
     line-height: 22.5px;
     letter-spacing: 0.015em;
 
@@ -105,14 +102,16 @@ const content = useContent();
   }
 
   &__links,
-  &__downloads {
+  &__downloads,
+  &__tickets {
     flex: 1;
     max-width: $width-column * 3;
-    padding-bottom: $height-unit * 2;
+    min-width: $width-column * 3;
+    padding-bottom: $height-unit * 4;
   }
 
   &__images {
-    height: $height-row * 1.5;
+    height: calc($height-row * 1.5 + $height-unit * 2);
     margin-bottom: $height-unit;
     overflow-x: scroll;
     overflow-y: hidden;
@@ -121,12 +120,27 @@ const content = useContent();
       padding-left: $width-unit;
     }
 
+    figure {
+      height: 100%;
+    }
+
+    figcaption {
+      display: none;
+    }
+    
     img {
+      max-height: calc(100% - $height-unit * 2);
+      max-width: $width-column * 6;
+      height: fit-content;
       transition: all .25s;
       filter: grayscale(1) contrast(0.6);
 
       &:hover {
         filter: none;
+      }
+
+      &:hover ~ figcaption {
+        display: block;
       }
     }
   }
