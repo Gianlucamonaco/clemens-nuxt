@@ -33,6 +33,17 @@ const content = useContent();
       </ul>
     </div>
 
+    <div v-if="content?.tickets?.length" class="details__tickets">
+      <h6 class="details__label">Tickets:</h6>
+      <ul>
+        <li v-for="link in content?.tickets" :key="link.text">
+          <a :href="link.url" target="_blank">
+            <TextShuffle :text="link.text" :duration="0.4" />
+          </a>
+        </li>
+      </ul>
+    </div>
+
     <div v-if="content?.downloads?.length" class="details__downloads">
       <h6 class="details__label">Downloads:</h6>
       <ul>

@@ -17,7 +17,7 @@ setTimeout(() => {
     title: page?.title,
     description: page?.text,
     links: page?.links,
-    downloads: page?.downloads,
+    tickets: page?.tickets,
     images: page?.images,
     videos: page?.videos,
   });
