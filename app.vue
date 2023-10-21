@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const content = useContent();
+const route = useRoute();
 const { isMobile } = useDevice();
 
 </script>
@@ -10,7 +10,7 @@ const { isMobile } = useDevice();
       <Link rel="icon" href="/favicon.ico" type="image/x-icon" />
     </Head>
 
-    <Body :class="[content?.title && isMobile && 'no-scroll']">
+    <Body :class="[isMobile && route.path.startsWith('/categories/') || route.path.startsWith('/news/') && 'no-scroll']">
       <LayoutFlex class="page">
         <AppHeader />
 
