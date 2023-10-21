@@ -28,10 +28,10 @@ const content = useContent();
       <div v-if="content?.description" class="details__description kirbytext" v-html="content?.description"></div>
 
       <div v-if="content?.links?.length" class="details__links">
-        <h6>Links:</h6>
+        <h6 class="details__label">Links:</h6>
         <ul>
           <li v-for="link in content?.links" :key="link.text">
-            <a :href="link.url" target="blank">
+            <a :href="link.url" target="_blank">
               <TextShuffle :text="link.text" :duration="0.4" />
             </a>
           </li>
@@ -39,10 +39,10 @@ const content = useContent();
       </div>
 
       <div v-if="content?.downloads?.length" class="details__downloads">
-        <h6>Downloads:</h6>
+        <h6 class="details__label">Downloads:</h6>
         <ul>
           <li v-for="download in content?.downloads" :key="download.id">
-            <a :href="download.file" download>
+            <a :href="download?.file.url" target="_blank" download>
               <TextShuffle :text="download.text" :duration="0.4" />
             </a>
           </li>
@@ -57,7 +57,6 @@ const content = useContent();
 .details {
   height: 0;
   opacity: 0;
-  font-size: $fontsize-s;
   overflow-y: scroll;
   transition: all .5s;
   
@@ -72,8 +71,15 @@ const content = useContent();
     height: fit-content;
   }
 
+  li {
+    font-size: 16px;
+    line-height: 22.5px;
+  }
+
   &__description {
-    flex: 2;
+    flex: 3;
+    font-weight: 300;
+    padding-right: $width-unit;
     padding-bottom: $height-unit;
 
     @media (max-width: $breakpoint-mobile) {
@@ -81,19 +87,28 @@ const content = useContent();
     }
   }
 
+  &__description,
+  &__label {
+    font-family: "rocky", serif;
+    font-size: 16px;
+    line-height: 22.5px;
+    letter-spacing: 0.015em;
+
+    b, strong {
+      font-weight: 500;
+    }
+  }
+
+  &__label {
+    font-weight: 700;
+    padding-bottom: 1em;
+  }
+
   &__links,
   &__downloads {
     flex: 1;
     max-width: $width-column * 3;
     padding-bottom: $height-unit * 2;
-
-    h6 {
-      padding-bottom: $height-unit;
-    }
-
-    h6, li {
-      font-size: $fontsize-s;
-    }
   }
 
   &__images {

@@ -24,6 +24,15 @@ setPage(page);
   width: calc(100vw - $width-sidebar-s);
   margin-left: $width-sidebar-s;
   margin-top: $height-unit;
+  font-family: "rocky", serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 22.5px;
+  letter-spacing: 0.015em;
+
+  b, strong {
+    font-weight: 500;
+  }
 
   @media (max-width: $breakpoint-mobile) {
     width: 100%;
