@@ -26,7 +26,16 @@ export function getPageQuery(pageId: string): KirbyQuerySchema {
       date: 'page.date.toDate',
       text: 'page.text.kirbytext',
       links: 'page.links.toStructure',
-      downloads: 'page.downloads.toStructure',
+      downloads: {
+        query: 'page.downloads.toStructure',
+        select: {
+          text : 'structureItem.text',
+          file: {
+            query: 'structureItem.file.toFile',
+            select: ['url'],
+          }
+        }
+      },
       images: {
         query: 'page.galleryImages.toFiles',
         select: ['id', 'uuid', 'url', 'title', 'indexOf'],
