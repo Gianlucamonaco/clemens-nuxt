@@ -31,7 +31,7 @@ setPage(page);
   letter-spacing: 0.015em;
 
   b, strong {
-    font-weight: 500;
+    font-weight: 700;
   }
 
   @media (max-width: $breakpoint-mobile) {
