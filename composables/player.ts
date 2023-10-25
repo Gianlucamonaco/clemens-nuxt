@@ -1,4 +1,4 @@
-const player = ref(new Audio);
+const player = ref(process.client ? new Audio : {} as any);
 const audioFiles = ref([]) as any;
 
 export const useAudioTrack = () => useState<any>('audioTrack', () => null)
@@ -29,12 +29,15 @@ export const setIsAudioAllowed = (isAllowed: boolean) => {
 }
 
 export const useLoadAudio = (files: string[]) => {
-  if (!files?.length) return;
+  if (!files?.length || process.server) return { then: (callback: () => void) => callback()};
 
   files?.forEach(src => {
     const loadPlayer = new Audio();
-    loadPlayer.addEventListener('canplaythrough', () => onAudioLoaded(src), false);
-    loadPlayer.src = src;
+
+    if (loadPlayer) {
+      loadPlayer.addEventListener('canplaythrough', () => onAudioLoaded(src), false);
+      loadPlayer.src = src;
+    }
   })
 
   return {
@@ -48,7 +51,13 @@ const onAudioLoaded = (src: string) => {
   }
 }
 
-export const useAudioPlayer = () => {  
+export const useAudioPlayer = () => {
+  if (process.server) return {
+    play: () => {},
+    pause: () => {},
+    isPlaying: false,
+  };
+
   addEventListener("blur", () => pause());
   addEventListener("mouseout", () => pause());
 
@@ -56,14 +65,14 @@ export const useAudioPlayer = () => {
     setAudioTrack(src);
     setAudioTitle(title);
 
-    if (!isPlaying() && useIsAudioAllowed().value && useIsAudioLoaded(src)) {
+    if (player && !isPlaying() && useIsAudioAllowed().value && useIsAudioLoaded(src)) {
       player.value.loop = options?.loop ?? false;
-      player.value.play();
+      player.value?.play();
     }
 
     return {
       then: (callback: () => void) => {
-        player.value.addEventListener('ended', () => callback());        
+        player.value?.addEventListener('ended', () => callback());        
       }
     }  
   }
