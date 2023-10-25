@@ -7,18 +7,17 @@ const audioTitle = useAudioTitle();
 const isAudioAllowed = useIsAudioAllowed();
 const { isDesktop, isMobile } = useDevice();
 
-const pages = computed(() =>
-  (site.value?.children ?? [])
-).value;
+const pages = computed(() => (site.value?.children ?? [])).value;
 
-const home = pages.find((p: any) => p.id == 'home');
-const dates = pages.find((p: any) => p.id == 'dates' || p.id == 'news');
-const biography = pages.find((p: any) => p.id == 'about' || p.id == 'biography');
-const categories = pages.find((p: any) => p.id == 'categories');
+const home = pages?.find((p: any) => p.id == 'home');
+const dates = pages?.find((p: any) => p.id == 'dates' || p.id == 'news');
+const biography = pages?.find((p: any) => p.id == 'about' || p.id == 'biography');
+const categories = pages?.find((p: any) => p.id == 'categories');
 
 </script>
 
 <template>
+  <ClientOnly>
   <header v-if="loaded" class="header">
     <h1 class="header__title">
       <NuxtLink to="/">
@@ -74,6 +73,7 @@ const categories = pages.find((p: any) => p.id == 'categories');
 
     </div>
   </header>
+  </ClientOnly>
 </template>
 
 <style scoped lang="scss">

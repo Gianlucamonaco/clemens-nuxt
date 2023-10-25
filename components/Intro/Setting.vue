@@ -2,8 +2,11 @@
 import { WIDTH_UNIT } from '@/data/constants';
 
 // Preload intro sound
-const introSound = useHomepage().sounds?.[0];
-if (introSound) useLoadAudio([introSound.url]);
+const introSound = ref();
+if (process.client) {
+  introSound.value = useHomepage().sounds?.[0];
+  if (introSound.value) useLoadAudio([introSound.value.url]);
+}
 </script>
 
 <template>

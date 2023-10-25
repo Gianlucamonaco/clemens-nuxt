@@ -1,4 +1,4 @@
-const player = ref(new Audio);
+const player = ref(null) as any;
 const audioFiles = ref([]) as any;
 
 export const useAudioTrack = () => useState<any>('audioTrack', () => null)
@@ -31,11 +31,13 @@ export const setIsAudioAllowed = (isAllowed: boolean) => {
 export const useLoadAudio = (files: string[]) => {
   if (!files?.length) return;
 
-  files?.forEach(src => {
-    const loadPlayer = new Audio();
-    loadPlayer.addEventListener('canplaythrough', () => onAudioLoaded(src), false);
-    loadPlayer.src = src;
-  })
+  if (process.client) {
+    files?.forEach(src => {
+      const loadPlayer = new Audio();
+      loadPlayer.addEventListener('canplaythrough', () => onAudioLoaded(src), false);
+      loadPlayer.src = src;
+    })
+  }
 
   return {
     then: (callback: () => void) => { callback() }
@@ -48,9 +50,13 @@ const onAudioLoaded = (src: string) => {
   }
 }
 
-export const useAudioPlayer = () => {  
-  addEventListener("blur", () => pause());
-  addEventListener("mouseout", () => pause());
+export const useAudioPlayer = () => {
+  if (process.client) {
+    if (!player.value) player.value = new Audio();
+    
+    addEventListener("blur", () => pause());
+    addEventListener("mouseout", () => pause());
+  }
 
   const play = (src: string, title?: string | undefined, options?: { loop: boolean }) => {
     setAudioTrack(src);

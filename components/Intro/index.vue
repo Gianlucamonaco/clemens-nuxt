@@ -1,14 +1,23 @@
 <script setup lang="ts">
+if (process.server) {
+  setIsAudioAllowed(false);
+  setTimeout(() => {
+    setIntroSetup(true);
+    setIntroLoaded(true);
+  }, 1000)
+}
+
 const isSetup = useIntroSetup();
 const isLoaded = useIntroLoaded();
-
 </script>
 
 <template>
-  <div class="intro">
-    <IntroSetting v-if="!isSetup" />
-    <IntroLoading v-if="isSetup && !isLoaded" />
-  </div>
+  <ClientOnly>
+    <div class="intro">
+      <IntroSetting v-if="!isSetup" />
+      <IntroLoading v-if="isSetup && !isLoaded" />
+    </div>
+  </ClientOnly>
 </template>
 
 <style lang="scss">
