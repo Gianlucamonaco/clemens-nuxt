@@ -2,7 +2,7 @@
 
 const site = useSite()
 const route = useRoute()
-const loaded = process.client && useIntroLoaded();
+const loaded = useIntroLoaded();
 const audioTitle = useAudioTitle();
 const isAudioAllowed = useIsAudioAllowed();
 const { isDesktop, isMobile } = useDevice();

@@ -4,7 +4,7 @@ import { pauseSymbols } from '../../data/constants';
 
 const props = defineProps<{ item: Project }>()
 
-const { play, pause } = process.client ? useAudioPlayer() : {} as any;
+const { play, pause } = useAudioPlayer();
 
 if (props.item.sounds?.length) {
   useLoadAudio(props.item.sounds.map(sound => sound.url))

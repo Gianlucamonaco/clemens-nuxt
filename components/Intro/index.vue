@@ -1,12 +1,11 @@
 <script setup lang="ts">
 const isSetup = useIntroSetup();
 const isLoaded = useIntroLoaded();
-const isClient = process.client;
 
 </script>
 
 <template>
-  <div v-if="isClient" class="intro">
+  <div class="intro">
     <IntroSetting v-if="!isSetup" />
     <IntroLoading v-if="isSetup && !isLoaded" />
   </div>

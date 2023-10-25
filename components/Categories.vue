@@ -6,7 +6,7 @@ const { queryApi, queryParams } = useQueryParams(categoriesQuery);
 const { data } = await useAsyncData('categories', () => $fetch(queryApi, queryParams));
 const rawCategories = (data?.value as any)?.result?.children?.filter((p: any) => p.isListed) ?? [];
 const categories = useProcessCategories(rawCategories);
-const loaded = process.server || useIntroLoaded();
+const loaded = useIntroLoaded();
 
 </script>
 

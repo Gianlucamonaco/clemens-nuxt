@@ -17,8 +17,6 @@ setDescriptionIndex(-1);
 // Load images before setting new content and description index
 if (page?.images) await Promise.all(
   page?.images?.map((img: any) => new Promise(res => {
-    if (process.server) res('')
-
     const el = new Image();
     el.onload = () => res('');
     el.src = img.url;

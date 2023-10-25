@@ -70,7 +70,7 @@ export default defineNuxtConfig({
   },
 
   // DISABLED: SERVER SIDE RENDERING
-  ssr: true,
+  ssr: false,
 
   // ENABLED: REPLACE NUXT DEFAULT LOADING SCREEN WITH EMPTY SCREEN
   spaLoadingTemplate: 'loading.html',
