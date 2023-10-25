@@ -2,7 +2,7 @@
 import { WIDTH_UNIT } from '@/data/constants';
 
 // Preload intro sound
-const introSound = process.client ? useHomepage().sounds?.[0] : null;
+const introSound = process.client && useHomepage ? useHomepage().sounds?.[0] : null;
 if (introSound) useLoadAudio([introSound.url]);
 </script>
 
