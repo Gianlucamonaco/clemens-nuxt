@@ -6,7 +6,7 @@ definePageMeta({
 });
 
 const { queryApi, queryParams } = useQueryParams(aboutQuery);
-const { data } = await useFetch(queryApi, queryParams);
+const { data } = await useAsyncData('about', () => $fetch(queryApi, queryParams));
 const page = (data?.value as any)?.result;
 
 setPage(page);

@@ -20,7 +20,7 @@ export default defineNuxtPlugin(async () => {
 
   // TEMPORARY FIX:
   const { queryApi, queryParams } = useQueryParams(siteQuery);
-  const { data } = await useFetch(queryApi, queryParams);
+  const { data } = await useAsyncData('site', () => $fetch(queryApi, queryParams));
 
   // Override site with useFetch, as useKql is not working
   site.value = (data?.value as any)?.result;

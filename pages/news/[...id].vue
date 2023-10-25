@@ -5,7 +5,7 @@ definePageMeta({ layout: "news" });
 
 const route = useRoute();
 const { queryApi, queryParams } = useQueryParams(route.path == '/news' ? getDefaultPageQuery(route.path) : getPageQuery(route.path));
-const { data } = await useFetch(queryApi, queryParams);
+const { data } = await useAsyncData(route.path, () => $fetch(queryApi, queryParams));
 const page = (data?.value as any)?.result;
 
 setPage(page);

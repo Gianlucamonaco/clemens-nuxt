@@ -5,7 +5,7 @@ import { newsQuery } from '~/queries'
 const route = useRoute();
 const { isMobile } = useDevice();
 const { queryApi, queryParams } = useQueryParams(newsQuery);
-const { data } = await useFetch(queryApi, queryParams);
+const { data } = await useAsyncData('news', () => $fetch(queryApi, queryParams));
 const page = (data.value as any)?.result;
 
 

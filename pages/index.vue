@@ -20,7 +20,7 @@ if (isHomepage) {
 
 // Set the current page data for the global page context
 const { queryApi, queryParams } = useQueryParams(getDefaultPageQuery('home'));
-const { data } = await useFetch(queryApi, queryParams);
+const { data } = await useAsyncData('home', () => $fetch(queryApi, queryParams));
 const page = (data?.value as any)?.result;
 
 setPage(page);

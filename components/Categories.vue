@@ -3,7 +3,7 @@ import { categoriesQuery } from '~/queries';
 
 const { isMobile } = useDevice();
 const { queryApi, queryParams } = useQueryParams(categoriesQuery);
-const { data } = await useFetch(queryApi, queryParams);
+const { data } = await useAsyncData('categories', () => $fetch(queryApi, queryParams));
 const rawCategories = (data?.value as any)?.result?.children?.filter((p: any) => p.isListed) ?? [];
 const categories = useProcessCategories(rawCategories);
 
