@@ -26,9 +26,9 @@ export function setPage<T extends Record<string, any>>(page?: T) {
   const title = page.title
     ? `${page.title} – ${site.value.title}`
     : site.value.title
-  const description = page.description || site.value.description
+  const description = page.text || site.value.text
   const url = joinURL(siteUrl, useRoute().path)
-  const image = page.images?.[0]?.url || '/preview.png';
+  const image = page.images?.[0]?.url || `${siteUrl}/preview.png`;
 
   useHead({
     bodyAttrs: {

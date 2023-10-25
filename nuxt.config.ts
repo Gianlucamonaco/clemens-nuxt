@@ -16,7 +16,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      siteUrl: '',
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
     },
     app: {
       KIRBY_BASE_URL: process.env.KIRBY_BASE_URL,

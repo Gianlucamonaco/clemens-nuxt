@@ -4,7 +4,7 @@ export const siteQuery: KirbyQuerySchema = {
   query: 'site',
   select: {
     title: true,
-    description: true,
+    text: true,
     children: {
       query: 'site.children',
       select: {

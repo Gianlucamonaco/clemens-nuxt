@@ -14,11 +14,11 @@ export const useErrorPage = async () => {
 }
 
 export const useQueryParams = (body: any) => {
-  const runtimeConfig = useRuntimeConfig();
-  const queryApi = `${runtimeConfig.app.KIRBY_BASE_URL}/api/query`;
+  const { app } = useRuntimeConfig();
+  const queryApi = `${app.KIRBY_BASE_URL}/api/query`;
   const queryHeaders = {
     // Authorization: `Bearer ${runtimeConfig.app.KIRBY_API_TOKEN}`,
-    Authorization: `Basic ${btoa(runtimeConfig.app.KIRBY_API_USERNAME + ":" + runtimeConfig.app.KIRBY_API_PASSWORD)}`,
+    Authorization: `Basic ${btoa(app.KIRBY_API_USERNAME + ":" + app.KIRBY_API_PASSWORD)}`,
     "Content-Type": "application/json",
     Accept: "application/json",
     referrerPolicy: "no-referrer",
