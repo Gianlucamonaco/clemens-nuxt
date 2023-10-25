@@ -28,6 +28,7 @@ export function setPage<T extends Record<string, any>>(page?: T) {
     : site.value.title
   const description = page.description || site.value.description
   const url = joinURL(siteUrl, useRoute().path)
+  const image = page.images?.[0]?.url || '/preview.png';
 
   useHead({
     bodyAttrs: {
@@ -43,9 +44,11 @@ export function setPage<T extends Record<string, any>>(page?: T) {
     ogDescription: description,
     ogUrl: url,
     ogType: 'website',
+    ogImage: image,
     twitterTitle: title,
     twitterDescription: description,
     twitterCard: 'summary',
+    twitterImage: image,
   })
 
   pageState.value = 'resolved'
