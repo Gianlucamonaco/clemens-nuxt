@@ -7,7 +7,7 @@ const { isMobile } = useDevice();
 <template>
   <Html lang="en">
     <Head>
-      <Link rel="icon" href="/favicon.ico" type="image/x-icon" />
+      <Link rel="icon" href="/favicon.png" type="image/png" />
     </Head>
 
     <Body :class="[isMobile && route.path.startsWith('/categories/') || route.path.startsWith('/news/') && 'no-scroll']">
