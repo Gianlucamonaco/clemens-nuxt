@@ -23,14 +23,14 @@ const page = (data.value as any)?.result;
         :to="route.path.startsWith(`/${news.id}`) ? '/news' : `/${news.id}`"
         :aria-current="route.path.startsWith(`/${news.id}`) ? 'page' : undefined">
         <LayoutFlex class="news__header" justify-content="space-between" :gap="WIDTH_UNIT">
-          <h3 class="news__title"><TextShuffle :text="news.title" :delay="news.num" /></h3>
+          <h3 class="news__title"><TextShuffle :text="news.title" :delay="news.index" /></h3>
           <span class="news__location">{{news.location}}</span>
           <span class="news__date">{{useFormattedDate(news.date)}}</span>
         </LayoutFlex>
       </NuxtLink>
 
       <div class="news__content">
-        <SectionDetails v-if="!isMobile" :category-index="news.num ?? -1" />
+        <SectionDetails v-if="!isMobile" :category-index="news.index ?? -1" />
       </div>
 
     </li>

@@ -10,6 +10,7 @@ export const newsQuery: KirbyQuerySchema = {
         id: true,
         title: true,
         isListed: true,
+        index: 'page.indexOf',
         num: true,
         intendedTemplate: true,
         location: true,
