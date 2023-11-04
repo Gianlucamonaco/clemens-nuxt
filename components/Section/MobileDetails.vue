@@ -127,6 +127,7 @@ const content = useContent();
 
     img {
       width: 100%;
+      height: 100%;
       transition: all .25s;
       /* filter: grayscale(1) contrast(0.6); */
   

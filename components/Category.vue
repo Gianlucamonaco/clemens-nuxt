@@ -40,6 +40,8 @@ const animate = () => {
     @mouseleave="handleMouseLeave"
   >
 
+    <div v-if="isMobile" class="category__title">{{ category.title.replace(/\d - /g, '') }}</div>
+
     <div ref="categoryItemsEl" class="category__items">
       <div
         v-for="child in category.children"
@@ -53,7 +55,7 @@ const animate = () => {
           :category-index="category.num"
         />
 
-        <SectionPause v-else-if="child.intendedTemplate === 'pause'" :item="child" />
+        <SectionPause v-else-if="child.intendedTemplate === 'pause' && !isMobile" :item="child" />
 
       </div>
     </div>
@@ -116,8 +118,7 @@ const animate = () => {
   }
 
   &__title {
-    position: absolute;
-    white-space: pre-wrap;
+    padding: $height-unit $width-unit;
   }
 }
 

@@ -38,6 +38,7 @@ setPage(page);
     width: 100%;
     margin-left: 0;
     margin-top: 0;
+    padding-top: $height-unit;
 
     font-size: 16px;
     line-height: 25px;
@@ -46,7 +47,7 @@ setPage(page);
   &__text {
     p, ul, h1, h2, h3, h4, h5, h6 {
      @media (max-width: $breakpoint-mobile) {
-        padding: 0 $width-unit;
+        padding: $width-unit;
       }
     }
   }

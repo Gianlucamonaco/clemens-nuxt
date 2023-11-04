@@ -21,14 +21,14 @@ const impressum = pages?.find((p: any) => p.id == 'impressum');
   <ClientOnly>
   <header v-if="loaded" class="header">
     <h1 class="header__title">
-      <NuxtLink to="/">
+      <NuxtLink :to="isMobile ? `/${categories.id}` : '/'">
         <TextShuffle :text="site.title"/>
       </NuxtLink>
     </h1>
 
     <nav class="header__nav">
 
-      <li :key="home.id" class="header__item" :class="route.path.startsWith(`/${categories?.id}`) || route.path === '/' ? 'active' : null">
+      <li v-if="!isMobile" :key="home.id" class="header__item" :class="route.path.startsWith(`/${categories?.id}`) || route.path === '/' ? 'active' : null">
         <NuxtLink
           :to="`/${categories?.id}`"
           :aria-current="
@@ -40,12 +40,13 @@ const impressum = pages?.find((p: any) => p.id == 'impressum');
         </NuxtLink>
       </li>
 
-      <li v-if="dates" :key="dates.id" class="header__item" :class="route.path.startsWith(`/${dates?.id}`) ? 'active' : null">
+      <li :key="dates.id" class="header__item" :class="route.path.startsWith(`/${dates?.id}`) ? 'active' : null">
         <NuxtLink
           :to="`/${dates?.id}`"
           :aria-current="route.path.startsWith(`/${dates?.id}`) ? 'page' : undefined"
         >
-        <TextShuffle text="Dates" :duration="0.2" />
+        <p v-if="isMobile">Dates</p>
+        <TextShuffle v-else text="Dates" :duration="0.2" />
         </NuxtLink>
       </li>
 
@@ -54,7 +55,8 @@ const impressum = pages?.find((p: any) => p.id == 'impressum');
           :to="`/biography`"
           :aria-current="route.path.startsWith(`/${biography?.id}`) ? 'page' : undefined"
         >
-        <TextShuffle :text="isMobile ? 'Bio' : 'Biography'" :duration="0.2" />
+          <p v-if="isMobile">Bio</p>
+          <TextShuffle v-else text="Biography" :duration="0.2" />
         </NuxtLink>
       </li>
 
@@ -63,7 +65,8 @@ const impressum = pages?.find((p: any) => p.id == 'impressum');
           :to="`/impressum`"
           :aria-current="route.path.startsWith(`/${impressum?.id}`) ? 'page' : undefined"
         >
-        <TextShuffle :text="isMobile ? 'I' : 'Impressum'" :duration="0.2" />
+          <p v-if="isMobile">Info</p>
+          <TextShuffle v-else text="Impressum" :duration="0.2" />
         </NuxtLink>
       </li>
 
@@ -94,6 +97,7 @@ const impressum = pages?.find((p: any) => p.id == 'impressum');
   flex-direction: column;
   height: 100%;
   width: $width-sidebar-s;
+  max-width: 100vw;
   padding: $height-unit $width-unit * 2;
 
   &__title {

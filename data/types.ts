@@ -1,6 +1,7 @@
 export interface Category {
   id: number
   num: number
+  title: string
   symbol: string
   children: Project[]
 }
