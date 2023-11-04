@@ -14,14 +14,6 @@ const content = useContent();
 
     <div v-if="content?.description" class="details__description kirbytext" v-html="content?.description"></div>
 
-    <div v-if="content?.images?.length" class="details__images">
-      <img v-for="image in content?.images" :key="image.id" :src="image.url" :alt="image.alt" />
-    </div>
-
-    <div v-for="video in content?.videos" :key="video.text" class="details__video">
-      <iframe width="100%" height="100%" style="height: 56.25vw" :src="useVideo(video.src)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    </div>
-
     <div v-if="content?.links?.length" class="details__links">
       <h6 class="details__label">Links:</h6>
       <ul>
@@ -54,6 +46,14 @@ const content = useContent();
         </li>
       </ul>
     </div>
+  </div>
+
+  <div v-if="content?.images?.length" class="details__images">
+    <img v-for="image in content?.images" :key="image.id" :src="image.url" :alt="image.alt" />
+  </div>
+
+  <div v-for="video in content?.videos" :key="video.text" class="details__video">
+    <iframe width="100%" height="100%" style="height: 56.25vw" :src="useVideo(video.src)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
   </div>
 
 </template>
