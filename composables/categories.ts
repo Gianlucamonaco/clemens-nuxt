@@ -8,7 +8,7 @@ export const useProcessCategories = (raw: Category[]) => {
     category.children?.forEach((project: any) => {
   
       // Assign vertical position to each project
-      project.position = random.int(0, 4) * 2;
+      project.position = random.int(1, 4) * 2;
   
       // Assign offset left to each sound dot
       project.sounds?.forEach((sound: any) => {
