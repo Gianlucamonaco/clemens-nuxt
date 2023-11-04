@@ -13,6 +13,7 @@ const home = pages?.find((p: any) => p.id == 'home');
 const dates = pages?.find((p: any) => p.id == 'dates' || p.id == 'news');
 const biography = pages?.find((p: any) => p.id == 'about' || p.id == 'biography');
 const categories = pages?.find((p: any) => p.id == 'categories');
+const impressum = pages?.find((p: any) => p.id == 'impressum');
 
 </script>
 
@@ -27,7 +28,7 @@ const categories = pages?.find((p: any) => p.id == 'categories');
 
     <nav class="header__nav">
 
-      <li :key="home" class="header__item" :class="route.path.startsWith(`/${categories?.id}`) || route.path === '/' ? 'active' : null">
+      <li :key="home.id" class="header__item" :class="route.path.startsWith(`/${categories?.id}`) || route.path === '/' ? 'active' : null">
         <NuxtLink
           :to="`/${categories?.id}`"
           :aria-current="
@@ -39,7 +40,7 @@ const categories = pages?.find((p: any) => p.id == 'categories');
         </NuxtLink>
       </li>
 
-      <li v-if="dates" :key="dates" class="header__item" :class="route.path.startsWith(`/${dates?.id}`) ? 'active' : null">
+      <li v-if="dates" :key="dates.id" class="header__item" :class="route.path.startsWith(`/${dates?.id}`) ? 'active' : null">
         <NuxtLink
           :to="`/${dates?.id}`"
           :aria-current="route.path.startsWith(`/${dates?.id}`) ? 'page' : undefined"
@@ -48,12 +49,21 @@ const categories = pages?.find((p: any) => p.id == 'categories');
         </NuxtLink>
       </li>
 
-      <li v-if="biography" :key="biography" class="header__item" :class="route.path.startsWith(`/${biography?.id}`) ? 'active' : null">
+      <li v-if="biography" :key="biography.id" class="header__item" :class="route.path.startsWith(`/${biography?.id}`) ? 'active' : null">
         <NuxtLink
           :to="`/biography`"
           :aria-current="route.path.startsWith(`/${biography?.id}`) ? 'page' : undefined"
         >
         <TextShuffle :text="isMobile ? 'Bio' : 'Biography'" :duration="0.2" />
+        </NuxtLink>
+      </li>
+
+      <li v-if="impressum" :key="impressum.id" class="header__item" :class="route.path.startsWith(`/${impressum?.id}`) ? 'active' : null">
+        <NuxtLink
+          :to="`/impressum`"
+          :aria-current="route.path.startsWith(`/${impressum?.id}`) ? 'page' : undefined"
+        >
+        <TextShuffle :text="isMobile ? 'I' : 'Impressum'" :duration="0.2" />
         </NuxtLink>
       </li>
 
