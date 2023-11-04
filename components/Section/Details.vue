@@ -144,7 +144,7 @@ const content = useContent();
       max-width: $width-column * 6;
       height: fit-content;
       transition: all .25s;
-      filter: grayscale(1) contrast(0.6);
+      /* filter: grayscale(1) contrast(0.6); */
 
       &:hover {
         filter: none;

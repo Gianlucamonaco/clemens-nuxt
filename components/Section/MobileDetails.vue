@@ -128,7 +128,7 @@ const content = useContent();
     img {
       width: 100%;
       transition: all .25s;
-      filter: grayscale(1) contrast(0.6);
+      /* filter: grayscale(1) contrast(0.6); */
   
       &:not(:last-of-type) {
         margin-bottom: $height-unit;
