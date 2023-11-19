@@ -8,12 +8,19 @@ defineProps<{ categoryIndex: number }>()
 const descriptionIndex = useDescriptionIndex();
 const content = useContent();
 const detailsRef = ref(null);
+const imagesRef = ref(null);
 
-// On mounted, scroll to details section
-onMounted(() => {
-  const targetY = (detailsRef.value as any)?.$el?.offsetTop;
-  window.scroll({ top: targetY, behavior: 'smooth' });
-});
+watch(descriptionIndex, (value) => {
+  if (value >= 0) {
+    const targetY = (detailsRef.value as any)?.$el?.offsetTop;
+
+    // Scroll page to current details section
+    if (detailsRef.value) window.scroll({ top: targetY, behavior: 'smooth' });
+
+    // Reset image section horizontal scroll
+    if (imagesRef.value) (imagesRef.value as any).$el.scrollLeft = 0;
+  }
+})
 
 </script>
 
@@ -25,7 +32,7 @@ onMounted(() => {
     :class="{ active: descriptionIndex === categoryIndex }"
   >
 
-    <LayoutFlex v-if="content?.images?.length || content?.videos?.length" class="details__images" :gap="HEIGHT_UNIT">
+    <LayoutFlex v-if="content?.images?.length || content?.videos?.length" ref="imagesRef" class="details__images" :gap="HEIGHT_UNIT">
       <figure v-for="image in content?.images" :key="image.id">
         <img :src="image.url" :alt="image.alt" />
         <figcaption>{{ image.caption }}</figcaption>
