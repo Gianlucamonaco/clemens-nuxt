@@ -7,10 +7,19 @@ defineProps<{ categoryIndex: number }>()
 
 const descriptionIndex = useDescriptionIndex();
 const content = useContent();
+const detailsRef = ref(null);
+
+// On mounted, scroll to details section
+onMounted(() => {
+  const targetY = (detailsRef.value as any)?.$el?.offsetTop;
+  window.scroll({ top: targetY, behavior: 'smooth' });
+});
+
 </script>
 
 <template>
   <HeightCollapsible
+    ref="detailsRef"
     class="details"
     :is-open="descriptionIndex === categoryIndex"
     :class="{ active: descriptionIndex === categoryIndex }"
