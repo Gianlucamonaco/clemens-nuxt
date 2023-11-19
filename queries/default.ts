@@ -6,6 +6,7 @@ export function getDefaultPageQuery(pageId: string): KirbyQuerySchema {
     select: {
       id: true,
       title: true,
+      index: 'page.indexOf',
       intendedTemplate: true,
       isHomePage: true,
       text: 'page.text.kirbytext',

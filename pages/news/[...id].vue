@@ -12,7 +12,7 @@ setPage(page);
 setDescriptionIndex(-1);
 
 setTimeout(() => {
-  setDescriptionIndex(page?.num);
+  setDescriptionIndex(page?.index);
   setContent({
     title: page?.title,
     description: page?.text,

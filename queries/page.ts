@@ -21,6 +21,7 @@ export function getPageQuery(pageId: string): KirbyQuerySchema {
       intendedTemplate: true,
       isHomePage: true,
       num: true,
+      index: 'page.indexOf',
       parentIndex: 'page.parent.num',
       // description: true,
       date: 'page.date.toDate',
