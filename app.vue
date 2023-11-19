@@ -10,7 +10,7 @@ const { isMobile } = useDevice();
       <Link rel="icon" href="/favicon.png" type="image/png" />
     </Head>
 
-    <Body :class="[isMobile && route.path.startsWith('/categories/') || route.path.startsWith('/news/') && 'no-scroll']">
+    <Body :class="[isMobile && (route.path.startsWith('/categories/') || route.path.startsWith('/news/')) && 'no-scroll']">
       <LayoutFlex class="page">
         <AppHeader />
 
