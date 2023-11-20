@@ -51,7 +51,7 @@ watch(descriptionIndex, (value) => {
         <ul>
           <li v-for="link in content?.links" :key="link.text">
             <a :href="link.url" target="_blank">
-              <TextShuffle :text="link.text" :duration="0.4" />
+              <TextShuffle :text="link.text" :duration="0.4" :no-increment="true" />
             </a>
           </li>
         </ul>
@@ -62,7 +62,7 @@ watch(descriptionIndex, (value) => {
         <ul>
           <li v-for="link in content?.tickets" :key="link.text">
             <a :href="link.url" target="_blank">
-              <TextShuffle :text="link.text" :duration="0.4" />
+              <TextShuffle :text="link.text" :duration="0.4" :no-increment="true" />
             </a>
           </li>
         </ul>
@@ -73,7 +73,7 @@ watch(descriptionIndex, (value) => {
         <ul>
           <li v-for="download in content?.downloads" :key="download.text">
             <a :href="download.file?.url" target="_blank" download>
-              <TextShuffle :text="download.text" :duration="0.4" />
+              <TextShuffle :text="`${download.text}`" :duration="0.4" :no-increment="true" />
             </a>
           </li>
         </ul>

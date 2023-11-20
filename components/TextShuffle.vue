@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const props = defineProps<{ text: string, delay?: number, duration?: number }>()
+const props = defineProps<{ text: string, delay?: number, duration?: number, noIncrement?: boolean }>()
 
 const animatedText = ref('');
 
@@ -11,7 +11,7 @@ const getShuffledText = (text: string) => {
   if (!isAnimating) useShuffle(text, animatedText, {
     onUpdate: () => isAnimating = true,
     onComplete: () => isAnimating = false,
-  }, { duration: props.duration })
+  }, { duration: props.duration, noIncrement: props.noIncrement })
 }
 
 // on component mount, animate in with a delay
