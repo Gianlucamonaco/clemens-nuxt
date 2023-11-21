@@ -19,6 +19,7 @@ const site = useSite().value;
 const home = useHomepage();
 const introSound = home.sounds?.[0];
 const { play } = useAudioPlayer();
+const { isMobile } = useDevice();
 
 if (introSound) play(introSound.url, '', { loop: false })
 
@@ -78,6 +79,7 @@ onMounted(async () => {
 
 <template>
   <div class="intro__loading" :style="{ opacity: opacityProgress }">
+    <TextShuffle v-if="isMobile" class="intro__mobile" text="Open on desktop for the best experience" :delay="6" :duration="1" />
     <canvas ref="canvas" class="intro__canvas" />
     <TextShuffle class="intro__subtitle" :text="content.subtitle" :delay="6" :duration="1" />
     <TextShuffle class="intro__date" :text="content.date" :delay="10" :duration="1" />

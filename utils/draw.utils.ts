@@ -22,7 +22,7 @@ export const drawLoadingOffsetCanvas = (ctx: any, text: string) => {
   ctx.letterSpacing = '0';
 
   const { width: titleWidth, actualBoundingBoxAscent: titleAscent, actualBoundingBoxDescent: titleDescent } = ctx.measureText(textLines[0]);
-  const titleHeight = (titleDescent - titleAscent);
+  const titleHeight = (titleDescent - titleAscent) * (isMobile ? 0.75 : 1);
 
   // Calculate rows and cols
   const rows = Math.ceil(titleHeight * textLines.length / unit.h);

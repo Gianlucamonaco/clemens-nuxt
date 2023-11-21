@@ -72,7 +72,8 @@ const isLoaded = useIntroLoaded();
   }
 
   &__date,
-  &__subtitle {
+  &__subtitle,
+  &__mobile {
     font-size: $fontsize-m;
     position: fixed;
     left: 0;
@@ -88,6 +89,11 @@ const isLoaded = useIntroLoaded();
 
   &__date {
     top: calc(75% + $height-unit * 2);
+  }
+
+  &__mobile {
+    top: 20%;
+    padding: 0 $width-unit * 6;
   }
 }
 </style>
