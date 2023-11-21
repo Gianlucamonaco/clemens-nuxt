@@ -44,4 +44,4 @@ export interface File {
   bottom?: number,
 }
 
-export type PauseTypes = 'minima' | 'semiminima' | 'croma';
+export type PauseTypes = 'pause1' | 'pause2' | 'pause3' | 'pause4' | 'pause5' | 'pause6';

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Project } from '../../data/types';
+import type { PauseTypes, Project } from '../../data/types';
 import { pauseSymbols } from '../../data/constants';
 
 const props = defineProps<{ item: Project }>()
@@ -26,7 +26,7 @@ if (props.item.sounds?.length) {
       }"
       @mouseleave="pause()"
     >
-      {{ pauseSymbols[item.type as 'pause1' | 'pause2' | 'pause3'] }}
+      {{ pauseSymbols[item.type as PauseTypes] }}
     </h3>
   </LayoutFlex>
 </template>

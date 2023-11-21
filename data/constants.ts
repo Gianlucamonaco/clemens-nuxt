@@ -10,6 +10,9 @@ export const pauseSymbols = {
   pause1: '    \n▀   \n   ▄\n    ' ,
   pause2: '    \n    \n▄▄▄▄\n    ' ,
   pause3: '        \n▀▀▀▀▀▀▀▀\n        \n        ' ,
+  pause4: '        \n      ▀▄\n▀▄     \n        ' ,
+  pause5: '           \n        ▀▀▀\n    ▀▀▀    \n▀▀▀        ' ,
+  pause6: '          \n      ▀▀▀▀\n▄▄▄▄      \n          ' ,
 }
 
 export const soundSymbol = '▀▀▀▀▀▀▀▀';
