@@ -22,7 +22,7 @@ export const drawLoadingOffsetCanvas = (ctx: any, text: string) => {
   ctx.letterSpacing = '0';
 
   const { width: titleWidth, actualBoundingBoxAscent: titleAscent, actualBoundingBoxDescent: titleDescent } = ctx.measureText(textLines[0]);
-  const titleHeight = (titleDescent - titleAscent) * (isMobile ? 0.75 : 1);
+  const titleHeight = (titleDescent - titleAscent) * (isMobile ? 0.8 : 1);
 
   // Calculate rows and cols
   const rows = Math.ceil(titleHeight * textLines.length / unit.h);
@@ -77,7 +77,7 @@ export const drawIntroTitleBlocks = (ctx: any, values: number[][], padding: { x:
           drawIntroBlock(
             ctx,
             padding.x + Math.floor(c * unit.w * dpr),
-            padding.y + Math.floor(r * unit.h * dpr),
+            padding.y + Math.floor(r * unit.h * dpr) - (isMobile ? unit.h * 8 : 0),
             Math.ceil(unit.w * dpr),
             Math.ceil(unit.h * dpr),
             progress,
