@@ -46,14 +46,14 @@ const content = useContent();
         </li>
       </ul>
     </div>
-  </div>
 
-  <div v-if="content?.images?.length" class="details__images">
-    <img v-for="image in content?.images" :key="image.id" :src="image.url" :alt="image.alt" />
-  </div>
+    <div v-if="content?.images?.length" class="details__images">
+      <img v-for="image in content?.images" :key="image.id" :src="image.url" :alt="image.alt" />
+    </div>
 
-  <div v-for="video in content?.videos" :key="video.text" class="details__video">
-    <iframe width="100%" height="100%" style="height: 56.25vw" :src="useVideo(video.src)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div v-for="video in content?.videos" :key="video.text" class="details__video">
+      <iframe width="100%" height="100%" style="height: 56.25vw" :src="useVideo(video.src)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
   </div>
 
 </template>
@@ -115,6 +115,10 @@ const content = useContent();
     flex: 1;
     max-width: $width-column * 3;
     padding: 0 $width-unit $height-unit * 3;
+
+    li {
+      padding-bottom: $height-unit * 0.5;
+    }
 
     h6 {
       padding-bottom: $height-unit;
