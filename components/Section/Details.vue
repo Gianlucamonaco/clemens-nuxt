@@ -139,6 +139,7 @@ watch(descriptionIndex, (value) => {
 
   &__images {
     height: calc($height-row * 1.5 + $height-unit * 2);
+    margin-right: $width-unit * 2;
     margin-bottom: $height-unit;
     overflow-x: scroll;
     overflow-y: hidden;

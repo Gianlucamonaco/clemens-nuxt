@@ -48,7 +48,10 @@ const content = useContent();
     </div>
 
     <div v-if="content?.images?.length" class="details__images">
-      <img v-for="image in content?.images" :key="image.id" :src="image.url" :alt="image.alt" />
+      <figure v-for="image in content?.images" :key="image.id">
+        <img :src="image.url" :alt="image.alt" />
+        <figcaption v-if="image.caption">{{ image.caption }}</figcaption>
+      </figure>
     </div>
 
     <div v-for="video in content?.videos" :key="video.text" class="details__video">
@@ -142,6 +145,10 @@ const content = useContent();
       &:hover {
         filter: none;
       }
+    }
+
+    figcaption {
+      padding-bottom: $height-unit;
     }
   }
 
